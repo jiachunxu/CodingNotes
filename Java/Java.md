@@ -27,7 +27,7 @@
 特点：JAVA中所有关键字都为小写
 <br>
 官网:<https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html>
-![](./imgs/关键字1.png)
+![](imgs/关键字1.png)
 ![](imgs/关键字2.png)
 
 ## 常量
