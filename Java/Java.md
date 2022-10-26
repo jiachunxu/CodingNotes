@@ -62,3 +62,238 @@ int  age,age2;
 ---
 Java是一种强类型语言，每个变量都必须声明其数据类型。   
 Java的数据类型可分为两大类：基本数据类型（primitive data type）和引用数据类型（reference data type）。  
+
+
+![](imgs/数据类型.png)
+
+### 整数类型
+    十进制整数，如：99, -500, 0
+
+    八进制整数，要求以 0 开头，如：015
+
+    十六进制数，要求 0x 或 0X 开头，如：0x15
+
+    二进制：要求0b或者0B开头，如：0b11
+
+![](imgs/进制表.png)
+
+整型数据类型：
+
+![](imgs/整型数据类型.png)
+
+```java
+public class Test{
+  public static void main(String[] args){
+    //定义整数类型的变量：
+    //给变量赋值的时候，值可以为不同进制的：
+    int num1 = 12 ;//默认情况下赋值就是十进制的情况
+    System.out.println(num1);
+    int num2 = 012;//前面加上0，这个值就是八进制的
+    System.out.println(num2);
+    int num3 = 0x12;//前面加上0x或者0X，这个值就是十六进制的
+    System.out.println(num3);
+    int num4 = 0b10;//前面加上0b或者0B,这个值就是二进制的
+    System.out.println(num4);
+
+    //定义byte类型的变量：
+    byte b = 126;//定义了一个byte类型的变量，名字叫b，赋值为12
+    System.out.println(b);
+    //注意：超范围的赋值会报错。
+    short s = 30000;
+    System.out.println(s);
+    int i = 1234;
+    System.out.println(i);
+    //整数类型默认就是int类型的，所以12345678910是一个int类型的数，对于int类型来说，它超出范围了
+    //要想把一个数给long类型变量，那么后面加上L(推荐)或者l就可以了
+    long num5 = 12345678910L;
+    System.out.println(num5);
+    //注意：只有这个数超出int类型的范围了后面才需要加上L，否则无需加L也可以赋值给long类型：
+    long num6 = 12;
+    System.out.println(num6);
+
+  }
+}
+```
+
+### 浮点类型
+
+（1）十进制数形式，例如:      
+
+    3.14       314.0      0.314
+
+（2）科学记数法形式，如
+
+    314e2      314E2 (E的大小写没有区分)    314E-2
+    double  f = 314e2;  //314*10^2-->31400.0
+    double  f2 = 314e-2; //314*10^(-2)-->3.14
+
+float类型又被称作单精度类型，尾数可以精确到7位有效数字，在很多情况下，float类型的精度很难满足需求。
+
+而double表示这种类型的数值精度约是float类型的两倍，又被称作双精度类型，绝大部分应用程序都采用double类型。
+
+float类型的数值有一个后缀F或者f ，没有后缀F/f的浮点数值默认为double类型。
+也可以在浮点数值后添加后缀D或者d， 以明确其为double类型。
+
+
+![](imgs/浮点类型.png)
+
+```java
+public class Test{
+  public static void main(String[] args){
+    //浮点类型的常量有两种形式：
+    //十进制形式：
+    double num1 = 3.14;
+    System.out.println(num1);
+    //科学计数法形式：
+    double num2 = 314E-2;
+    System.out.println(num2);
+
+    //浮点类型的变量：
+    //注意：浮点型默认是double类型的，要想将一个double类型的数赋给float类型，必须后面加上F或者f
+    float f1 = 3.14234567898623F;
+    System.out.println(f1);
+    //注意：double类型后面可以加D或者d，但是一般我们都省略不写
+    double d1 = 3.14234567898623D;
+    System.out.println(d1);
+
+    //注意：我们最好不要进行浮点类型的比较：
+    float f2 = 0.3F;
+    double d2 = 0.3;
+    System.out.println(f2==d2);
+                /*
+                区别：
+                = 赋值运算：  将等号右侧的值赋给等号左侧
+                == 判断==左右两侧的值是否相等  ：结果要么相等 要么不相等
+                ==运算符的结果就是要么是true，要么是false
+                */
+
+  }
+}
+```
+
+
+### 字符类型
+
+【1】Java中使用单引号来表示字符常量，字符型在内存中占2个字节。char 类型用来表示在Unicode编码表中的字符。Unicode编码被设计用来处理各种语言的文字，它占2个字节，可允许有65536个字符。
+
+【2】转义字符：
+![](imgs/转义字符.png)
+
+【3】ASCII表：
+![](imgs/ASCII表.png)
+
+
+#### 编码和字符集
+编码是信息从一种形式或格式转换为另一种形式的过程，也称为计算机编程语言的代码简称编码。用预先规定的方法将文字、数字或其它对象编成数码，或将信息、数据转换成规定的电脉冲信号。编码在电子计算机、电视、遥控和通讯等方面广泛使用。编码是信息从一种形式或格式转换为另一种形式的过程。解码，是编码的逆过程。
+
+
+**由权威机构形成的编码表才可以称之为：字符集**
+
+| ASCII     | 英文字符集       | 用一个字节的7位表示     |
+| :---      |    :----:      |          ---: |
+| IOS8859-1 | 西欧字符集       | 用一个字节的8位表示   |
+| GB2312    | 简体中文字符集| 最多使用两个字节编码|
+| Unicode   |国际通用字符集| |
+
+
+UTF标准：
+
+三种编码方案：  UTF-8，UTF-16,UTF-32 
+
+
+
+![](imgs/utf8.png)
+![](imgs/utf8_2.png)
+
+
+### 布尔类型
+
+```java
+public class TestVar09{
+        public static void main(String[] args){
+                //创建一个布尔类型的变量：
+                boolean flag1 = true;
+                System.out.println(flag1);
+                boolean flag2 = false;
+                System.out.println(flag2);
+                boolean flag3 = 5==9;
+                System.out.println(flag3);
+                boolean flag4 = 5<9;
+                System.out.println(flag4);
+        }
+}
+```
+
+**基本数据类型的转换**
+
+【1】什么是类型转换：
+在赋值运算或者算数运算的时候，要求数据类型一致，就要进行类型的转换。
+
+【2】类型转换的种类：
+自动转换，强制转换
+
+```java
+public class TestVar10{
+        public static void main(String[] args){
+                //类型转换的两种形式：
+                double d = 6;//int-->double  自动类型转换
+                System.out.println(d);
+                int i = (int)6.5;//double--->int  强制类型转换 （强转）
+                System.out.println(i);
+                
+                //在同一个表达式中，有多个数据类型的时候，应该如何处理：
+                //多种数据类型参与运算的时候，整数类型，浮点类型，字符类型都可以参与运算，唯独布尔类型不可以参与运算。
+                //double d2 = 12+1294L+8.5F+3.81+'a'+true;
+                double d2 = 12+1294L+8.5F+3.81+'a';
+                System.out.println(d2);
+                /*
+                类型级别：(从低到高的)
+                byte,short,char-->int--->long--->float--->double
+                级别用来做什么？当一个表达式中有多种数据类型的时候，要找出当前表达式中级别最高的那个类型，然后
+                其余的类型都转换为当前表达式中级别最高的类型进行计算。
+                double d2 = 12+1294L+8.5F+3.81+'a';
+                          = 12.0+1294.0+8.5+3.81+97.0
+                */
+                int i2 = (int)(12+1294L+8.5F+3.81+'a');
+                System.out.println(i2);
+                /*
+                在进行运算的时候：
+                左=右  : 直接赋值
+                左<右  ：强转
+                左>右  ：直接自动转换
+                */                
+                //以下情况属于特殊情形：对于byte，short，char类型来说，只要在他们的表数范围中，赋值的时候就不需要进行
+                //强转了直接赋值即可。
+                byte b = 12;
+                System.out.println(b);
+                byte b2 = (byte)270;
+                System.out.println(b2);
+                
+                
+                
+        }
+}
+```
+
+## 运算符
+
+Java 语言支持如下运算符：
+
+- 算术运算符 +，-，*，/，%，++（自增），--（自减）
+- 赋值运算符 =  
+- 扩展赋值运算符 +=，-=，*=，/=
+- 关系运算符 >，<，>=，<=，==，!=
+- 逻辑运算符 &，|，    &&，||，!，^
+- 位运算符   &，|，^，~ ， >>，<<，>>> (了解！！！)
+- 条件运算符(三目运算符) ? :
+
+**算术运算符**
+
+| / | 两个数相除 |
+| --- | ---|
+| % | 取余 |
+| + |1.正数 2.表示相加操作 3.进行字符串的拼接 |
+
+
+
+
