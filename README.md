@@ -1,4 +1,4 @@
 # CodingNotes
 
-[Java](Java/Java.md)
+- [Java](Java/Java.md)
 
