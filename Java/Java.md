@@ -1,8 +1,6 @@
 # 数据类型
 
-
 ## 标志符
-
 
 - 标识符：读音 biao zhi fu
 - 什么是标识符？包，类，变量，方法.....等等,只要是起名字的地方,那个名字就是标识符
@@ -40,7 +38,7 @@
 ## 变量
 
 - 变量声明格式：
-  ` type  varName [=value][,varName[=value]...];`[ ]中的内容为可选项，即可有可无
+  >` type varName [=value][,varName[=value]...];`[ ]中的内容为可选项，即可有可无
   `    int     age = 19 , age2 = 90 ; int  age,age2;`
 - 变量的声明：
     - （1）定义一个变量，没有给变量进行赋值，变量相当于没有定义：
@@ -52,8 +50,9 @@
 
 ## 基本数据类型
 
-Java是一种强类型语言，每个变量都必须声明其数据类型。   
-Java的数据类型可分为两大类：基本数据类型`（primitive data type）`和引用数据类型`（reference data type）`。
+>Java是一种强类型语言，每个变量都必须声明其数据类型。 
+
+> Java的数据类型可分为两大类：基本数据类型`（primitive data type）`和引用数据类型`（reference data type）`。
 
 ![](imgs/数据类型.png)
 
