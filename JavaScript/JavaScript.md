@@ -694,8 +694,114 @@ for (var k in obj) {
     console.log(obj[k]); // obj[k] 得到是 属性值
 
 }
-// 我们使用 for in 里面的变量 我们喜欢写 k  或者  key
 ```
+
+## 内置对象
+
+### Math
+
+- Math.PI 圆周率
+- Math.max() 求最大值
+- Math.abs() 求绝对值
+- Math.floor() 向下取整 往最小了取值
+- Math.ceil() 向上取整 往最大了取值
+- Math.round() 四舍五入 +0.5 向下取整
+  > console.log(Math.round(1.1)); // 1
+  >
+  > console.log(Math.round(1.9)); // 2
+  >
+  > console.log(Math.round(-1.1)); // -1
+  >
+  > console.log(Math.round(-1.5)); // -1
+
+- Math.random() 随机数   [0,1)
+
+### Date() 日期对象
+
+> Date() 日期对象 是一个构造函数 必须使用new 来调用创建日期对象
+
+```js
+ // 1. 使用Date  如果没有参数 返回当前系统的当前时间
+var date = new Date();
+console.log(date);
+// 2. 参数常用的写法  数字型  2019, 10, 01  或者是 字符串型 '2019-10-1 8:8:8'
+var date1 = new Date(2019, 10, 1);
+console.log(date1); // 返回的是 11月 不是 10月 
+var date2 = new Date('2019-10-1 8:8:8');
+console.log(date2);
+```
+
+#### 格式化日期
+
+```js
+// 格式化日期 年月日 
+var date = new Date();
+console.log(date.getFullYear()); // 返回当前日期的年  2019
+console.log(date.getMonth() + 1); // 月份 返回的月份小1个月   记得月份+1 呦
+console.log(date.getDate()); // 返回的是 几号
+console.log(date.getDay()); // 3  周一返回的是 1 周六返回的是 6 但是 周日返回的是 0
+```
+
+```js
+ // 格式化日期 时分秒
+var date = new Date();
+console.log(date.getHours()); // 时
+console.log(date.getMinutes()); // 分
+console.log(date.getSeconds()); // 秒
+```
+
+#### 获取毫秒数
+
+```js
+// 获得Date总的毫秒数(时间戳)  不是当前时间的毫秒数 而是距离1970年1月1号过了多少毫秒数
+// 1. 通过 valueOf()  getTime()
+var date = new Date();
+console.log(date.valueOf()); // 就是 我们现在时间 距离1970.1.1 总的毫秒数
+console.log(date.getTime());
+// 2. 简单的写法 (最常用的写法)
+var date1 = +new Date(); // +new Date()  返回的就是总的毫秒数
+console.log(date1);
+// 3. H5 新增的 获得总的毫秒数
+console.log(Date.now());
+```
+
+### 数组
+
+#### 创建数组的两种方式
+
+```js
+// 1. 利用数组字面量
+var arr = [1, 2, 3];
+console.log(arr[0]);
+
+// 2. 利用new Array()
+var arr1 = new Array();  // 创建了一个空的数组
+var arr1 = new Array(2);  // 这个2 表示 数组的长度为 2  里面有2个空的数组元素 
+var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数组元素 是 2和3
+```
+
+#### 检测是否为数组
+
+- (1) instanceof  运算符 
+    > var arr = [ ];  console.log(arr instanceof Array);
+
+- (2) Array.isArray(参数);  H5新增的方法  ie9以上版本支持
+    > Array.isArray(arr)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
