@@ -359,29 +359,101 @@ console.log(Boolean(12)); // true
 
 ## 数组
 
+### 创建数组
 
+```js
+var arr = new Array();
+var arr = [];
+var arr = [1, 2, 'pink老师', true];
+```
 
+### 数组长度
 
+> 数组名.length
 
+```js
+var arr = [1, 2, 'pink老师', true];
+console.log(arr.length)
+```
 
+### 遍历数组
 
+```js
+var arr = ['关羽', '张飞', '马超', '赵云', '黄忠', '刘备', '姜维', 'pink'];
 
+for (var i = 0; i < arr.length; i++) {
+    console.log(arr[i]);
+}
+```
 
+### 新增数组元素
 
+- 修改length长度
 
+```js
+var arr = ['red', 'green', 'blue'];
+console.log(arr.length);
+arr.length = 5; // 把我们数组的长度修改为了 5  里面应该有5个元素 
+console.log(arr);
+console.log(arr[3]); // undefined
+console.log(arr[4]); // undefined
+```
 
+- 修改索引号 追加数组元素
 
+```js
+var arr1 = ['red', 'green', 'blue'];
+arr1[3] = 'pink';
+console.log(arr1);
+arr1[4] = 'hotpink';
+console.log(arr1);
+arr1[0] = 'yellow'; // 这里是替换原来的数组元素
+console.log(arr1);
+arr1 = '有点意思';
+console.log(arr1); // 不要直接给 数组名赋值 否则里面的数组元素都没有了
+```
 
+---
 
+# 函数
 
+## 函数定义
 
+```js
+function 函数名([参数列表]) {
+    //函数内部语句
 
+    return 返回值;//返回值可有可无
+}
+```
 
+## 函数调用
 
+> 函数名()
 
+## 函数形参实参个数匹配
 
+- 如果实参的个数和形参的个数一致 则正常输出结果
 
+- 如果实参的个数多于形参的个数 会取到形参的个数
 
+- 如果实参的个数小于形参的个数 多于的形参定义为undefined
 
+## 函数返回值注意事项
 
+- return 终止函数
+  > return 后面的代码不会被执行
+
+- return 只能返回一个值
+  > return num1, num2; // 返回的结果是最后一个值
+
+- 函数如果有return 则返回的是 return 后面的值，如果函数么有 return 则返回undefined
+
+```js
+function fun2() {
+
+}
+
+console.log(fun2()); // 函数返回的结果是 undefined
+```
 
