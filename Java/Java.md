@@ -24,8 +24,8 @@
 特点：JAVA中所有关键字都为小写
 
 官网:<https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html>
-![](imgs/关键字1.png)
-![](imgs/关键字2.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/关键字1.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/关键字2.png)
 
 ### 常量
 
@@ -56,7 +56,7 @@
 
 > Java的数据类型可分为两大类：基本数据类型`（primitive data type）`和引用数据类型`（reference data type）`。
 
-![](imgs/数据类型.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/数据类型.png)
 
 #### 整数类型
 
@@ -68,11 +68,11 @@
 
     二进制：要求0b或者0B开头，如：0b11
 
-![](imgs/进制表.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/进制表.png)
 
 #### 整型数据类型：
 
-![](imgs/整型数据类型.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/整型数据类型.png)
 
 ```java    
     //定义整数类型的变量：
@@ -114,7 +114,7 @@
 
 > float类型的数值有一个后缀F或者f ，没有后缀F/f的浮点数值默认为double类型。 也可以在浮点数值后添加后缀D或者d， 以明确其为double类型。
 
-![](imgs/浮点类型.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/浮点类型.png)
 
 ```java 
     //浮点类型的常量有两种形式：
@@ -149,10 +149,10 @@
 【1】Java中使用单引号来表示字符常量，字符型在内存中占2个字节。char 类型用来表示在Unicode编码表中的字符。Unicode编码被设计用来处理各种语言的文字，它占2个字节，可允许有65536个字符。
 
 【2】转义字符：
-![](imgs/转义字符.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/转义字符.png)
 
 【3】ASCII表：
-![](imgs/ASCII表.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/ASCII表.png)
 
 #### 编码和字符集
 
@@ -170,8 +170,8 @@ UTF标准：
 
 三种编码方案： UTF-8，UTF-16,UTF-32
 
-![](imgs/utf8.png)
-![](imgs/utf8_2.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/utf8.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/utf8_2.png)
 
 #### 布尔类型
 
@@ -255,13 +255,13 @@ byte类型的表数范围的 -128是怎么算出来的
 
 ### 运算符总结
 
-![](imgs/运算符1.png)
-![](imgs/运算符2.png)
-![](imgs/运算符3.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/运算符1.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/运算符2.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/运算符3.png)
 
 ### 运算符优先级
 
-![](imgs/运算符优先级.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/运算符优先级.png)
 
 ## 流程控制
 
@@ -274,7 +274,7 @@ byte类型的表数范围的 -128是怎么算出来的
 
   “循环结构”代表“如果…，则再继续…”的逻辑。
 
-![](imgs/流程控制.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/流程控制.png)
 
 ### 分支结构
 
@@ -900,7 +900,7 @@ public class Test {
   > 
   > 一般属性：用private修饰 ，方法：用public修饰
   > 
-  > ![权限修饰符](imgs/权限修饰符.png)
+  > ![权限修饰符](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/权限修饰符.png)
   
 #### 方法的重写
   > 
@@ -914,7 +914,7 @@ public class Test {
   > 
   > 重写：在不同的类中，子类对父类提供的方法不满意的时候，要对父类的方法进行重写。
   > 
-  >![](imgs/重载和重写.png)
+  >![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/重载和重写.png)
 
 #### super
 

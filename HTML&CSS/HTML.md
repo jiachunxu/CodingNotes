@@ -115,7 +115,7 @@
 
 ### 实体字符
 
-![](imgs/实体字符.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/实体字符.png)
 
 ### 多媒体标签
 
