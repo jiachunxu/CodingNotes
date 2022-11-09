@@ -158,7 +158,7 @@
 |---|---|---|
 |Number|数字型,包含整型值和浮点型值，如21、0.21|0|
 |Boolean|布尔值类型，如true. false，等价于1和0|false|
-|String|字符串类型，如"张三” 注意咱们js里面，字符串都带引号|""|
+|String|字符串类型，如"张三”|""|
 |Undefined|var a;声明了变量a但是没有给值|undefined|
 |Null|var a = null;声明了变量a为空值|null|
 
