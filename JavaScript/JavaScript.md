@@ -112,7 +112,7 @@
 
 ```js
     var age = 18;
-    age = 81; // 最后的结果就是81因为18 被覆盖掉了
+age = 81; // 最后的结果就是81因为18 被覆盖掉了
 ```
 
 - 同时声明多个变量
@@ -129,8 +129,6 @@
 | console.log(age)  | 不声明 不赋值 直接使用 |报错 |
 |age = 10; console.log (age);|不声明 只赋值 |10 |
 
-
-
 - 变量命名规范
     - 由字母(A-Za-z)、数字(0-9)、下划线(_)、美元符号( $ )组成
     - 严格区分大小写
@@ -145,14 +143,12 @@
 
 > JavaScript 是一种弱类型或者说动态语言
 
-
 ## JS 把数据类型分为两类：
 
 - 简单数据类型 （Number,String,Boolean,Undefined,Null）
 - 复杂数据类型 （Object)
 
-
-### 简单数据类型（基本数据类型）
+## 简单数据类型（基本数据类型）
 
 |简单数据类型|说明|默认值|
 |---|---|---|
@@ -161,6 +157,213 @@
 |String|字符串类型，如"张三”|""|
 |Undefined|var a;声明了变量a但是没有给值|undefined|
 |Null|var a = null;声明了变量a为空值|null|
+
+### 数字型 Number
+
+- **数字型进制**
+
+> 最常见的进制有二进制、八进制、十进制、十六进制
+
+```js
+    // 1.八进制数字序列范围：0~7
+var num1 = 07; // 对应十进制的7
+var num2 = 01
+9; // 对应十进制的19
+var num3 = 0
+8; // 对应十进制的8
+// 2.十六进制数字序列范围：0~9以及A~F
+var num = 0xA;
+```
+
+> 在JS中八进制前面加0，十六进制前面加 0x
+
+- **数字型范围**
+
+    - 最大值：`Number.MAX_VALUE`，这个值为： 1.7976931348623157e+308
+    - 最小值：`Number.MIN_VALUE`，这个值为：5e-32
+
+
+- **数字型三个特殊值**
+
+    - `Infinity` : 大于任何数值
+    - `-Infinity` : 小于任何数值
+    - `NaN` : Not a number，代表一个非数值
+
+- **isNaN()**
+
+> 用来判断一个变量是否为非数字的类型，返回 true 或者 false
+
+> **isNaN(x)**   :    `x是数字返回false,x不是数字返回true`
+
+### 字符串型 String
+
+> 字符串型可以是引号中的任意文本，其语法为 双引号 "" 和 单引号''
+
+> HTML 标签里面的属性使用的是双引号，**JS** 这里我们更**推荐使用单引号**。
+
+- 字符串引号嵌套
+  > JS 可以用单引号嵌套双引号 ，或者用双引号嵌套单引号 (外双内单，外单内双)
+
+- 字符串转义符
+  > 转义符都是 \ 开头的，常用的转义符及其说明如下：
+
+|转义符|解释说明|
+|---|---|
+|\n|换行, n 是 newline 的意思|
+|\\|斜杠 \|
+|\'|' 单引号|
+|\"|" 双引号|
+|\t|tab 缩进|
+|\b|空格 ，b 是 blank的意思|
+
+- 字符串长度
+  > 通过字符串的 **length 属性**可以获取整个字符串的长度
+
+```js
+var strMsg = "我是帅气多金的程序猿！"
+alert(strMsg.length); // 显示 11
+````
+
+- 字符串拼接
+    - 多个字符串之间可以使用 + 进行拼接，**字符串 + 任何类型 = 拼接之后的新字符串**
+    - 拼接前会把与字符串相加的任何类型转成字符串，再拼接成一个新的字符串
+
+### 布尔型 Boolean
+
+> 布尔类型有两个值：true 和 false
+
+> 布尔型和数字型相加的时候， true 的值为 1 ，false 的值为 0。
+
+```js
+console.log(true + 1); // 2
+console.log(false + 1); // 1
+```
+
+### Undefined 和 Null
+
+> 一个声明后没有被赋值的变量会有一个默认值 undefined
+
+```js
+var variable;
+console.log(variable); // undefined
+console.log('你好' + variable); // 你好undefined
+console.log(11 + variable); // NaN
+console.log(true + variable); // NaN
+```
+
+> 一个声明变量给 null 值，里面存的值为空
+
+```js
+var vari = null;
+console.log('你好' + vari); // 你好null
+console.log(11 + vari); // 11
+console.log(true + vari); // 1
+```
+
+### 获取检测变量的数据类型
+
+> **typeof** 可用来获取检测变量的数据类型
+
+```js
+var num = 18;
+console.log(typeof num) // 结果 number
+
+console.log(typeof undefined) // 结果 "undefined"
+console.log(typeof null) // 结果 "object"
+```
+
+## 数据类型转换
+
+- **转换为字符串类型**
+- **转换为数字型**
+- **转换为布尔型**
+
+### 转换为字符串
+
+- toString()
+
+  > var num= 1; alert(num.toString());
+
+- String()
+
+  > var num= 1; alert(String(num));
+
+- 加号拼接(隐式转换)
+
+  > var num =1; alert(num+"我是字符串");
+
+### 转换为数字型
+
+|方式|案例|
+|---|---|
+|pareInt(string)|pareInt('78')|
+|pareFloat(string)|pareFloat('78.12')|
+|Number(string)|Number('12')|
+|js隐式转化(-,*,/)|'12'-0|
+
+### 转换为布尔型
+
+> Boolean()函数 例如:Boolean('true')
+
+- 代表空、否定的值会被转换为 false ，如 ''、0、NaN、null、undefined
+- 其余值都会被转换为 true
+
+```js
+console.log(Boolean('')); // false
+console.log(Boolean(0)); // false
+console.log(Boolean(NaN)); // false
+console.log(Boolean(null)); // false
+console.log(Boolean(undefined)); // false
+console.log(Boolean('小白')); // true
+console.log(Boolean(12)); // true
+```
+
+---
+
+# 运算符
+
+## 算数运算符
+
+> +, -, *, /, %
+
+> ++, --
+
+## 比较运算符
+
+> <, >, >=, <=
+
+> !=, ==, ===
+
+- ==
+  > 默认转换数据类型 会把字符串型的数据转换为数字型 只要求值相等就可以
+
+- ===
+  > 要求 两侧的值 还有 数据类型完全一致才可以 true
+
+## 逻辑运算符
+
+- &&
+- ||
+- !
+
+## 赋值运算符
+
+- =
+- -=, +=, *=,/=
+
+### 三元表达式
+
+> 条件表达式 ？ 表达式1 ： 表达式2
+
+> 条件表达式结果为真 则 返回 表达式1 的值 如果条件表达式结果为假 则返回 表达式2 的值
+
+## 数组
+
+
+
+
+
+
 
 
 
