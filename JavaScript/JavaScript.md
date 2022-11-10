@@ -920,6 +920,8 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 ## DOM
 
+
+
 ### document.getElementById()
 
 
@@ -949,23 +951,145 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 > 返回指定选择器的所有元素对象集合
 
-### 获取特殊元素
 
-#### 获取body 元素
+### 获取body 元素
 
 > var bodyEle = document.body
 
-#### 获取html 元素
+### 获取html 元素
 
 > var htmlEle = document.documentElement
 
 
+## 事件三要素
+
+- 事件源  
+- 事件类型  
+- 事件处理程序
+
+```html
+<body>
+    <button id="btn">唐伯虎</button>
+    <script>
+        // 点击一个按钮，弹出对话框
+        //(1) 事件源 事件被触发的对象   谁  按钮
+        var btn = document.getElementById('btn');
+        //(2) 事件类型  如何触发 什么事件 比如鼠标点击(onclick) 还是鼠标经过 还是键盘按下
+        //(3) 事件处理程序  通过一个函数赋值的方式 完成
+        btn.onclick = function() {
+            alert('点秋香');
+        }
+    </script>
+</body>
+```
 
 
+### 执行事件步骤
+
+- 获取事件源
+- 绑定事件 注册事件
+- 添加事件处理程序
 
 
+### 事件种类
 
 
+|onclick|鼠标点击|
+|---|---|
+|onfocus|获得焦点|
+|onblur|失去焦点|
+
+### 改变元素内容
+
+> 两个属性是可读写的  可以获取元素里面的内容
+
+- innerHTML
+    > 不识别html标签 非标准  去除空格和换行 
+
+- innerText
+    > 识别html标签 W3C标准 保留空格和换行的
+
+
+```html
+<body>
+    <div></div>
+    <p>
+        我是文字
+        <span>123</span>
+    </p>
+    <script>
+        var div = document.querySelector('div');
+        div.innerHTML = '<strong>今天是：</strong> 2019';
+        var p = document.querySelector('p');
+        console.log(p.innerText);
+        console.log(p.innerHTML);
+    </script>
+</body>
+```
+### 修改元素属性
+
+```html
+<body>
+    <button id="ldh">刘德华</button>
+    <button id="zxy">张学友</button> <br>
+    <img src="images/ldh.jpg" alt="" title="刘德华">
+
+    <script>
+        // 修改元素属性  src
+        var ldh = document.getElementById('ldh');
+        var zxy = document.getElementById('zxy');
+        var img = document.querySelector('img');
+        zxy.onclick = function() {
+            img.src = 'images/zxy.jpg';
+            img.title = '张学友思密达';
+        }
+        ldh.onclick = function() {
+            img.src = 'images/ldh.jpg';
+            img.title = '刘德华';
+        }
+    </script>
+</body>
+```
+
+### 表单属性设置
+
+> 表单里面的值 文字内容是通过 value 来修改的
+
+```html
+<body>
+    <button>按钮</button>
+    <input type="text" value="输入内容">
+    <script>
+        var btn = document.querySelector('button');
+        var input = document.querySelector('input');
+        btn.onclick = function() {
+            // 表单里面的值 文字内容是通过 value 来修改的
+            input.value = '被点击了';
+            // button禁用
+            // btn.disabled = true;
+            this.disabled = true;
+            // this 指向的是事件函数的调用者 btn
+        }
+    </script>
+</body>
+```
+
+
+### 修改样式属性
+
+```html
+<body>
+    <div></div>
+    <script>
+        var div = document.querySelector('div');
+        div.onclick = function() {
+            // div.style里面的属性 采取驼峰命名法 
+            this.style.backgroundColor = 'purple';
+            this.style.width = '250px';
+        }
+    </script>
+</body>
+```
 
 
 
