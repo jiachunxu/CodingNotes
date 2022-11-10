@@ -1172,12 +1172,44 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
         console.log(div.dataset['listName']);
     </script>
 </body>
-
 ```
 
 
-
 ### 节点
+
+### 父节点 element.parentNode
+
+### 子节点 
+
+> DOM 提供的方法（API）获取
+
+- element.childNodes
+    > 所有的子节点 包含 元素节点 文本节点等等
+
+
+- element.children
+    > 获取所有的子元素节点 实际开发常用的
+
+- element.firstChild
+    > 第一个子节点 不管是文本节点还是元素节点
+
+- element.firstElementChild
+  > 返回第一个子元素节点 ie9才支持
+
+- element.children[0]
+- element.children[ol.children.length - 1]
+  > 实际开发的写法,没有兼容性问题
+
+
+
+
+
+
+
+
+
+
+
 
 
 
