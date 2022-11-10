@@ -1140,8 +1140,6 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
     <button>按钮1</button>
     <button>按钮2</button>
     <button>按钮3</button>
-    <button>按钮4</button>
-    <button>按钮5</button>
     <script>
         // 1. 获取所有按钮元素
         var btns = document.getElementsByTagName('button');
@@ -1163,6 +1161,21 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 ```
 
 ### 自定义属性操作
+
+- 获取元素的属性值
+  - element.属性
+  - element.getAttribute('属性')
+- 设置元素属性值
+  - element.属性= '值'
+  - element.setAttribute('属性', '值')
+  > var div = document.querySelector('div');
+  > 
+  > div.className = 'navs';
+  > 
+  > div.setAttribute('class', 'footer'); // class 特殊  这里面写的就是class 不是className
+- 移除属性
+  - removeAttribute(属性)
+
 
 
 
