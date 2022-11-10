@@ -1079,6 +1079,10 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 ### 修改样式属性
 
+> this.style.display = 'block';     显示
+
+> this.style.display = 'none';      隐藏
+
 ```html
 <body>
     <div></div>
@@ -1099,38 +1103,7 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 > 可以修改元素样式
 
-### 开关灯案例
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <button id="btn">开关灯</button>
-    <script>
-        var btn = document.getElementById('btn');
-        var flag = 0;
-        btn.onclick = function () {
-            if (flag === 0) {
-                document.body.style.backgroundColor = 'black';
-                flag = 1;
-            } else {
-                document.body.style.backgroundColor = '#fff';
-                flag = 0;
-            }
-        }
-    </script>
-</body>
-
-</html>
-```
 
 
 ### 排他思想
@@ -1162,6 +1135,8 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 ### 自定义属性操作
 
+> **作用**:切换tab栏
+
 - 获取元素的属性值
   - element.属性
   - element.getAttribute('属性')
@@ -1175,6 +1150,9 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
   > div.setAttribute('class', 'footer'); // class 特殊  这里面写的就是class 不是className
 - 移除属性
   - removeAttribute(属性)
+
+
+### 节点
 
 
 
