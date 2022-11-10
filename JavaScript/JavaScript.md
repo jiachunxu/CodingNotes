@@ -920,8 +920,44 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 ## DOM
 
-- document.getElementById()
+### document.getElementById()
 
+
+> console.dir 打印返回的元素对象 可以查看内部的属性和方法
+
+
+### document.getElementsByTagName('标签名')
+
+> 返回的是 获取过来元素对象的集合 以伪数组的形式存储的
+
+> 如果页面中只有一个,返回的还是伪数组的形式
+
+> 如果页面中没有这个元素,返回的是空的伪数组的形式
+
+
+### H5新增
+
+#### document.getElementsByClassName()
+
+> 根据类名获得某些元素集合
+
+#### document.querySelector()
+
+> 返回指定选择器的第一个元素对象  切记 里面的选择器需要加符号 .box  #nav 
+
+#### document.querySelectorAll()
+
+> 返回指定选择器的所有元素对象集合
+
+### 获取特殊元素
+
+#### 获取body 元素
+
+> var bodyEle = document.body
+
+#### 获取html 元素
+
+> var htmlEle = document.documentElement
 
 
 
