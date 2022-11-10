@@ -785,28 +785,91 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 - (1) instanceof  运算符 
     > var arr = [ ];  console.log(arr instanceof Array);
 
-- (2) Array.isArray(参数);  H5新增的方法  ie9以上版本支持
+- (2) Array.isArray(参数);  **H5新增的方法  ie9以上版本支持**
     > Array.isArray(arr)
 
 
+#### 添加删除数组元素方法
+
+- arr.push() 在我们数组的末尾 添加一个或者多个数组元素   push  推
+    > var arr = [1, 2, 3];
+     
+    > arr.push(4, 'pink');
+
+    > push之后，**返回新数组的长度**
+
+- arr.unshift() 在数组的开头 添加一个或者多个数组元素
+    > arr.unshift('red', 'purple');
+    
+    > unshift完毕之后，**返回新数组的长度**
+
+- arr.pop() 删除数组的最后一个元素
+    > arr.pop()
+    
+    > pop完毕之后，**返回删除的那个元素**
 
 
+- arr.shift() 删除数组的第一个元素
+    > arr.shift()
+    
+    > shift完毕之后，**返回删除的那个元素** 
+
+    
+#### 获取数组元素索引
+
+- arr.indexOf(数组元素)
+
+- arr.lastIndexOf(数组元素)
+
+#### 数组转字符串
+
+- arr.toString()
+```js
+    var arr = [1, 2, 3];
+    console.log(arr.toString()); // 1,2,3
+```
+
+- arr.join(分隔符)
+```js
+    var arr1 = ['green', 'blue', 'pink'];
+    console.log(arr1.join()); // green,blue,pink
+    console.log(arr1.join('-')); // green-blue-pink
+    console.log(arr1.join('&')); // green&blue&pink
+```
+
+---
+
+### 基本包装类型
+
+> 把简单数据类型 包装成为了 复杂数据类型
+
+```js
+    var str = 'andy';
+    console.log(str.length);
+    // 对象 才有 属性和方法   复杂数据类型才有 属性和方法 
+
+    // (1) 把简单数据类型包装为复杂数据类型 
+    var temp = new String('andy');
+    // (2) 把临时变量的值 给 str
+    str = temp;
+    // (3) 销毁这个临时变量
+    temp = null;
+```
+
+#### 字符串的不可变性
+
+> 字符串的不可变所以不要大量的拼接字符串
 
 
+#### 获取字符索引
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+- str.indexOf('要查找的字符', [起始的位置])
+```js
+    //  str.indexOf('要查找的字符', [起始的位置])
+    var str = '改革春风吹满地，春天来了';
+    console.log(str.indexOf('春'));
+    console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查找
+```
 
 
 
