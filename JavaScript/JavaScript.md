@@ -1151,6 +1151,32 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 - 移除属性
   - removeAttribute(属性)
 
+#### H5自定义属性
+
+```html
+<body>
+    <div getTime="20" data-index="2" data-list-name="andy"></div>
+    <script>
+        var div = document.querySelector('div');
+        // console.log(div.getTime);
+        console.log(div.getAttribute('getTime'));
+        div.setAttribute('data-time', 20);
+        console.log(div.getAttribute('data-index'));
+        console.log(div.getAttribute('data-list-name'));
+        // h5新增的获取自定义属性的方法 它只能获取data-开头的
+        // dataset 是一个集合里面存放了所有以data开头的自定义属性
+        console.log(div.dataset);
+        console.log(div.dataset.index);
+        console.log(div.dataset['index']);
+        // 如果自定义属性里面有多个-链接的单词，我们获取的时候采取 驼峰命名法
+        console.log(div.dataset.listName);
+        console.log(div.dataset['listName']);
+    </script>
+</body>
+
+```
+
+
 
 ### 节点
 
