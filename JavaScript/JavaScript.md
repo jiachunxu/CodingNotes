@@ -998,6 +998,8 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 |---|---|
 |onfocus|获得焦点|
 |onblur|失去焦点|
+|onmouseover|鼠标经过|
+|onmouseout|鼠标离开|
 
 ### 改变元素内容
 
@@ -1091,8 +1093,76 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 </body>
 ```
 
+### 修改class属性
+
+> this.className = 'first change';
+
+> 可以修改元素样式
+
+### 开关灯案例
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">开关灯</button>
+    <script>
+        var btn = document.getElementById('btn');
+        var flag = 0;
+        btn.onclick = function () {
+            if (flag === 0) {
+                document.body.style.backgroundColor = 'black';
+                flag = 1;
+            } else {
+                document.body.style.backgroundColor = '#fff';
+                flag = 0;
+            }
+        }
+    </script>
+</body>
+
+</html>
+```
 
 
+### 排他思想
+
+```html
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+    <script>
+        // 1. 获取所有按钮元素
+        var btns = document.getElementsByTagName('button');
+        // btns得到的是伪数组  里面的每一个元素 btns[i]
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].onclick = function() {
+                // (1) 我们先把所有的按钮背景颜色去掉  干掉所有人
+                for (var i = 0; i < btns.length; i++) {
+                    btns[i].style.backgroundColor = '';
+                }
+                // (2) 然后才让当前的元素背景颜色为pink 留下我自己
+                this.style.backgroundColor = 'pink';
+
+            }
+        }
+        //2. 首先先排除其他人，然后才设置自己的样式 这种排除其他人的思想我们成为排他思想
+    </script>
+</body>
+```
+
+### 自定义属性操作
 
 
 
