@@ -1158,7 +1158,6 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
     <div getTime="20" data-index="2" data-list-name="andy"></div>
     <script>
         var div = document.querySelector('div');
-        // console.log(div.getTime);
         console.log(div.getAttribute('getTime'));
         div.setAttribute('data-time', 20);
         console.log(div.getAttribute('data-index'));
