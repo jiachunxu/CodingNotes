@@ -950,18 +950,25 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 
 > var htmlEle = document.documentElement
 
-## 事件三要素
+## 事件
+
+### 三要素
 
 - 事件源
 - 事件类型
 - 事件处理程序
+
+### 执行事件步骤
+
+- 获取事件源
+- 绑定事件 注册事件
+- 添加事件处理程序
 
 ```html
 
 <body>
     <button id="btn">唐伯虎</button>
     <script>
-        // 点击一个按钮，弹出对话框
         //(1) 事件源 事件被触发的对象   谁  按钮
         var btn = document.getElementById('btn');
         //(2) 事件类型  如何触发 什么事件 比如鼠标点击(onclick) 还是鼠标经过 还是键盘按下
@@ -973,12 +980,6 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 </body>
 ```
 
-### 执行事件步骤
-
-- 获取事件源
-- 绑定事件 注册事件
-- 添加事件处理程序
-
 ### 事件种类
 
 |onclick|鼠标点击|
@@ -987,6 +988,77 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 |onblur|失去焦点|
 |onmouseover|鼠标经过|
 |onmouseout|鼠标离开|
+
+### 注册事件的两种方式
+
+- 传统方式注册事件
+- 事件侦听注册事件 addEventListener
+    - 里面的事件类型是字符串 必定加引号 而且不带on
+    - 同一个元素 同一个事件可以添加多个侦听器（事件处理程序）
+- attachEvent
+  > ie9以前的版本支持
+
+```html
+
+<body>
+    <button>传统注册事件</button>
+
+    <script>
+        var btn = document.querySelector('button');
+        // 1. 传统方式注册事件
+        btn.onclick = function () {
+            alert('hi');
+        }
+        // 2.事件侦听注册事件 addEventListener 
+        btn.addEventListener('click', function () {
+            alert(22);
+        })
+
+        // 3. attachEvent ie9以前的版本支持
+        btn.attachEvent('onclick', function () {
+            alert(11);
+        })
+    </script>
+</body>
+```
+
+### 删除事件
+
+- 传统方式删除事件
+- removeEventListener 删除事件
+- detachEvent
+
+```html
+
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <script>
+        var divs = document.querySelectorAll('div');
+        divs[0].onclick = function () {
+            alert(11);
+            // 1. 
+            divs[0].onclick = null;
+        }
+        // 2. removeEventListener 删除事件
+        divs[1].addEventListener('click', fn) // 里面的fn 不需要调用加小括号
+
+        function fn() {
+            alert(22);
+            divs[1].removeEventListener('click', fn);
+        }
+
+        // 3. detachEvent
+        divs[2].attachEvent('onclick', fn1);
+
+        function fn1() {
+            alert(33);
+            divs[2].detachEvent('onclick', fn1);
+        }
+    </script>
+</body>
+```
 
 ### 改变元素内容
 
@@ -1192,35 +1264,40 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 ### 兄弟节点
 
 - nextSibling
-    > 下一个兄弟节点 包含元素节点或者 文本节点等等
+  > 下一个兄弟节点 包含元素节点或者 文本节点等等
 - nextElementSibling
-    > 得到下一个兄弟元素节点
+  > 得到下一个兄弟元素节点
 
 ### 创建和添加节点
 
 - 创建节点元素节点
-    > var li = document.createElement('li')
+  > var li = document.createElement('li')
 
 - 添加节点
-    > node.appendChild(child)  node 父级  child 是子级 后面追加元素 
-    
-    > node.insertBefore(child, 指定元素);
-- 
+  > node.appendChild(child)  node 父级 child 是子级 后面追加元素
 
+  > node.insertBefore(child, 指定元素); 在指定元素前方插入child
 
+### 删除节点
 
+- node.removeChild(child)
 
+### 克隆节点
 
+- node.cloneNode()
 
+> 括号为空或者里面是false 浅拷贝 只复制标签不复制里面的内容
 
+> 括号为true 深拷贝 复制标签复制里面的内容
 
+### 三种创建元素方式区别
 
+- document.write()
+  > 创建元素 如果页面文档流加载完毕，再调用这句话会导致页面重绘
 
+- innerHTML
 
-
-
-
-
+- document.createElement()
 
 ## BOM
 
