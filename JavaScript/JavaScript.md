@@ -782,39 +782,37 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 #### 检测是否为数组
 
-- (1) instanceof  运算符 
-    > var arr = [ ];  console.log(arr instanceof Array);
+- (1) instanceof 运算符
+  > var arr = [ ]; console.log(arr instanceof Array);
 
-- (2) Array.isArray(参数);  **H5新增的方法  ie9以上版本支持**
-    > Array.isArray(arr)
-
+- (2) Array.isArray(参数);  **H5新增的方法 ie9以上版本支持**
+  > Array.isArray(arr)
 
 #### 添加删除数组元素方法
 
-- arr.push() 在我们数组的末尾 添加一个或者多个数组元素   push  推
-    > var arr = [1, 2, 3];
-     
-    > arr.push(4, 'pink');
+- arr.push() 在我们数组的末尾 添加一个或者多个数组元素 push 推
+  > var arr = [1, 2, 3];
 
-    > push之后，**返回新数组的长度**
+  > arr.push(4, 'pink');
+
+  > push之后，**返回新数组的长度**
 
 - arr.unshift() 在数组的开头 添加一个或者多个数组元素
-    > arr.unshift('red', 'purple');
-    
-    > unshift完毕之后，**返回新数组的长度**
+  > arr.unshift('red', 'purple');
+
+  > unshift完毕之后，**返回新数组的长度**
 
 - arr.pop() 删除数组的最后一个元素
-    > arr.pop()
-    
-    > pop完毕之后，**返回删除的那个元素**
+  > arr.pop()
+
+  > pop完毕之后，**返回删除的那个元素**
 
 
 - arr.shift() 删除数组的第一个元素
-    > arr.shift()
-    
-    > shift完毕之后，**返回删除的那个元素** 
+  > arr.shift()
 
-    
+  > shift完毕之后，**返回删除的那个元素**
+
 #### 获取数组元素索引
 
 - arr.indexOf(数组元素)
@@ -824,17 +822,19 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 #### 数组转字符串
 
 - arr.toString()
+
 ```js
     var arr = [1, 2, 3];
-    console.log(arr.toString()); // 1,2,3
+console.log(arr.toString()); // 1,2,3
 ```
 
 - arr.join(分隔符)
+
 ```js
     var arr1 = ['green', 'blue', 'pink'];
-    console.log(arr1.join()); // green,blue,pink
-    console.log(arr1.join('-')); // green-blue-pink
-    console.log(arr1.join('&')); // green&blue&pink
+console.log(arr1.join()); // green,blue,pink
+console.log(arr1.join('-')); // green-blue-pink
+console.log(arr1.join('&')); // green&blue&pink
 ```
 
 ---
@@ -845,31 +845,31 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 ```js
     var str = 'andy';
-    console.log(str.length);
-    // 对象 才有 属性和方法   复杂数据类型才有 属性和方法 
+console.log(str.length);
+// 对象 才有 属性和方法   复杂数据类型才有 属性和方法 
 
-    // (1) 把简单数据类型包装为复杂数据类型 
-    var temp = new String('andy');
-    // (2) 把临时变量的值 给 str
-    str = temp;
-    // (3) 销毁这个临时变量
-    temp = null;
+// (1) 把简单数据类型包装为复杂数据类型 
+var temp = new String('andy');
+// (2) 把临时变量的值 给 str
+str = temp;
+// (3) 销毁这个临时变量
+temp = null;
 ```
 
 #### 字符串的不可变性
 
 > 字符串的不可变所以不要大量的拼接字符串
 
-
 #### 获取字符索引
 
 - str.indexOf('要查找的字符', [起始的位置])
-- 
+-
+
 ```js
     //  str.indexOf('要查找的字符', [起始的位置])
-    var str = '改革春风吹满地，春天来了';
-    console.log(str.indexOf('春'));
-    console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查找
+var str = '改革春风吹满地，春天来了';
+console.log(str.indexOf('春'));
+console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查找
 ```
 
 #### 根据索引返回字符
@@ -877,9 +877,9 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 - str.charAt(index)
 
 - str.charCodeAt(index)
-    > 返回相应索引号的字符ASCII值 
-     
-    > 目的： 判断用户按下了那个键
+  > 返回相应索引号的字符ASCII值
+
+  > 目的： 判断用户按下了那个键
     ```js
     var str = 'andy';
     console.log(str.charCodeAt(0)); // 97
@@ -887,46 +887,38 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 - str[index] **H5 新增**
 
-
 #### 字符串操作方法
 
 - concat('字符串1','字符串2'....)
-    > 将一个或多个字符串与原字符串连接合并，形成一个新的字符串并返回
+  > 将一个或多个字符串与原字符串连接合并，形成一个新的字符串并返回
 
 - substr('截取的起始位置', '截取几个字符')
 
-- replace('被替换的字符', '替换为的字符')  
-    > 只会替换第一个字符
+- replace('被替换的字符', '替换为的字符')
+  > 只会替换第一个字符
 
-- split('分隔符')    
-    > 字符转换为数组
-
+- split('分隔符')
+  > 字符转换为数组
 
 ### 简单数据类型 null
 
-> 返回的是一个空的对象  object 
+> 返回的是一个空的对象 object
 
 > 如果有个变量打算存储为对象，暂时没想好放啥， 这个时候就给 null
 
 > 1. 简单数据类型 是存放在栈里面 里面直接开辟一个空间存放的是值
 
-> 2. 复杂数据类型 首先在栈里面存放地址 十六进制表示  然后这个地址指向堆里面的数据
+> 2. 复杂数据类型 首先在栈里面存放地址 十六进制表示 然后这个地址指向堆里面的数据
 
 ---
 
-
 # WebAPI
-
 
 ## DOM
 
-
-
 ### document.getElementById()
 
-
 > console.dir 打印返回的元素对象 可以查看内部的属性和方法
-
 
 ### document.getElementsByTagName('标签名')
 
@@ -936,7 +928,6 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 > 如果页面中没有这个元素,返回的是空的伪数组的形式
 
-
 ### H5新增
 
 #### document.getElementsByClassName()
@@ -945,12 +936,11 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 #### document.querySelector()
 
-> 返回指定选择器的第一个元素对象  切记 里面的选择器需要加符号 .box  #nav 
+> 返回指定选择器的第一个元素对象 切记 里面的选择器需要加符号 .box #nav
 
 #### document.querySelectorAll()
 
 > 返回指定选择器的所有元素对象集合
-
 
 ### 获取body 元素
 
@@ -960,14 +950,14 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 > var htmlEle = document.documentElement
 
-
 ## 事件三要素
 
-- 事件源  
-- 事件类型  
+- 事件源
+- 事件类型
 - 事件处理程序
 
 ```html
+
 <body>
     <button id="btn">唐伯虎</button>
     <script>
@@ -976,13 +966,12 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
         var btn = document.getElementById('btn');
         //(2) 事件类型  如何触发 什么事件 比如鼠标点击(onclick) 还是鼠标经过 还是键盘按下
         //(3) 事件处理程序  通过一个函数赋值的方式 完成
-        btn.onclick = function() {
+        btn.onclick = function () {
             alert('点秋香');
         }
     </script>
 </body>
 ```
-
 
 ### 执行事件步骤
 
@@ -990,9 +979,7 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 - 绑定事件 注册事件
 - 添加事件处理程序
 
-
 ### 事件种类
-
 
 |onclick|鼠标点击|
 |---|---|
@@ -1003,16 +990,16 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 ### 改变元素内容
 
-> 两个属性是可读写的  可以获取元素里面的内容
+> 两个属性是可读写的 可以获取元素里面的内容
 
 - innerHTML
-    > 不识别html标签 非标准  去除空格和换行 
+  > 不识别html标签 非标准 去除空格和换行
 
 - innerText
-    > 识别html标签 W3C标准 保留空格和换行的
-
+  > 识别html标签 W3C标准 保留空格和换行的
 
 ```html
+
 <body>
     <div></div>
     <p>
@@ -1028,12 +1015,15 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
     </script>
 </body>
 ```
+
 ### 修改元素属性
 
 ```html
+
 <body>
     <button id="ldh">刘德华</button>
-    <button id="zxy">张学友</button> <br>
+    <button id="zxy">张学友</button>
+    <br>
     <img src="images/ldh.jpg" alt="" title="刘德华">
 
     <script>
@@ -1041,11 +1031,11 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
         var ldh = document.getElementById('ldh');
         var zxy = document.getElementById('zxy');
         var img = document.querySelector('img');
-        zxy.onclick = function() {
+        zxy.onclick = function () {
             img.src = 'images/zxy.jpg';
             img.title = '张学友思密达';
         }
-        ldh.onclick = function() {
+        ldh.onclick = function () {
             img.src = 'images/ldh.jpg';
             img.title = '刘德华';
         }
@@ -1058,13 +1048,14 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 > 表单里面的值 文字内容是通过 value 来修改的
 
 ```html
+
 <body>
     <button>按钮</button>
     <input type="text" value="输入内容">
     <script>
         var btn = document.querySelector('button');
         var input = document.querySelector('input');
-        btn.onclick = function() {
+        btn.onclick = function () {
             // 表单里面的值 文字内容是通过 value 来修改的
             input.value = '被点击了';
             // button禁用
@@ -1076,19 +1067,19 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 </body>
 ```
 
-
 ### 修改样式属性
 
-> this.style.display = 'block';     显示
+> this.style.display = 'block'; 显示
 
-> this.style.display = 'none';      隐藏
+> this.style.display = 'none'; 隐藏
 
 ```html
+
 <body>
     <div></div>
     <script>
         var div = document.querySelector('div');
-        div.onclick = function() {
+        div.onclick = function () {
             // div.style里面的属性 采取驼峰命名法 
             this.style.backgroundColor = 'purple';
             this.style.width = '250px';
@@ -1103,12 +1094,10 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 
 > 可以修改元素样式
 
-
-
-
 ### 排他思想
 
 ```html
+
 <body>
     <button>按钮1</button>
     <button>按钮2</button>
@@ -1118,7 +1107,7 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
         var btns = document.getElementsByTagName('button');
         // btns得到的是伪数组  里面的每一个元素 btns[i]
         for (var i = 0; i < btns.length; i++) {
-            btns[i].onclick = function() {
+            btns[i].onclick = function () {
                 // (1) 我们先把所有的按钮背景颜色去掉  干掉所有人
                 for (var i = 0; i < btns.length; i++) {
                     btns[i].style.backgroundColor = '';
@@ -1138,22 +1127,23 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 > **作用**:切换tab栏
 
 - 获取元素的属性值
-  - element.属性
-  - element.getAttribute('属性')
+    - element.属性
+    - element.getAttribute('属性')
 - 设置元素属性值
-  - element.属性= '值'
-  - element.setAttribute('属性', '值')
+    - element.属性= '值'
+    - element.setAttribute('属性', '值')
   > var div = document.querySelector('div');
-  > 
+  >
   > div.className = 'navs';
-  > 
-  > div.setAttribute('class', 'footer'); // class 特殊  这里面写的就是class 不是className
+  >
+  > div.setAttribute('class', 'footer'); // class 特殊 这里面写的就是class 不是className
 - 移除属性
-  - removeAttribute(属性)
+    - removeAttribute(属性)
 
 #### H5自定义属性
 
 ```html
+
 <body>
     <div getTime="20" data-index="2" data-list-name="andy"></div>
     <script>
@@ -1174,24 +1164,23 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 </body>
 ```
 
-
 ### 节点
 
 ### 父节点 element.parentNode
 
-### 子节点 
+### 子节点
 
 > DOM 提供的方法（API）获取
 
 - element.childNodes
-    > 所有的子节点 包含 元素节点 文本节点等等
+  > 所有的子节点 包含 元素节点 文本节点等等
 
 
 - element.children
-    > 获取所有的子元素节点 实际开发常用的
+  > 获取所有的子元素节点 实际开发常用的
 
 - element.firstChild
-    > 第一个子节点 不管是文本节点还是元素节点
+  > 第一个子节点 不管是文本节点还是元素节点
 
 - element.firstElementChild
   > 返回第一个子元素节点 ie9才支持
@@ -1199,6 +1188,24 @@ var arr1 = new Array(2, 3); // 等价于 [2,3]  这样写表示 里面有2个数
 - element.children[0]
 - element.children[ol.children.length - 1]
   > 实际开发的写法,没有兼容性问题
+
+### 兄弟节点
+
+- nextSibling
+    > 下一个兄弟节点 包含元素节点或者 文本节点等等
+- nextElementSibling
+    > 得到下一个兄弟元素节点
+
+### 创建和添加节点
+
+- 创建节点元素节点
+    > var li = document.createElement('li')
+
+- 添加节点
+    > node.appendChild(child)  node 父级  child 是子级 后面追加元素 
+    
+    > node.insertBefore(child, 指定元素);
+- 
 
 
 
