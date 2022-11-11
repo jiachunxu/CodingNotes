@@ -930,15 +930,15 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 
 ### H5新增
 
-#### document.getElementsByClassName()
+### document.getElementsByClassName()
 
 > 根据类名获得某些元素集合
 
-#### document.querySelector()
+### document.querySelector()
 
 > 返回指定选择器的第一个元素对象 切记 里面的选择器需要加符号 .box #nav
 
-#### document.querySelectorAll()
+### document.querySelectorAll()
 
 > 返回指定选择器的所有元素对象集合
 
@@ -1010,7 +1010,6 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 > 表单里面的值 文字内容是通过 value 来修改的
 
 ```html
-
 <body>
     <button>按钮</button>
     <input type="text" value="输入内容">
@@ -1158,8 +1157,9 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 
 ### 事件种类
 
-|onclick|鼠标点击|
+|事件|行为|
 |---|---|
+|onclick|鼠标点击|
 |onfocus|获得焦点|
 |onblur|失去焦点|
 |onmouseover|鼠标经过|
