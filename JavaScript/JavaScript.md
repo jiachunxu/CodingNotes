@@ -950,116 +950,6 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 
 > var htmlEle = document.documentElement
 
-## 事件
-
-### 三要素
-
-- 事件源
-- 事件类型
-- 事件处理程序
-
-### 执行事件步骤
-
-- 获取事件源
-- 绑定事件 注册事件
-- 添加事件处理程序
-
-```html
-
-<body>
-    <button id="btn">唐伯虎</button>
-    <script>
-        //(1) 事件源 事件被触发的对象   谁  按钮
-        var btn = document.getElementById('btn');
-        //(2) 事件类型  如何触发 什么事件 比如鼠标点击(onclick) 还是鼠标经过 还是键盘按下
-        //(3) 事件处理程序  通过一个函数赋值的方式 完成
-        btn.onclick = function () {
-            alert('点秋香');
-        }
-    </script>
-</body>
-```
-
-### 事件种类
-
-|onclick|鼠标点击|
-|---|---|
-|onfocus|获得焦点|
-|onblur|失去焦点|
-|onmouseover|鼠标经过|
-|onmouseout|鼠标离开|
-
-### 注册事件的两种方式
-
-- 传统方式注册事件
-- 事件侦听注册事件 addEventListener
-    - 里面的事件类型是字符串 必定加引号 而且不带on
-    - 同一个元素 同一个事件可以添加多个侦听器（事件处理程序）
-- attachEvent
-  > ie9以前的版本支持
-
-```html
-
-<body>
-    <button>传统注册事件</button>
-
-    <script>
-        var btn = document.querySelector('button');
-        // 1. 传统方式注册事件
-        btn.onclick = function () {
-            alert('hi');
-        }
-        // 2.事件侦听注册事件 addEventListener 
-        btn.addEventListener('click', function () {
-            alert(22);
-        })
-
-        // 3. attachEvent ie9以前的版本支持
-        btn.attachEvent('onclick', function () {
-            alert(11);
-        })
-    </script>
-</body>
-```
-
-### 删除事件
-
-- 传统方式删除事件
-- removeEventListener 删除事件
-- detachEvent
-
-```html
-
-<body>
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-    <script>
-        var divs = document.querySelectorAll('div');
-        divs[0].onclick = function () {
-            alert(11);
-            // 1. 
-            divs[0].onclick = null;
-        }
-        // 2. removeEventListener 删除事件
-        divs[1].addEventListener('click', fn) // 里面的fn 不需要调用加小括号
-
-        function fn() {
-            alert(22);
-            divs[1].removeEventListener('click', fn);
-        }
-
-        // 3. detachEvent
-        divs[2].attachEvent('onclick', fn1);
-
-        function fn1() {
-            alert(33);
-            divs[2].detachEvent('onclick', fn1);
-        }
-    </script>
-</body>
-```
-
 ### 改变元素内容
 
 > 两个属性是可读写的 可以获取元素里面的内容
@@ -1236,7 +1126,117 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 </body>
 ```
 
-### 节点
+## 事件
+
+### 三要素
+
+- 事件源
+- 事件类型
+- 事件处理程序
+
+### 执行事件步骤
+
+- 获取事件源
+- 绑定事件 注册事件
+- 添加事件处理程序
+
+```html
+
+<body>
+    <button id="btn">唐伯虎</button>
+    <script>
+        //(1) 事件源 事件被触发的对象   谁  按钮
+        var btn = document.getElementById('btn');
+        //(2) 事件类型  如何触发 什么事件 比如鼠标点击(onclick) 还是鼠标经过 还是键盘按下
+        //(3) 事件处理程序  通过一个函数赋值的方式 完成
+        btn.onclick = function () {
+            alert('点秋香');
+        }
+    </script>
+</body>
+```
+
+### 事件种类
+
+|onclick|鼠标点击|
+|---|---|
+|onfocus|获得焦点|
+|onblur|失去焦点|
+|onmouseover|鼠标经过|
+|onmouseout|鼠标离开|
+
+### 注册事件的两种方式
+
+- 传统方式注册事件
+- 事件侦听注册事件 addEventListener
+    - 里面的事件类型是字符串 必定加引号 而且不带on
+    - 同一个元素 同一个事件可以添加多个侦听器（事件处理程序）
+- attachEvent
+  > ie9以前的版本支持
+
+```html
+
+<body>
+    <button>传统注册事件</button>
+
+    <script>
+        var btn = document.querySelector('button');
+        // 1. 传统方式注册事件
+        btn.onclick = function () {
+            alert('hi');
+        }
+        // 2.事件侦听注册事件 addEventListener 
+        btn.addEventListener('click', function () {
+            alert(22);
+        })
+
+        // 3. attachEvent ie9以前的版本支持
+        btn.attachEvent('onclick', function () {
+            alert(11);
+        })
+    </script>
+</body>
+```
+
+### 删除事件
+
+- 传统方式删除事件
+- removeEventListener 删除事件
+- detachEvent
+
+```html
+
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <script>
+        var divs = document.querySelectorAll('div');
+        divs[0].onclick = function () {
+            alert(11);
+            // 1. 
+            divs[0].onclick = null;
+        }
+        // 2. removeEventListener 删除事件
+        divs[1].addEventListener('click', fn) // 里面的fn 不需要调用加小括号
+
+        function fn() {
+            alert(22);
+            divs[1].removeEventListener('click', fn);
+        }
+
+        // 3. detachEvent
+        divs[2].attachEvent('onclick', fn1);
+
+        function fn1() {
+            alert(33);
+            divs[2].detachEvent('onclick', fn1);
+        }
+    </script>
+</body>
+```
+
+## 节点
 
 ### 父节点 element.parentNode
 
