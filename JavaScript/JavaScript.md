@@ -1010,6 +1010,7 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 > 表单里面的值 文字内容是通过 value 来修改的
 
 ```html
+
 <body>
     <button>按钮</button>
     <input type="text" value="输入内容">
@@ -1235,6 +1236,144 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
     </script>
 </body>
 ```
+
+### DOM 事件流 三个阶段
+
+> JS 代码中只能执行捕获或者冒泡其中的一个阶段。
+
+- 捕获阶段
+  > document -> html -> body -> father -> son
+
+  > 如果addEventListener 第三个参数是 true 那么则处于捕获阶段
+- 目标阶段
+
+- 冒泡阶段
+  > son -> father ->body -> html -> document
+
+  > onclick 和 attachEvent（ie） 只能得到冒泡阶段。
+
+  > 如果addEventListener 第三个参数是 false 或者 省略 那么则处于冒泡阶段
+
+```js
+//演示
+var son = document.querySelector('.son');
+son.addEventListener('click', function () {
+    alert('son');
+}, true);
+```
+
+### 事件对象
+
+```js
+//事件对象e
+var div = document.querySelector('div');
+div.onclick = function (e) {
+    // console.log(e);
+    // console.log(window.event);
+    // e = e || window.event;
+    console.log(e);
+    // div.addEventListener('click', function(e) {
+    //         console.log(e);
+
+    // })
+    // 1. event 就是一个事件对象 写到我们侦听函数的 小括号里面 当形参来看
+    // 2. 事件对象只有有了事件才会存在，它是系统给我们自动创建的，不需要我们传递参数
+    // 3. 事件对象是一系列相关数据的集合 跟事件相关的 
+    // 比如鼠标点击里面就包含了鼠标的相关信息，鼠标坐标啊，
+    // 如果是键盘事件里面就包含的键盘事件的信息 比如 判断用户按下了那个键
+    // 4. 事件对象可以自己命名 比如 event 、 evt、 e
+    // 5. 事件对象也有兼容性问题 ie678 通过 window.event 兼容性的写法  e = e || window.event;
+
+    // 了解兼容性
+    // div.onclick = function(e) {
+    //     e = e || window.event;
+    //     var target = e.target || e.srcElement;
+    //     console.log(target);
+
+    // this 有个非常相似的属性 currentTarget  ie678不认识
+}
+```
+
+> e.target 返回的是触发事件的对象（元素）
+
+> this 返回的是绑定事件的对象（元素）
+
+#### 事件对象阻止默认行为
+
+- e.preventDefault()
+  > dom 标准写法
+- e.returnValue 属性
+  > 低版本浏览器 ie678
+- return false;
+  > 没有兼容性问题 特点： return 后面的代码不执行了， 而且只限于传统的注册方式
+
+#### 阻止事件冒泡
+
+- e.stopPropagation()
+  > dom 推荐的标准 - - stop 停止 Propagation 传播
+- e.cancelBubble = true
+  > 非标准
+
+#### 事件委托
+
+> 事件委托的核心原理：给父节点添加侦听器， 利用事件冒泡影响每一个子节点
+
+```js
+<ul>
+    <li>知否知否，点我应有弹框在手！</li>
+    <li>知否知否，点我应有弹框在手！</li>
+</ul>
+
+var ul = document.querySelector('ul');
+ul.addEventListener('click', function (e) {
+    // alert('知否知否，点我应有弹框在手！');
+    // e.target 这个可以得到我们点击的对象
+    e.target.style.backgroundColor = 'pink';
+})
+```
+
+#### 常见鼠标事件
+
+- contextmenu
+- selectstart
+
+```js
+ // 1. contextmenu 我们可以禁用右键菜单
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+})
+// 2. 禁止选中文字 selectstart
+document.addEventListener('selectstart', function (e) {
+    e.preventDefault();
+
+})
+```
+
+#### 鼠标事件对象 MouseEvent
+
+- client
+  > 鼠标在可视区的x和y坐标
+
+    ```js
+    console.log(e.clientX);
+    console.log(e.clientY);
+    ```
+
+- page
+  > 鼠标在页面文档的x和y坐标
+
+    ```js
+    console.log(e.pageX);
+    console.log(e.pageY);
+    ```
+
+- screen
+  > 鼠标在电脑屏幕的x和y坐标
+
+    ```js
+    console.log(e.screenX);
+    console.log(e.screenY);
+    ```
 
 ## 节点
 
