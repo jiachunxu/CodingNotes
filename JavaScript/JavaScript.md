@@ -1165,6 +1165,10 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 |onblur|失去焦点|
 |onmouseover|鼠标经过|
 |onmouseout|鼠标离开|
+|keyup|按键弹起|
+|keydown|按键按下(识别功能键)|
+|keypress|按键按下(不能识别功能键)|
+
 
 ### 注册事件的两种方式
 
@@ -1374,6 +1378,26 @@ document.addEventListener('selectstart', function (e) {
     console.log(e.screenX);
     console.log(e.screenY);
     ```
+#### 常用键盘事件
+> 三个事件的执行顺序  keydown -- keypress -- keyup
+- keyup
+    > 事件不区分字母大小写
+- keydown
+    > 能识别功能键
+     
+    > 事件不区分字母大小写 
+
+- keypress
+    > 不能识别功能键
+    
+    > 区分字母大小写     
+---
+> e.keyCode 
+
+> 键盘事件对象中的keyCode属性可以得到相应键的ASCII码值
+
+> 利用keycode返回的ASCII码值来判断用户按下了那个键
+
 
 ## 节点
 
@@ -1438,9 +1462,13 @@ document.addEventListener('selectstart', function (e) {
 
 - document.createElement()
 
+
+
+----
+
 ## BOM
 
-
+> BOM顶级对象window
 
 
 
