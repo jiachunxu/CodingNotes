@@ -130,3 +130,5 @@ $('#btnJSONP').on('click', function () {
     })
 })
 ```
+
+# nginx反向代理
