@@ -963,18 +963,18 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 ```html
 
 <body>
-    <div></div>
-    <p>
-        我是文字
-        <span>123</span>
-    </p>
-    <script>
-        var div = document.querySelector('div');
-        div.innerHTML = '<strong>今天是：</strong> 2019';
-        var p = document.querySelector('p');
-        console.log(p.innerText);
-        console.log(p.innerHTML);
-    </script>
+  <div></div>
+  <p>
+    我是文字
+    <span>123</span>
+  </p>
+  <script>
+    let div = document.querySelector('div');
+    div.innerHTML = '<strong>今天是：</strong> 2019';
+    let p = document.querySelector('p');
+    console.log(p.innerText);
+    console.log(p.innerHTML);
+  </script>
 </body>
 ```
 
@@ -983,25 +983,25 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 ```html
 
 <body>
-    <button id="ldh">刘德华</button>
-    <button id="zxy">张学友</button>
-    <br>
-    <img src="images/ldh.jpg" alt="" title="刘德华">
+  <button id="ldh">刘德华</button>
+  <button id="zxy">张学友</button>
+  <br>
+  <img src="images/ldh.jpg" alt="" title="刘德华">
 
-    <script>
-        // 修改元素属性  src
-        var ldh = document.getElementById('ldh');
-        var zxy = document.getElementById('zxy');
-        var img = document.querySelector('img');
-        zxy.onclick = function () {
-            img.src = 'images/zxy.jpg';
-            img.title = '张学友思密达';
-        }
-        ldh.onclick = function () {
-            img.src = 'images/ldh.jpg';
-            img.title = '刘德华';
-        }
-    </script>
+  <script>
+    // 修改元素属性  src
+    let ldh = document.getElementById('ldh');
+    let zxy = document.getElementById('zxy');
+    let img = document.querySelector('img');
+    zxy.onclick = function () {
+      img.src = 'images/zxy.jpg';
+      img.title = '张学友思密达';
+    }
+    ldh.onclick = function () {
+      img.src = 'images/ldh.jpg';
+      img.title = '刘德华';
+    }
+  </script>
 </body>
 ```
 
@@ -1012,20 +1012,20 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 ```html
 
 <body>
-    <button>按钮</button>
-    <input type="text" value="输入内容">
-    <script>
-        var btn = document.querySelector('button');
-        var input = document.querySelector('input');
-        btn.onclick = function () {
-            // 表单里面的值 文字内容是通过 value 来修改的
-            input.value = '被点击了';
-            // button禁用
-            // btn.disabled = true;
-            this.disabled = true;
-            // this 指向的是事件函数的调用者 btn
-        }
-    </script>
+  <button>按钮</button>
+  <input type="text" value="输入内容">
+  <script>
+    let btn = document.querySelector('button');
+    let input = document.querySelector('input');
+    btn.onclick = function () {
+      // 表单里面的值 文字内容是通过 value 来修改的
+      input.value = '被点击了';
+      // button禁用
+      // btn.disabled = true;
+      this.disabled = true;
+      // this 指向的是事件函数的调用者 btn
+    }
+  </script>
 </body>
 ```
 
@@ -1040,7 +1040,7 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 <body>
     <div></div>
     <script>
-        var div = document.querySelector('div');
+        let div = document.querySelector('div');
         div.onclick = function () {
             // div.style里面的属性 采取驼峰命名法 
             this.style.backgroundColor = 'purple';
@@ -1066,12 +1066,12 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
     <button>按钮3</button>
     <script>
         // 1. 获取所有按钮元素
-        var btns = document.getElementsByTagName('button');
+        let btns = document.getElementsByTagName('button');
         // btns得到的是伪数组  里面的每一个元素 btns[i]
-        for (var i = 0; i < btns.length; i++) {
+        for (let i = 0; i < btns.length; i++) {
             btns[i].onclick = function () {
                 // (1) 我们先把所有的按钮背景颜色去掉  干掉所有人
-                for (var i = 0; i < btns.length; i++) {
+                for (let i = 0; i < btns.length; i++) {
                     btns[i].style.backgroundColor = '';
                 }
                 // (2) 然后才让当前的元素背景颜色为pink 留下我自己
@@ -1109,7 +1109,7 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 <body>
     <div getTime="20" data-index="2" data-list-name="andy"></div>
     <script>
-        var div = document.querySelector('div');
+        let div = document.querySelector('div');
         console.log(div.getAttribute('getTime'));
         div.setAttribute('data-time', 20);
         console.log(div.getAttribute('data-index'));
@@ -1146,7 +1146,7 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
     <button id="btn">唐伯虎</button>
     <script>
         //(1) 事件源 事件被触发的对象   谁  按钮
-        var btn = document.getElementById('btn');
+        let btn = document.getElementById('btn');
         //(2) 事件类型  如何触发 什么事件 比如鼠标点击(onclick) 还是鼠标经过 还是键盘按下
         //(3) 事件处理程序  通过一个函数赋值的方式 完成
         btn.onclick = function () {
@@ -1185,7 +1185,7 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
     <button>传统注册事件</button>
 
     <script>
-        var btn = document.querySelector('button');
+        let btn = document.querySelector('button');
         // 1. 传统方式注册事件
         btn.onclick = function () {
             alert('hi');
@@ -1216,7 +1216,7 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
     <div>2</div>
     <div>3</div>
     <script>
-        var divs = document.querySelectorAll('div');
+        let divs = document.querySelectorAll('div');
         divs[0].onclick = function () {
             alert(11);
             // 1. 
@@ -1260,7 +1260,7 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 
 ```js
 //演示
-var son = document.querySelector('.son');
+let son = document.querySelector('.son');
 son.addEventListener('click', function () {
     alert('son');
 }, true);
@@ -1270,7 +1270,7 @@ son.addEventListener('click', function () {
 
 ```js
 //事件对象e
-var div = document.querySelector('div');
+let div = document.querySelector('div');
 div.onclick = function (e) {
     // console.log(e);
     // console.log(window.event);
