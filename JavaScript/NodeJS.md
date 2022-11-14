@@ -881,17 +881,56 @@ app.listen(80, function () {
 
 ## CORS 跨域资源共享
 
-
 > 解决接口跨域问题的方案主要有两种：
 > - ① CORS（主流的解决方案，推荐使用）
 > - ② JSONP（有缺陷的解决方案：只支持 GET 请求）
 
 ### 使用 cors 中间件解决跨域问题
+
 > cors 是 Express 的一个第三方中间件。通过安装和配置 cors 中间件，可以很方便地解决跨域问题。
 
 > - ① 运行 npm install cors 安装中间件
 > - ② 使用 const cors = require('cors') 导入中间件
 > - ③ 在路由之前调用 app.use(cors()) 配置中间件
+
+## 什么是 CORS
+
+> CORS （Cross-Origin Resource Sharing，跨域资源共享）由一系列 HTTP 响应头组成，这些 HTTP 响应头决定浏览器是否阻止前端 JS 代码跨域获取资源。
+
+> 浏览器的同源安全策略默认会阻止网页“跨域”获取资源。但如果**接口服务器配置了 CORS 相关的 HTTP 响应头**，就可以解除浏览器端的跨域访问限制。
+
+### CORS 的注意事项
+
+- ① CORS 主要在服务器端进行配置。客户端浏览器无须做任何额外的配置，即可请求开启了 CORS 的接口。
+- ② CORS 在浏览器中有兼容性。只有支持 XMLHttpRequest Level2 的浏览器，才能正常访问开启了 CORS 的服务端接口（例如：IE10+、Chrome4+、FireFox3.5+）。
+
+### CORS 响应头部 - Access-Control-Allow-Origin
+
+```
+Access-Control-Allow-Origin: <origin> | *
+
+ 其中，origin 参数的值指定了允许访问该资源的外域 URL。
+ * 表示允许来自任何域的请求
+ 
+下面的字段值将只允许来自 http://itcast.cn 的请求	 
+res.setHeader('Access-Control-Allow-Origin', 'http:/litcast.cn')
+```
+
+###           
+
+###           
+
+###           
+
+###           
+
+
+
+
+
+
+
+
 
 
 
