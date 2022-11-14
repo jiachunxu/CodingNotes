@@ -693,13 +693,13 @@ const mw = function (req, res, next) {
 > 通过调用 app.use(中间件函数)，即可定义一个全局生效的中间件
 
 ```js
-// // 定义一个最简单的中间件函数
-// const mw = function (req, res, next) {
-//   console.log('这是最简单的中间件函数')
-//   // 把流转关系，转交给下一个中间件或路由
-//   next()
-// }
+// 定义一个最简单的中间件函数
+const mw = function (req, res, next) {
+    console.log('这是最简单的中间件函数')
+    // 把流转关系，转交给下一个中间件或路由
+    next()
+}
 
-// // 将 mw 注册为全局生效的中间件
-// app.use(mw)
+// 将 mw 注册为全局生效的中间件
+app.use(mw)
 ```
