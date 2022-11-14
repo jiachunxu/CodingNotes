@@ -4,12 +4,14 @@
 
 > 浏览器的同源安全策略默认会阻止网页“跨域”获取资源。但如果**接口服务器配置了 CORS 相关的 HTTP 响应头**，就可以解除浏览器端的跨域访问限制。
 
-### CORS 的注意事项
+## CORS 的注意事项
 
 - ① CORS 主要在服务器端进行配置。客户端浏览器无须做任何额外的配置，即可请求开启了 CORS 的接口。
 - ② CORS 在浏览器中有兼容性。只有支持 XMLHttpRequest Level2 的浏览器，才能正常访问开启了 CORS 的服务端接口（例如：IE10+、Chrome4+、FireFox3.5+）。
 
-### CORS 响应头部 - Access-Control-Allow-Origin
+
+## CORS 响应头
+### Access-Control-Allow-Origin
 
 ```
 Access-Control-Allow-Origin: <origin> | *
@@ -21,7 +23,7 @@ Access-Control-Allow-Origin: <origin> | *
 res.setHeader('Access-Control-Allow-Origin', 'http:/litcast.cn')
 ```
 
-### CORS 响应头部 - Access-Control-Allow-Headers
+### Access-Control-Allow-Headers
 
 > 默认情况下，CORS 仅支持客户端向服务器发送如下的 9 个请求头：
 >
@@ -35,7 +37,7 @@ res.setHeader('Access-Control-Allow-Origin', 'http:/litcast.cn')
 res.setHeader('Access-Control-Allow-Headers' ,Content-Type，X-Custom-Header')
 ```
 
-### CORS 响应头部 - Access-Control-Allow-Methods
+### Access-Control-Allow-Methods
 
 > 默认情况下，CORS 仅支持客户端发起 GET、POST、HEAD 请求。
 
