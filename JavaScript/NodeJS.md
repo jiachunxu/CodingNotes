@@ -254,28 +254,16 @@ server.listen(80, () => {
 
 > 里面存储了和当前模块有关的信息
 
-```js
-Module
-{
-    id: '.',
-        path
-:
-    '路径(不包括文件名)',
-        exports
-:
-    {
-    }
-,
-    filename: '全路径名',
-        loaded
-:
-    false,
-        children
-:
-    [],
-        paths
-:
-    []
+```
+Module{
+  id: '.',
+  path: '路径(不包括文件名)',
+  exports: {
+  },
+  filename: '全路径名',
+  loaded: false,
+  children: [],
+  paths: []
 }
 ```
 
@@ -309,7 +297,6 @@ Module
 
 [下载地址](https://registry.npmjs.org/)
 
-
 	//npm 版本
 	npm -v
 	
@@ -319,7 +306,6 @@ Module
 	npm i 包名称
 	// 安装指定版本的包, 通过 @ 符号指定具体的版本
 	npm i moment @2.22.2
-
 
 ### 初次装包
 
@@ -349,7 +335,6 @@ Module
 > **注意**：今后在项目开发中，一定要把 node_modules 文件夹，添加到 .gitignore 忽略文件中
 
 #### 快速创建 package.json
-
 
 `npm init -y`
 
