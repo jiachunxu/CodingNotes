@@ -934,7 +934,7 @@ res.setHeader('Access-Control-Allow-Headers' ,Content-Type，X-Custom-Header')
 
 > 默认情况下，CORS 仅支持客户端发起 GET、POST、HEAD 请求。
 
-> 如果客户端希望通过 PUT、DELETE 等方式请求服务器的资源，则需要在服务器端，通过 Access-Control-Alow-Methods来指明实际请求所允许使用的 HTTP 方法。
+> 如果客户端希望通过 PUT、DELETE 等方式请求服务器的资源，则需要在服务器端，通过 Access-Control-Allow-Methods来指明实际请求所允许使用的 HTTP 方法。
 
 ```
 //只允许POST、GET、DELETE、HEAD请求方法
@@ -1007,6 +1007,23 @@ app.get('/api/jsonp', (req, res) => {
 })
 ```
 
+## 在网页中使用 jQuery 发起 JSONP 请求
+
+> 调用 $.ajax() 函数，提供 JSONP 的配置选项，从而发起 JSONP 请求
+
+
+```js
+$('#btnJSONP').on('click', function () {
+    $.ajax({
+        method: 'GET',
+        url: "http:/ /127.0.0.1/api/jsonp'，
+        dataType: 'jsonp ',// 表示要发起JSONP的请求success
+        success: function (res) {
+            console.log(res)
+        }
+    })
+})
+```
 
 
 
