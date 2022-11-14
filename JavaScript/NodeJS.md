@@ -568,3 +568,115 @@ app.get('/user/:ids/:username', (req, res) => {
     res.send(req.params)
 })
 ```
+
+## 托管静态资源
+
+> express.static()
+
+> 通过如下代码就可以将 public 目录下的图片、CSS 文件
+
+```js
+app.use(express.static('public'))
+```
+
+> **注意**：Express 在指定的静态目录中查找文件，并对外提供资源的访问路径。因此，存放静态文件的目录名不会出现在 URL 中。
+
+### 托管多个静态资源目录
+
+> 托管多个静态资源目录,请多次调用 express.static() 函数
+>
+> 访问静态资源文件时，express.static() 函数会根据目录的添加顺序查找所需的文件。
+
+## nodemon
+
+[nodemon官网](https://www.npmjs.com/package/nodemon)
+> 当代码被修改后，nodemon 会自动帮我们重启项目，极大方便了开发和调试。
+
+### 安装nodemon
+
+`npm install -g nodemon`
+
+### 使用 nodemon
+
+`nodemon app.js`
+
+## Express 路由
+
+> 在 Express 中，路由指的是客户端的请求与服务器处理函数之间的映射关系。
+
+`app.METHOD(PATH，HANDLER)`
+
+> 路由匹配的注意点：
+> - ① 按照定义的先后顺序进行匹配
+> - ② 请求类型和请求的URL同时匹配成功，才会调用对应的处理函数
+
+### 简单路由
+
+```js
+const express = require('express')
+const app = express()
+
+// 挂载路由
+app.get('/', (req, res) => {
+    res.send('hello world.')
+})
+app.post('/', (req, res) => {
+    res.send('Post Request.')
+})
+
+app.listen(80, () => {
+    console.log('http://127.0.0.1')
+})
+```
+
+### 模块化路由
+
+> 为了方便对路由进行模块化的管理，Express 不建议将路由直接挂载到 app 上，推荐将路由抽离为单独的模块。
+>
+> - ① 创建路由模块对应的 .js 文件
+> - ② 调用 express.Router() 函数创建路由对象
+> - ③ 向路由对象上挂载具体的路由
+> - ④ 使用 module.exports 向外共享路由对象
+> - ⑤ 使用 app.use() 函数注册路由模块
+
+```js
+//这是路由模块
+// 1. 导入 express
+const express = require('express')
+// 2. 创建路由对象
+const router = express.Router()
+// 3. 挂载具体的路由
+router.get('/user/list', (req, res) => {
+    res.send('Get user list.')
+})
+router.post('/user/add', (req, res) => {
+    res.send('Add new user.')
+})
+// 4. 向外导出路由对象
+module.exports = router
+```
+
+```js
+const express = require('express')
+const app = express()
+
+// app.use('/files', express.static('./files'))
+
+// 1. 导入路由模块
+const router = require('./03.router')
+// 2. 注册路由模块
+app.use('/api', router)
+// 注意： app.use() 函数的作用，就是来注册全局中间件
+app.listen(80, () => {
+    console.log('http://127.0.0.1')
+})
+```
+
+
+
+
+
+
+
+
+
