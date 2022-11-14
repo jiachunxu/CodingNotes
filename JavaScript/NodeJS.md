@@ -943,27 +943,29 @@ res.setHeader('Access-Control-Allow-Methods','POST，GET，DELETE，HEAD')
 res.setHeader('Access-Control-Allow-Methods', '*')
 ```
 
-##  CORS请求的分类
+## CORS请求的分类
+
 - ① 简单请求
 - ② 预检请求
 
 ### 简单请求
-> 同时满足以下两大条件的请求，就属于简单请求
-- ① 请求方式：GET、POST、HEAD 三者之一
-- ② HTTP 头部信息不超过以下几种字段：无自定义头部字段、Accept、Accept-Language、Content-Language、DPR、
-  Downlink、Save-Data、Viewport-Width、Width 、Content-Type（只有三个值application/x-www-form-
-  urlencoded、multipart/form-data、text/plain）
 
-### 预检请求            
+> 同时满足以下两大条件的请求，就属于简单请求
+
+- ① 请求方式：GET、POST、HEAD 三者之一
+- ② HTTP 头部信息不超过以下几种字段：无自定义头部字段、Accept、Accept-Language、Content-Language、DPR、 Downlink、Save-Data、Viewport-Width、Width
+  、Content-Type（只有三个值application/x-www-form- urlencoded、multipart/form-data、text/plain）
+
+### 预检请求
+
 > 只要符合以下任何一个条件的请求，都需要进行预检请求
 
 - ① 请求方式为 GET、POST、HEAD 之外的请求 Method 类型
 - ② 请求头中包含自定义头部字段
 - ③ 向服务器发送了 application/json 格式的数据
 
-
 > 在浏览器与服务器正式通信之前，浏览器会先发送 OPTION 请求进行预检，以获知服务器是否允许该实际请求，所以这一次的 OPTION 请求称为“预检请求”。
-> 
+>
 > 服务器成功响应预检请求后，才会发送真正的请求，并且携带真实数据。
 
 ### 简单请求和预检请求的区别
@@ -981,6 +983,7 @@ res.setHeader('Access-Control-Allow-Methods', '*')
 > - ② JSONP 仅支持 GET 请求，不支持 POST、PUT、DELETE 等请求。
 
 ## JSONP 注意事项
+
 > 如果项目中已经配置了 CORS 跨域资源共享，为了防止冲突，必须在配置 CORS 中间件之前声明 JSONP 的接口。否则JSONP 接口会被处理成开启了 CORS 的接口。
 
 ## 实现 JSONP 接口的步骤
@@ -990,7 +993,19 @@ res.setHeader('Access-Control-Allow-Methods', '*')
 - ③ 根据前两步得到的数据，拼接出一个函数调用的字符串
 - ④ 把上一步拼接得到的字符串，响应给客户端的 <script> 标签进行解析执行
 
+```js
+app.get('/api/jsonp', (req, res) => {
 
+    // 1．获取客户端发送过来的回调函数的名字const
+    funcName = req.query.callback1l
+    // 2．得到要通过JSONP形式发送给客户端的数据const
+    data = {name: 'zs', age: 22}
+    // 3．根据前两步得到的数据，拼接出一个函数调用的字符串
+    const scriptstr = `${funcName}(${JSON.stringify(data)})`
+    // 4．把上一步拼接得到的字符串，响应给客户端的 < script > 标签进行解析执行
+    res.send(scriptstr)
+})
+```
 
 
 
