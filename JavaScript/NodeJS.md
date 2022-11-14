@@ -659,9 +659,6 @@ module.exports = router
 ```js
 const express = require('express')
 const app = express()
-
-// app.use('/files', express.static('./files'))
-
 // 1. 导入路由模块
 const router = require('./03.router')
 // 2. 注册路由模块
@@ -672,11 +669,37 @@ app.listen(80, () => {
 })
 ```
 
+## 什么是Express 中间件
 
+> 中间件（Middleware ），特指业务流程的中间处理环节
 
+> Express 的中间件，本质上就是一个 function 处理函数
 
+> **注意**：中间件函数的形参列表中，必须包含 next 参数。而路由处理函数中只包含 req 和 res。
 
+```js
+const mw = function (req, res, next) {
+    //中间逻辑
+    next();
+}
+```
 
+### next 函数的作用
 
+> next 函数是实现多个中间件连续调用的关键，它表示把流转关系转交给下一个中间件或路由
 
+### 全局生效的中间件
 
+> 通过调用 app.use(中间件函数)，即可定义一个全局生效的中间件
+
+```js
+// // 定义一个最简单的中间件函数
+// const mw = function (req, res, next) {
+//   console.log('这是最简单的中间件函数')
+//   // 把流转关系，转交给下一个中间件或路由
+//   next()
+// }
+
+// // 将 mw 注册为全局生效的中间件
+// app.use(mw)
+```
