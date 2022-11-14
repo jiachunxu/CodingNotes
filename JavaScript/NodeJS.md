@@ -309,25 +309,17 @@ Module
 
 [下载地址](https://registry.npmjs.org/)
 
-```js
-//npm 版本
-npm - v
 
-//npm安装包命令
-npm
-install
-包名称
-//简写
-npm
-i
-包名称
-// 安装指定版本的包, 通过 @ 符号指定具体的版本
-npm
-i
-moment
-@2.22
-.2
-```  
+	//npm 版本
+	npm -v
+	
+	//npm安装包命令
+	npm install 包名称
+	//简写
+	npm i 包名称
+	// 安装指定版本的包, 通过 @ 符号指定具体的版本
+	npm i moment @2.22.2
+
 
 ### 初次装包
 
@@ -358,10 +350,9 @@ moment
 
 #### 快速创建 package.json
 
-```js
-npm
-init - y 
-```
+
+`npm init -y`
+
 
 > 注意：
 > - 上述命令只能在英文的目录下成功运行！所以，项目文件夹的名称一定要使用英文命名，不要使用中文，不能出现空格。
@@ -374,6 +365,7 @@ init - y
 #### 一次性安装所有的包
 
 `npm install`
+
 `npm i`
 
 #### 卸载包
