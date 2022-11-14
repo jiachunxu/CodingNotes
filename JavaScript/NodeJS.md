@@ -1016,7 +1016,7 @@ $('#btnJSONP').on('click', function () {
     $.ajax({
         method: 'GET',
         url: "http:/ /127.0.0.1/api/jsonp'，
-        dataType: 'jsonp ',// 表示要发起JSONP的请求success
+        dataType: 'jsonp',// 表示要发起JSONP的请求success
         success: function (res) {
             console.log(res)
         }
