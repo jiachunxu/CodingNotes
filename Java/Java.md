@@ -1349,26 +1349,296 @@ public class TestOuter {
 
 【4】在JDK1.7以后，异常新处理方式：可以并列用|符号连接：
 
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221116215154.png)
+
+
+### 异常的分类
+
+- Object
+  - Throwable
+    - Error
+    - Exception
+      - 检查异常
+        - IllegalAccessException
+        - ClassNotFoundException
+        - InstantiationException
+      - 运行时异常
+        - NullPinterException
+        - ArraylndexOutOfBoundsException
 
 
 
 
 
+### throw 和 throws 的区别
+
+- 位置不同：
+  - throw：方法内部
+  - throws: 方法的签名处，方法的声明处
+
+- 内容不同：
+  - throw+异常对象（检查异常，运行时异常）
+  - throws+异常的类型（可以多个类型，用，拼接）
+
+- 作用不同：
+  - throw：异常出现的源头，制造异常。
+  - throws:在方法的声明处，告诉方法的调用者，这个方法中可能会出现我声明的这些异常。
 
 
+### 重载和重写的异常
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221116221016.png)
 
 
+### 自定义异常
+- 自定义的异常可以继承：运行时异常
+
+> 如果继承的是运行时异常，那么在使用的时候无需额外处理
+```java
+public class MyException extends RuntimeException {
+    
+    static final long serialVersionUID = -70348971907L;
+    
+    public MyException(){
+    }
+    public MyException(String msg){
+        super(msg);
+    }
+}
+```
+
+- 也可以继承检查异常：
+
+> 如果继承的是检查异常，那么使用的时候需要try-catch捕获或者throws向上抛
+
+```java
+public class MyException extends Exception {
+    static final long serialVersionUID = -70348971907L;
+    public MyException(){
+    }
+    public MyException(String msg){
+        super(msg);
+    }
+}
+
+```
 
 
+## 常用类
+
+### 包装类
+- 自动装箱  自动拆箱 是从JDK1.5以后新出的特性
+- 自动装箱  自动拆箱 ：将基本数据类型和包装类进行快速的类型转换。
 
 
+### 日期相关类
+
+#### java.util.Date
+
+```java
+//java.util.Date:
+Date d = new Date();
+System.out.println(d.toGMTString());//过期方法，过时方法，废弃方法。
+System.out.println(d.toLocaleString());
+System.out.println(d.getYear());//120+1900=2020
+System.out.println(d.getMonth());//5 :返回的值在 0 和 11 之间，值 0 表示 1 月。
+//返回自 1970 年 1 月 1 日 00:00:00 GMT 以来此 Date 对象表示的毫秒数。
+System.out.println(d.getTime());//1592055964263
+System.out.println(System.currentTimeMillis());
+/*
+（1）疑问：以后获取时间差用：getTime()还是currentTimeMillis()
+答案：currentTimeMillis()-->因为这个方法是静态的，可以类名.方法名直接调用
+（2）public static native long currentTimeMillis();
+本地方法
+为什么没有方法体？因为这个方法的具体实现不是通过java写的。
+（3）这个方法的作用：
+一般会去衡量一些算法所用的时间
+ */
+```
+
+#### java.sql.Date
+
+```java
+//java.sql.Date:
+Date d = new Date(1592055964263L);
+System.out.println(d);
+/*
+(1)java.sql.Date和java.util.Date的区别：
+java.util.Date：年月日  时分秒
+java.sql.Date：年月日
+(2)java.sql.Date和java.util.Date的联系：
+java.sql.Date(子类) extends java.util.Date （父类）
+ */
+//java.sql.Date和java.util.Date相互转换：
+//【1】util--->sql:
+java.util.Date date = new Date(1592055964263L);//创建util.Date的对象
+//方式1：向下转型
+Date date1 = (Date) date;
+/*
+父类：Animal 子类：Dog
+Animal an = new Dog();
+Dog d = (Dog)an;
+ */
+//方式2：利用构造器
+Date date2 = new Date(date.getTime());
+//【2】sql-->util:
+java.util.Date date3 = d;
+//[3]String--->sql.Date:
+Date date4 =  Date.valueOf("2019-3-8");
+```
 
 
+#### SimpleDateFormat
+
+- String---java.util.Date 类型转换
+> 
+> 分解：
+> - String--->java.sql.Date
+> - java.sql.Date--->java.util.Date
+
+```java
+//（1）String--->java.sql.Date
+java.sql.Date date = java.sql.Date.valueOf("2015-9-24");
+//（2）java.sql.Date--->java.util.Date
+java.util.Date date2 = date;
+System.out.println(date2.toString());
+```
+> 字符串的格式只能是年-月-日拼接的形式，换成其它类型，就会出现异常
+
+- 引入 SimpleDateFormat
+```java
+//日期转换：
+//SimpleDateFormat(子类) extends DateFormat（父类是一个抽象类）
+//格式化的标准已经定义好了：
+DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//String--->Date
+try {
+	Date d = df.parse("2019-4-6 12:23:54");
+	System.out.println(d);
+} catch (ParseException e) {
+	e.printStackTrace();
+}
+//Date--->String
+String format = df.format(new Date());
+System.out.println(format);
+Date date = new Date();
+```
+
+![日期格式](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221116223043.png)
 
 
+#### Calendar
+
+```java
+//Calendar是一个抽象类，不可以直接创建对象
+//GregorianCalendar()子类 extends Calendar（父类是一个抽象类）
+Calendar cal = new GregorianCalendar();
+Calendar cal2 = Calendar.getInstance();
+System.out.println(cal);
+//常用的方法：
+// get方法，传入参数：Calendar中定义的常量
+System.out.println(cal.get(Calendar.YEAR));
+System.out.println(cal.get(Calendar.MONTH));
+System.out.println(cal.get(Calendar.DATE));
+System.out.println(cal.get(Calendar.DAY_OF_WEEK));
+System.out.println(cal.getActualMaximum(Calendar.DATE));//获取当月日期的最大天数
+System.out.println(cal.getActualMinimum(Calendar.DATE));//获取当月日期的最小天数
+// set方法：可以改变Calendar中的内容
+cal.set(Calendar.YEAR,1990);
+cal.set(Calendar.MONTH,3);
+cal.set(Calendar.DATE,16);
+System.out.println(cal);
+//String--->Calendar:
+//分解：
+//String--->java.sql.Date:
+java.sql.Date date = java.sql.Date.valueOf("2020-4-5");
+//java.sql.Date-->Calendar:
+cal.setTime(date);
+System.out.println(cal);
+```
+
+#### LocalDate/LocalTime/LocalDateTime JDK1.8新增
+
+```java
+//1.完成实例化：
+//方法1：now()--获取当前的日期，时间，日期+时间
+LocalDate localDate = LocalDate.now();
+System.out.println(localDate);
+LocalTime localTime = LocalTime.now();
+System.out.println(localTime);
+LocalDateTime localDateTime = LocalDateTime.now();
+System.out.println(localDateTime);
+//方法2：of()--设置指定的日期，时间，日期+时间
+LocalDate of = LocalDate.of(2010, 5, 6);
+System.out.println(of);
+LocalTime of1 = LocalTime.of(12, 35, 56);
+System.out.println(of1);
+LocalDateTime of2 = LocalDateTime.of(1890, 12, 23, 13, 24, 15);
+System.out.println(of2);
+//LocalDate,LocalTime用的不如LocalDateTime多
+//下面讲解用LocalDateTime：
+//一些列常用的get***
+System.out.println(localDateTime.getYear());//2020
+System.out.println(localDateTime.getMonth());//JUNE
+System.out.println(localDateTime.getMonthValue());//6
+System.out.println(localDateTime.getDayOfMonth());//14
+System.out.println(localDateTime.getDayOfWeek());//SUNDAY
+System.out.println(localDateTime.getHour());//22
+System.out.println(localDateTime.getMinute());//22
+System.out.println(localDateTime.getSecond());//6
+//不是set方法，叫with
+//体会：不可变性
+LocalDateTime localDateTime2 = localDateTime.withMonth(8);
+System.out.println(localDateTime);
+System.out.println(localDateTime2);
+//提供了加减的操作：
+//加：
+LocalDateTime localDateTime1 = localDateTime.plusMonths(4);
+System.out.println(localDateTime);
+System.out.println(localDateTime1);
+//减：
+LocalDateTime localDateTime3 = localDateTime.minusMonths(5);
+System.out.println(localDateTime);
+System.out.println(localDateTime3);
+```
 
 
+#### DateTimeFormatter
 
+```java
+//格式化类：DateTimeFormatter
+//方式一:预定义的标准格式。如: ISO_LOCAL_DATE_TIME;ISO_LOCAL_DATE;IS0_LOCAL_TIME
+DateTimeFormatter df1 = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+//df1就可以帮我们完成LocalDateTime和String之间的相互转换：
+//LocalDateTime-->String:
+LocalDateTime now = LocalDateTime.now();
+String str = df1.format(now);
+System.out.println(str);//2020-06-15T15:02:51.29
+//String--->LocalDateTime
+TemporalAccessor parse = df1.parse("2020-06-15T15:02:51.29");
+System.out.println(parse);
+//方式二:本地化相关的格式。如: oflocalizedDateTime()
+//参数：FormatStyle.LONG / FormatStyle.MEDIUM / FormatStyle.SHORT
+//FormatStyle.LONG :2020年6月15日 下午03时17分13秒
+//FormatStyle.MEDIUM: 2020-6-15 15:17:42
+//FormatStyle.SHORT:20-6-15 下午3:18
+DateTimeFormatter df2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+//LocalDateTime-->String:
+LocalDateTime now1 = LocalDateTime.now();
+String str2 = df2.format(now1);
+System.out.println(str2);
+//String--->LocalDateTime
+TemporalAccessor parse1 = df2.parse("20-6-15 下午3:18");
+System.out.println(parse1);
+//方式三: 自定义的格式。如: ofPattern( "yyyy-MM-dd hh:mm:ss") ---》重点，以后常用
+DateTimeFormatter df3 = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+//LocalDateTime-->String:
+LocalDateTime now2 = LocalDateTime.now();
+String format = df3.format(now2);
+System.out.println(format);//2020-06-15 03:22:03
+//String--->LocalDateTime
+TemporalAccessor parse2 = df3.parse("2020-06-15 03:22:03");
+System.out.println(parse2);
+```
 
 
 
