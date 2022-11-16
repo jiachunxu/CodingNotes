@@ -1468,35 +1468,258 @@ document.addEventListener('selectstart', function (e) {
 
 > BOM顶级对象window
 
+### window常见事件
 
+#### onload
 
+> load 等页面内容全部加载完毕，包含页面dom元素 图片 flash  css 等等
 
+> DOMContentLoaded 是DOM 加载完毕，不包含图片 flash css 等就可以执行 加载速度比 load更快一些
 
+```js
+window.addEventListener('load', function () {
+    var btn = document.querySelector('button');
+    btn.addEventListener('click', function () {
+        alert('点击我');
+    })
+})
+window.addEventListener('load', function () {
 
+    alert(22);
+})
+document.addEventListener('DOMContentLoaded', function () {
+    alert(33);
+})
+```
 
+#### resize
 
+> 调整窗口大小事件
 
+```js
+window.addEventListener('resize', function () {
+    console.log(window.innerWidth);
+    console.log('变化了');
+    if (window.innerWidth <= 800) {
+        div.style.display = 'none';
+    } else {
+        div.style.display = 'block';
+    }
+})
+```
 
+### 定时器
 
+#### setTimeout
 
+> 语法规范： window.setTimeout(调用函数, 延时时间);
 
+- window在调用的时候可以省略
+- 延时时间单位是毫秒(ms) 但是可以省略，默认的是0
+- 调用函数可以直接写函数 还可以写 函数名 还有一个写法 '函数名()'
+- 页面中可能有很多的定时器，我们经常给定时器加标识符 (名字)
 
+- > setTimeout('callback()', 3000); // 不提倡这个写法
 
+#### 清除setTimeout定时器
 
+> clearTimeout(timer)
 
+```js
+var btn = document.querySelector('button');
+var timer = setTimeout(function () {
+    console.log('爆炸了');
 
+}, 5000);
+btn.addEventListener('click', function () {
+    clearTimeout(timer);
+})
+```
 
+#### setInterval
 
+> 语法规范： window.setInterval(调用函数, 延时时间);
 
+```js
+setInterval(function () {
+    console.log('继续输出');
 
+}, 1000);
+```
 
+#### setTimeout 和 setInterval 区别
 
+- setTimeout 延时时间到了，就去调用这个回调函数，只调用一次 就结束了这个定时器
+- setInterval 每隔这个延时时间，就去调用这个回调函数，会调用很多次，重复调用这个函数
 
+#### 清除 setInterval 定时器
 
+> clearInterval(timer)
 
+## this 指向问题
 
+> this 一般情况下 this 的最终指向的是那个调用它的对象
 
+> 全局作用域或者普通函数中this指向全局对象window（ 注意定时器里面的this指向window）
 
+> 构造函数中 this 指向构造函数的实例
+
+> 方法调用中 this 指向调用者
+
+### location
+
+- `location.search` 获取url参数,包括? 例如?age=15
+- `location.assign(url)` 跳转到 url, 记录浏览历史，所以可以实现后退功能
+- `location.replace(url)` 跳转到 url, 不记录浏览历史，所以不可以实现后退功能
+- `location.reload(true)` 默认为 false,从缓存中获取页面,true 强制刷新重新GET页面
+
+### navigator 对象
+
+> navigator对象包含有关浏览器的信息，它有很多属性，我们最常用的是userAgent，该属性可以返回由客户机发送服务器user-agent头部的值。
+
+> 可以根据属性调整显示页面为 PC端 或者 移动端
+
+### history 对象
+
+> window对象给我们提供了一个history对象，与浏览器历史记录进行交互。该对象包含用户（在浏览器窗口中)访问过的URL。
+
+|history方法|作用|
+|---|---|
+|back()|后退|
+|forward()|前进|
+|go(参数)|1:前进1页,-1:后退一页|
+
+### offset 系列
+
+- 获得元素距离带有定位父元素的位置
+- 获得元素自身的大小(宽度高度)
+- 注意:返回的数值都不带单位
+
+|offset 系列属性|作用|
+|---|---|
+|element.offsetParent|返回作为该元素带有定位的父级元素如果父级都没有定位则返回body|
+|element.offsetTop|返回元素相对带有定位父元素上方的偏移|
+|element.offsetLeft|返回元素相对带有定位父元素左边框的偏移|
+|element.offsetWidth|返回包括padding 、边框、内容区的**宽度**，返回数值不带单位|
+|element.offsetHeight|返回包括padding、边框、内容区的**高度**，返回数值不带单位|
+
+```js
+<div class="father">
+    <div class="son"></div>
+</div>
+<div class="w"></div>
+<script>
+
+    var father = document.querySelector('.father');
+    var son = document.querySelector('.son');
+    // 1.可以得到元素的偏移 位置 返回的不带单位的数值
+    console.log(father.offsetTop);
+    console.log(father.offsetLeft);
+    // 它以带有定位的父亲为准 如果么有父亲或者父亲没有定位 则以 body 为准
+    console.log(son.offsetLeft);
+    var w = document.querySelector('.w');
+    // 2.可以得到元素的大小 宽度和高度 是包含padding + border + width
+    console.log(w.offsetWidth);
+    console.log(w.offsetHeight);
+    // 3. 返回带有定位的父亲 否则返回的是body
+    console.log(son.offsetParent); // 返回带有定位的父亲 否则返回的是body
+    console.log(son.parentNode); // 返回父亲 是最近一级的父亲 亲爸爸 不管父亲有没有定位
+</script>
+```
+
+#### offset 和 style
+
+- offset
+	- offset 可以得到任意样式表中的样式值
+	- offset 系列获得的数值是没有单位的
+	- offsetWidth 包含padding+border+width
+	- offsetWidth 等属性是只读属性，只能获取不能赋值
+	- 所以，想要获取元素大小位置，用offset更合适
+
+- style
+	- style 只能得到行内样式表中的样式值
+	- style.width 获得的是带有单位的字符串
+	- style.width 获得不包含padding和border的值
+	- style.width 是可读写属性，可以获取也可以赋值
+	- 所以，想要给元素更改值，则需要用style改变
+
+### client 系列属性
+
+> 使用client系列的相关属性来获取元素可视区的相关信息。> 通过client系列的相关属性可以动态的得到该元素的边框大小、元素大小等。
+
+|client系列属性|作用|
+|---|---|
+|element.clientTop|返回元素上边框的大小|
+|element.clientLeft|返回元素左边框的大小|
+|element.clientWidth|返回自身包括padding、内容区的宽度，不含边框，返回数值不带单位|
+|element.clientHeight|返回自身包括padding、内蓉区的高度，不含边框，返回数值不带单位|
+
+### 立即执行函数
+
+> 不需要调用，立马能够自己执行的函数
+
+- 写法,也可以传递参数进来
+	- (function(){})()
+	- (function(){}())
+
+> 立即执行函数最大的作用就是 独立创建了一个作用域, 里面所有的变量都是局部变量 不会有命名冲突的情况
+
+### scroll系列属性
+
+> 使用scroll系列的相关属性可以动态的得到该元素的大小、滚动距离等
+
+|scroll系列属性|作用|
+|---|---|
+|element.scrollTop|返回被卷去的上侧距离，返回数值不带单位|
+|element.scrollLeft|返回被卷去的左侧距离，返回数值不带单位|
+|element.scrollWidth|返回自身实际的宽度，不含边框，返回数值不带单位|
+|element.scrollHeight|返回自身实际的高度，不含边框，返回数值不带单位|
+
+```js
+    <div>
+    我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容
+    我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容
+</div>
+<script>
+    // scroll 系列
+    var div = document.querySelector('div');
+    console.log(div.scrollHeight);
+    console.log(div.clientHeight);
+    // scroll滚动事件当我们滚动条发生变化会触发的事件
+    div.addEventListener('scroll', function() {
+    console.log(div.scrollTop);
+
+})
+</script>
+```
+
+### 三大系列总结
+
+- offset系列经常用于获得元素位置offsetLeft offsetTop
+- client经常用于获取元素大小clientWidth clientHeight
+- scroll经常用于获取滚动距离scrollTop scrollLeft
+- **注意**: 页面滚动的距离通过window.pageXOffset获得
+
+### mouseenter(不冒泡) 和 mouseover(冒泡)的区别
+
+> mouseenter 鼠标事件
+>   - 当鼠标移动到元素上时就会触发mouseenter事件
+>   - 类似 mouseover，它们两者之间的差别是 mouseover 鼠标经过自身盒子会触发，经过子盒子还会触发。
+>   - mouseenter 只会经过自身盒子触发之所以这样，就是因为 mouseenter 不会冒泡
+>   - 跟 mouseenter 搭配鼠标离开 mouseleave 同样不会冒泡
+
+### touch 触摸事件
+
+- touchstart -- 手指触摸DOM元素事件
+- touchmove -- 手指在DOM元素身上移动事件
+- touchend -- 手指离开DOM元素事件
+
+#### 触摸事件对象touchEvent
+
+- touches 正在触摸屏幕的所有手指的列表
+- targetTouches 正在触摸当前DOM元素的手指列表
+- changedTouches 手指状态发生了改变的列表 从无到有 或者 从有到无
+- 当我们手指离开屏幕的时候，就没有了 touches 和 targetTouches 列表, 但是会有 changedTouches 
 
 
 
