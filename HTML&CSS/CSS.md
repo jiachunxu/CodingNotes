@@ -302,4 +302,4 @@
 
 #### 盒子模型
 
-![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/盒子模型.png)
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/box-model.gif)
