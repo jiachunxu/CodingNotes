@@ -46,7 +46,7 @@
 
 - 外部 JS文件
 
-```html
+```js
 <script src="my.js"></script>
 ```
 
