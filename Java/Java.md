@@ -1604,6 +1604,20 @@ System.out.println(localDateTime3);
 
 #### DateTimeFormatter
 
+- 重点
+```java
+//自定义的格式。如: ofPattern( "yyyy-MM-dd hh:mm:ss") ---》重点，以后常用
+DateTimeFormatter df3 = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+//LocalDateTime-->String:
+LocalDateTime now2 = LocalDateTime.now();
+String format = df3.format(now2);
+System.out.println(format);//2020-06-15 03:22:03
+//String--->LocalDateTime
+TemporalAccessor parse2 = df3.parse("2020-06-15 03:22:03");
+System.out.println(parse2);
+```
+
+- 演示
 ```java
 //格式化类：DateTimeFormatter
 //方式一:预定义的标准格式。如: ISO_LOCAL_DATE_TIME;ISO_LOCAL_DATE;IS0_LOCAL_TIME
@@ -1629,39 +1643,77 @@ System.out.println(str2);
 //String--->LocalDateTime
 TemporalAccessor parse1 = df2.parse("20-6-15 下午3:18");
 System.out.println(parse1);
-//方式三: 自定义的格式。如: ofPattern( "yyyy-MM-dd hh:mm:ss") ---》重点，以后常用
-DateTimeFormatter df3 = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-//LocalDateTime-->String:
-LocalDateTime now2 = LocalDateTime.now();
-String format = df3.format(now2);
-System.out.println(format);//2020-06-15 03:22:03
-//String--->LocalDateTime
-TemporalAccessor parse2 = df3.parse("2020-06-15 03:22:03");
-System.out.println(parse2);
 ```
 
+#### Math类
 
+- 直接使用，无需导包
+- final修饰类，这个类不能被继承
+- 构造器私有化，不能创建Math类的对象
+- Math内部的所有的属性，方法都被static修饰：类名.直接调用，无需创建对象
 
+```java
+//常用属性：
+System.out.println(Math.PI);//π
+//常用方法：
+System.out.println("随机数："+Math.random());//[0.0,1.0)
+System.out.println("绝对值："+Math.abs(-80));
+System.out.println("向上取值："+Math.ceil(9.1));
+System.out.println("向下取值："+Math.floor(9.9));
+System.out.println("四舍五入："+Math.round(3.5));
+System.out.println("取大的那个值："+Math.max(3, 6));
+System.out.println("取小的那个值："+Math.min(3, 6));
+```
 
+#### Random类
 
+```java
+//返回带正号的 double 值，该值大于等于 0.0 且小于 1.0。
+System.out.println("随机数："+Math.random());
+//学习Random类
+//（1）利用带参数的构造器创建对象：
+Random r1 = new Random(System.currentTimeMillis());
+int i = r1.nextInt();
+System.out.println(i);
+//（2）利用空参构造器创建对象：
+Random r2 = new Random();//表面是在调用无参数构造器，实际底层还是调用了带参构造器
+System.out.println(r2.nextInt(10));//在 0（包括）和指定值（不包括）之间均匀分布的 int 值。
+System.out.println(r2.nextDouble());//在 0.0 和 1.0 之间均匀分布的 double 值。
+```
 
+#### String类
+- 直接使用，无需导包
+- String类不可以被继承，不能有子类
+- 字符串是不可变的
+- String底层是一个char类型的数组
 
+> 构造器：底层就是给对象底层的value数组进行赋值操作
+```java
+//通过构造器来创建对象：
+String s1 = new String();
+String s2 = new String("abc");
+String s3 = new String(new char[]{'a','b','c'});
+```
 
+> 常用方法
 
+```java
+String s4 = "abc";
+System.out.println("字符串的长度为："+s4.length());
+String s5 = new String("abc");
+System.out.println("字符串是否为空："+s5.isEmpty());
+System.out.println("获取字符串的下标对应的字符为："+s5.charAt(1));
+```
 
+> equals方法
 
+```java
+String s6 = new String("abc");
+String s7 = new String("abc");
+System.out.println(s6.equals(s7));//true
+```
 
-
-
-
-
-
-
-
-
-
-
-
+> compareTo
 
 
 
