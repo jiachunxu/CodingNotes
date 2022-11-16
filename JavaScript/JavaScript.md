@@ -37,8 +37,7 @@
 
 - 内嵌 JS
 
-```html
-
+```js
 <script>
     alert('Hello World~!');
 </script>
