@@ -1350,17 +1350,17 @@ public class TestOuter {
 
 ### 异常的分类
 
-- Object
-  - Throwable
-    - Error
-    - Exception
-      - 检查异常
-        - IllegalAccessException
-        - ClassNotFoundException
-        - InstantiationException
-      - 运行时异常
-        - NullPinterException
-        - ArraylndexOutOfBoundsException
+> - Object
+>   - Throwable
+>     - Error
+>     - Exception
+>       - 检查异常
+>         - IllegalAccessException
+>         - ClassNotFoundException
+>         - InstantiationException
+>       - 运行时异常
+>         - NullPinterException
+>         - ArraylndexOutOfBoundsException
 
 
 
@@ -1743,6 +1743,36 @@ System.out.println(s8.compareTo(s9));//0
 ```
 
 #### StringBuilder，StringBuffer
+
+
+```java
+//创建StringBuilder的对象：
+StringBuilder sb3 = new StringBuilder();
+//表面上调用StringBuilder的空构造器，实际底层是对value数组进行初始化，长度为16
+StringBuilder sb2 = new StringBuilder(3);
+//表面上调用StringBuilder的有参构造器，传入一个int类型的数，实际底层就是对value数组进行初始化，长度为你传入的数字
+StringBuilder sb = new StringBuilder("abc");
+System.out.println(sb.append("def").append("aaaaaaaa").append("bbb").append("ooooooo").toString());;
+//链式调用方式：return this
+```
+
+# 集合
+
+> - Collection
+>   - List
+>     - ArrayList
+>     - LinkedList
+>   - Set
+>     - HashSet
+>     - TreeSet
+
+> - Map
+>   - HashMap
+>   - TreeMap
+
+
+
+
 
 
 
