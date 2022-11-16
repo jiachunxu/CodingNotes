@@ -1,9 +1,9 @@
 # 初识 JavaScript
 
 - JS 的组成
-    - ECMAScript(JavaScript语法)
-    - DOM(页面文档对象模型)
-    - BOM(浏览器对象模型)
+	- ECMAScript(JavaScript语法)
+	- DOM(页面文档对象模型)
+	- BOM(浏览器对象模型)
 
 
 - ECMAScript
@@ -47,7 +47,6 @@
 - 外部 JS文件
 
 ```html
-
 <script src="my.js"></script>
 ```
 
@@ -99,26 +98,26 @@
 - 赋值
 
 ```js
-    age = 10; // 给 age 这个变量赋值为 10
+age = 10; // 给 age 这个变量赋值为 10
 ```
 
 - 变量的初始化
 
 ```js
-    var age = 18; // 声明变量同时赋值为 18
+var age = 18; // 声明变量同时赋值为 18
 ```
 
 - 更新变量
 
 ```js
-    var age = 18;
+var age = 18;
 age = 81; // 最后的结果就是81因为18 被覆盖掉了
 ```
 
 - 同时声明多个变量
 
 ```js
-    var age = 10, name = 'zs', sex = 2;
+var age = 10, name = 'zs', sex = 2;
 ```
 
 ## 声明变量特殊情况
@@ -130,12 +129,12 @@ age = 81; // 最后的结果就是81因为18 被覆盖掉了
 |age = 10; console.log (age);|不声明 只赋值 |10 |
 
 - 变量命名规范
-    - 由字母(A-Za-z)、数字(0-9)、下划线(_)、美元符号( $ )组成
-    - 严格区分大小写
-    - 不能以数字开头
-    - 不能 是关键字、保留字
-    - 变量名必须有意义
-    - 遵守驼峰命名法(小驼峰)
+	- 由字母(A-Za-z)、数字(0-9)、下划线(_)、美元符号( $ )组成
+	- 严格区分大小写
+	- 不能以数字开头
+	- 不能 是关键字、保留字
+	- 变量名必须有意义
+	- 遵守驼峰命名法(小驼峰)
 
 ---
 
@@ -179,15 +178,15 @@ var num = 0xA;
 
 - **数字型范围**
 
-    - 最大值：`Number.MAX_VALUE`，这个值为： 1.7976931348623157e+308
-    - 最小值：`Number.MIN_VALUE`，这个值为：5e-32
+	- 最大值：`Number.MAX_VALUE`，这个值为： 1.7976931348623157e+308
+	- 最小值：`Number.MIN_VALUE`，这个值为：5e-32
 
 
 - **数字型三个特殊值**
 
-    - `Infinity` : 大于任何数值
-    - `-Infinity` : 小于任何数值
-    - `NaN` : Not a number，代表一个非数值
+	- `Infinity` : 大于任何数值
+	- `-Infinity` : 小于任何数值
+	- `NaN` : Not a number，代表一个非数值
 
 - **isNaN()**
 
@@ -225,8 +224,8 @@ alert(strMsg.length); // 显示 11
 ````
 
 - 字符串拼接
-    - 多个字符串之间可以使用 + 进行拼接，**字符串 + 任何类型 = 拼接之后的新字符串**
-    - 拼接前会把与字符串相加的任何类型转成字符串，再拼接成一个新的字符串
+	- 多个字符串之间可以使用 + 进行拼接，**字符串 + 任何类型 = 拼接之后的新字符串**
+	- 拼接前会把与字符串相加的任何类型转成字符串，再拼接成一个新的字符串
 
 ### 布尔型 Boolean
 
@@ -583,8 +582,8 @@ var ldh = new Star('刘德华', 18, '男');
 
 - 从执行效率来看全局变量和局部变量
 
-    - (1) 全局变量只有浏览器关闭的时候才会销毁，比较占内存资源
-    - (2) 局部变量 当我们程序执行完毕就会销毁， 比较节约内存资源
+	- (1) 全局变量只有浏览器关闭的时候才会销毁，比较占内存资源
+	- (2) 局部变量 当我们程序执行完毕就会销毁， 比较节约内存资源
 
 ## 块级作用域
 
@@ -963,18 +962,18 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 ```html
 
 <body>
-  <div></div>
-  <p>
-    我是文字
-    <span>123</span>
-  </p>
-  <script>
-    let div = document.querySelector('div');
-    div.innerHTML = '<strong>今天是：</strong> 2019';
-    let p = document.querySelector('p');
-    console.log(p.innerText);
-    console.log(p.innerHTML);
-  </script>
+    <div></div>
+    <p>
+        我是文字
+        <span>123</span>
+    </p>
+    <script>
+        let div = document.querySelector('div');
+        div.innerHTML = '<strong>今天是：</strong> 2019';
+        let p = document.querySelector('p');
+        console.log(p.innerText);
+        console.log(p.innerHTML);
+    </script>
 </body>
 ```
 
@@ -983,25 +982,25 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 ```html
 
 <body>
-  <button id="ldh">刘德华</button>
-  <button id="zxy">张学友</button>
-  <br>
-  <img src="images/ldh.jpg" alt="" title="刘德华">
+    <button id="ldh">刘德华</button>
+    <button id="zxy">张学友</button>
+    <br>
+    <img src="images/ldh.jpg" alt="" title="刘德华">
 
-  <script>
-    // 修改元素属性  src
-    let ldh = document.getElementById('ldh');
-    let zxy = document.getElementById('zxy');
-    let img = document.querySelector('img');
-    zxy.onclick = function () {
-      img.src = 'images/zxy.jpg';
-      img.title = '张学友思密达';
-    }
-    ldh.onclick = function () {
-      img.src = 'images/ldh.jpg';
-      img.title = '刘德华';
-    }
-  </script>
+    <script>
+        // 修改元素属性  src
+        let ldh = document.getElementById('ldh');
+        let zxy = document.getElementById('zxy');
+        let img = document.querySelector('img');
+        zxy.onclick = function () {
+            img.src = 'images/zxy.jpg';
+            img.title = '张学友思密达';
+        }
+        ldh.onclick = function () {
+            img.src = 'images/ldh.jpg';
+            img.title = '刘德华';
+        }
+    </script>
 </body>
 ```
 
@@ -1012,20 +1011,20 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 ```html
 
 <body>
-  <button>按钮</button>
-  <input type="text" value="输入内容">
-  <script>
-    let btn = document.querySelector('button');
-    let input = document.querySelector('input');
-    btn.onclick = function () {
-      // 表单里面的值 文字内容是通过 value 来修改的
-      input.value = '被点击了';
-      // button禁用
-      // btn.disabled = true;
-      this.disabled = true;
-      // this 指向的是事件函数的调用者 btn
-    }
-  </script>
+    <button>按钮</button>
+    <input type="text" value="输入内容">
+    <script>
+        let btn = document.querySelector('button');
+        let input = document.querySelector('input');
+        btn.onclick = function () {
+            // 表单里面的值 文字内容是通过 value 来修改的
+            input.value = '被点击了';
+            // button禁用
+            // btn.disabled = true;
+            this.disabled = true;
+            // this 指向的是事件函数的调用者 btn
+        }
+    </script>
 </body>
 ```
 
@@ -1089,18 +1088,18 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 > **作用**:切换tab栏
 
 - 获取元素的属性值
-    - element.属性
-    - element.getAttribute('属性')
+	- element.属性
+	- element.getAttribute('属性')
 - 设置元素属性值
-    - element.属性= '值'
-    - element.setAttribute('属性', '值')
+	- element.属性= '值'
+	- element.setAttribute('属性', '值')
   > var div = document.querySelector('div');
   >
   > div.className = 'navs';
   >
   > div.setAttribute('class', 'footer'); // class 特殊 这里面写的就是class 不是className
 - 移除属性
-    - removeAttribute(属性)
+	- removeAttribute(属性)
 
 #### H5自定义属性
 
@@ -1169,13 +1168,12 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 |keydown|按键按下(识别功能键)|
 |keypress|按键按下(不能识别功能键)|
 
-
 ### 注册事件的两种方式
 
 - 传统方式注册事件
 - 事件侦听注册事件 addEventListener
-    - 里面的事件类型是字符串 必定加引号 而且不带on
-    - 同一个元素 同一个事件可以添加多个侦听器（事件处理程序）
+	- 里面的事件类型是字符串 必定加引号 而且不带on
+	- 同一个元素 同一个事件可以添加多个侦听器（事件处理程序）
 - attachEvent
   > ie9以前的版本支持
 
@@ -1378,26 +1376,29 @@ document.addEventListener('selectstart', function (e) {
     console.log(e.screenX);
     console.log(e.screenY);
     ```
+
 #### 常用键盘事件
-> 三个事件的执行顺序  keydown -- keypress -- keyup
+
+> 三个事件的执行顺序 keydown -- keypress -- keyup
+
 - keyup
-    > 事件不区分字母大小写
+  > 事件不区分字母大小写
 - keydown
-    > 能识别功能键
-     
-    > 事件不区分字母大小写 
+  > 能识别功能键
+
+  > 事件不区分字母大小写
 
 - keypress
-    > 不能识别功能键
-    
-    > 区分字母大小写     
+  > 不能识别功能键
+
+  > 区分字母大小写
+
 ---
-> e.keyCode 
+> e.keyCode
 
 > 键盘事件对象中的keyCode属性可以得到相应键的ASCII码值
 
 > 利用keycode返回的ASCII码值来判断用户按下了那个键
-
 
 ## 节点
 
@@ -1461,8 +1462,6 @@ document.addEventListener('selectstart', function (e) {
 - innerHTML
 
 - document.createElement()
-
-
 
 ----
 
