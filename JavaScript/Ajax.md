@@ -326,11 +326,9 @@ btnUpload.addEventListener('click', function () {
   var fd = new FormData()
   // 将用户选择的文件，添加到 FormData 中
   fd.append('avatar', files[0])
-
   var xhr = new XMLHttpRequest()
   xhr.open('POST', 'http://www.liulongbin.top:3006/api/upload/avatar')
   xhr.send(fd)
-
   xhr.onreadystatechange = function () {
 	if (xhr.readyState === 4 && xhr.status === 200) {
 	  var data = JSON.parse(xhr.responseText)
