@@ -488,3 +488,11 @@ document.querySelector('#btn4').addEventListener('click', function () {
   })
 })
 ```
+
+
+# 节流和防抖
+##防抖
+> 防抖策略(debounce)是当事件被触发后，延迟 n秒后再执行回调，如果在这n秒内事件又被触发，则重新计时。
+
+
+## 节流
