@@ -1,6 +1,6 @@
 # Git
 
-## [Git官网](https://git-scm.com)
+## Git官网(https://git-scm.com)
 
 ## 初始化设置
 ```git
