@@ -1,4 +1,96 @@
-# 什么是 CORS
+
+# 同源策略
+> 同源策略(英文全称Same origin policy）是浏览器提供的一个安全功能。
+
+> MDN官方给定的概念:同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这是一个用于隔离潜在恶意文件的重要安全机制。
+
+> 通俗的理解:浏览器规定，A网站的JavaScript，不允许和非同源的网站C之间，进行资源的交互
+> - 无法读取非同源网页的Cookie、LocalStorage和IndexedDB
+> - 无法接触非同源网页的DOM
+> - 无法向非同源地址发送Ajax请求
+
+# 跨域
+> 同源指的是两个URL的**协议、域名、端口**一致，反之，则是跨域。
+
+> 出现跨域的根本原因:浏览器的同源策略不允许非同源的URL之间进行资源的交互。
+
+> **注意**: 浏览器允许发起跨域请求，但是，跨域请求回来的数据，会被浏览器拦截，无法被页面获取到!
+
+## 如何实现跨域数据请求
+
+- JSONP: 出现的早，兼容性好（兼容低版本IE)。是前端程序员为了解决跨域问题，被迫想出来的一种临时解决方案。缺点是只支持GET请求，不支持POST请求。
+- CORS: 出现的较晚，它是W3C标准，属于跨域 Ajax请求的根本解决方案。支持GET和POST请求。缺点是不兼容某些低版本的浏览器。
+
+
+# JSONP 
+> 由于浏览器同源策略的限制，网页中无法通过Ajax请求非同源的接口数据。但是`<script>`标签不受浏览器同源策略的影响，可以通过src属性，请求非同源的js 脚本。
+
+> 因此，JSONP的实现原理，就是通过`<script>`标签的src属性，请求跨域的数据接口，并通过函数调用的形式,接收跨城接响市同来的数据。
+
+> 特点：
+> - JSONP 不属于真正的 Ajax 请求，因为它没有使用 XMLHttpRequest 这个对象。
+> - JSONP 仅支持 GET 请求，不支持 POST、PUT、DELETE 等请求。
+
+## JSONP 注意事项
+
+> 如果项目中已经配置了 CORS 跨域资源共享，为了防止冲突，必须在配置 CORS 中间件之前声明 JSONP 的接口。否则JSONP 接口会被处理成开启了 CORS 的接口。
+
+## 实现 JSONP 接口的步骤
+
+- ① 获取客户端发送过来的回调函数的名字
+- ② 得到要通过 JSONP 形式发送给客户端的数据
+- ③ 根据前两步得到的数据，拼接出一个函数调用的字符串
+- ④ 把上一步拼接得到的字符串，响应给客户端的 <script> 标签进行解析执行
+
+
+## 简单的JSONP
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function abc(data) {
+      console.log('JSONP响应回来的数据是：')
+      console.log(data)
+    }
+  </script>
+  
+  <script src="http://ajax.frontend.itheima.net:3006/api/jsonp?callback=abc&name=ls&age=30">
+    
+  </script>
+</body>
+</html>
+```
+
+## 在网页中使用 jQuery 发起 JSONP 请求
+
+> 调用 $.ajax() 函数，提供 JSONP 的配置选项，从而发起 JSONP 请求
+
+```js
+$('#btnJSONP').on('click', function () {
+    $.ajax({
+        method: 'GET',
+        url: "http:/ /127.0.0.1/api/jsonp'，
+        dataType: 'jsonp',// 表示要发起JSONP的请求success
+        jsonp: 'callback',//发送到服务器的参数名称, 默认值为 callback
+        jsonpCallback: 'abc',//自定义回答函数名称, 默认值为 JQueryxxx
+        success: function (res) {
+            console.log(res)
+        }
+    })
+})
+```
+
+
+
+# CORS
 
 > CORS （Cross-Origin Resource Sharing，跨域资源共享）由一系列 HTTP 响应头组成，这些 HTTP 响应头决定浏览器是否阻止前端 JS 代码跨域获取资源。
 
@@ -81,54 +173,6 @@ res.setHeader('Access-Control-Allow-Methods', '*')
 
 > 预检请求的特点：客户端与服务器之间会发生两次请求，OPTION 预检请求成功之后，才会发起真正的请求。
 
-# JSONP 接口
 
-> 概念：浏览器端通过 `<script>` 标签的 src 属性，请求服务器上的数据，同时，服务器返回一个函数的调用。这种请求数据的方式叫做 JSONP。
-
-> 特点：
-> - ① JSONP 不属于真正的 Ajax 请求，因为它没有使用 XMLHttpRequest 这个对象。
-> - ② JSONP 仅支持 GET 请求，不支持 POST、PUT、DELETE 等请求。
-
-## JSONP 注意事项
-
-> 如果项目中已经配置了 CORS 跨域资源共享，为了防止冲突，必须在配置 CORS 中间件之前声明 JSONP 的接口。否则JSONP 接口会被处理成开启了 CORS 的接口。
-
-## 实现 JSONP 接口的步骤
-
-- ① 获取客户端发送过来的回调函数的名字
-- ② 得到要通过 JSONP 形式发送给客户端的数据
-- ③ 根据前两步得到的数据，拼接出一个函数调用的字符串
-- ④ 把上一步拼接得到的字符串，响应给客户端的 <script> 标签进行解析执行
-
-```js
-app.get('/api/jsonp', (req, res) => {
-
-    // 1．获取客户端发送过来的回调函数的名字const
-    funcName = req.query.callback1l
-    // 2．得到要通过JSONP形式发送给客户端的数据const
-    data = {name: 'zs', age: 22}
-    // 3．根据前两步得到的数据，拼接出一个函数调用的字符串
-    const scriptstr = `${funcName}(${JSON.stringify(data)})`
-    // 4．把上一步拼接得到的字符串，响应给客户端的 < script > 标签进行解析执行
-    res.send(scriptstr)
-})
-```
-
-## 在网页中使用 jQuery 发起 JSONP 请求
-
-> 调用 $.ajax() 函数，提供 JSONP 的配置选项，从而发起 JSONP 请求
-
-```js
-$('#btnJSONP').on('click', function () {
-    $.ajax({
-        method: 'GET',
-        url: "http:/ /127.0.0.1/api/jsonp'，
-        dataType: 'jsonp',// 表示要发起JSONP的请求success
-        success: function (res) {
-            console.log(res)
-        }
-    })
-})
-```
 
 # nginx反向代理
