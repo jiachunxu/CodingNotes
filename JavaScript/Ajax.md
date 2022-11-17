@@ -343,7 +343,22 @@ btnUpload.addEventListener('click', function () {
   }
 })
 ```
+### 显示上传进度
+> 新版本的XMLHttpRequest对象中，可以通过监听xhr.upload.onprogress,事件，来获取到文件的上传进度。
 
+```js
+// 创建 XHR 对象
+var xhr= new XMLHttpRequest()
+// 监听 xhr.upload 的 onprogress 事件
+xhr.upload.onprogress=function(e){
+    // e.lengthComputable 是一个布尔值，表示当前上传的资源是否具有可计算的长度
+    if(e.lengthComputable){
+        // e.loaded 已传输的字节
+        // e.total  需传输的总字节
+        var percentComplete= Math.ceil((e.loaded / e.total) * 100)
+    }
+}
+```
 
 
 ## jQuery中的Ajax
@@ -400,3 +415,76 @@ $.ajax({
 - 返回示例(可选)∶通过对象的形式，例举服务器返回数据的结构。
 
 
+## axios
+
+> Axios是专注于网络数据请求的库。
+
+> 相比于原生的XMLHttpRequest 对象，axios简单易用。
+
+> 相比于jQuery，axios更加轻量化，只专注于网络数据请求。
+
+### axios发起GET请求
+
+`axios.get('url', { params: { /*参数*/ } }).then(callback)`
+
+```js
+var url = 'http://www.liulongbin.top:3006/api/get'
+var paramsObj = { name: 'zs', age: 20 }
+axios.get(url, { params: paramsObj }).then(function (res) {
+console.log(res.data)
+})
+```
+
+### axios发起POST请求
+` axios.post('url', { /*参数*/ }).then(callback)`
+
+```js
+ //   请求的 URL 地址
+ var url = 'http://www.liulongbin.top:3006/api/post'
+ //   要提交到服务器的数据
+ var dataObj = {  location: '北京', address: '顺义' }
+ //   调用 axios.post() 发起 POST 请求
+ axios.post(url, dataObj).then(function(res)   {
+     //   res.data 是服务器返回的数据
+     var result = res.data
+     console.log(result)
+ })
+```
+### 直接使用axios发起请求
+
+```js
+ axios({
+     method: '请求类型',
+     url:'请求的URL地址',
+     data:/*POST数据*/},
+     params:{/*GET参数*/}
+ }).then(callback)
+```
+示例
+```js
+document.querySelector('#btn3').addEventListener('click', function () {
+  var url = 'http://www.liulongbin.top:3006/api/get'
+  var paramsData = { name: '钢铁侠', age: 35 }
+  axios({
+    method: 'GET',
+    url: url,
+    params: paramsData
+  }).then(function (res) {
+    console.log(res.data)
+  })
+})
+
+document.querySelector('#btn4').addEventListener('click', function () {
+  axios({
+    method: 'POST',
+    url: 'http://www.liulongbin.top:3006/api/post',
+    data: {
+      name: '娃哈哈',
+      age: 18,
+      gender: '女'
+    }
+  }).then(function (res) {
+    console.log(res.data)
+  })
+})
+```
