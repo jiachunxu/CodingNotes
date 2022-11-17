@@ -64,6 +64,44 @@
 - 数据分页显示:当点击页码值的时候，通过ajax的形式，根据页码值动态刷新表格的数据
 - 数据的增删改查:数据的添加、删除、修改、查询操作，都需要通过ajax的形式，来实现数据的交互
 
+### XMLHttpRequest
+> XMLHttpRequest(简称xhr)是浏览器提供的Javascript对象，通过它，可以请求服务器上的数据资源。jQuery 中的Ajax函数，就是基于xhr 对象封装出来的。
+
+#### 使用xhr发起GET请求
+- 创建xhr 对象
+- 调用xhr.open()函数
+- 调用xhr.s.end)函数
+- 监听xhr.onreadystatechange事件
+
+```js
+// 1. 创建 XHR 对象
+var xhr = new XMLHttpRequest()
+// 2. 调用 open 函数
+xhr.open('GET', 'http://www.liulongbin.top:3006/api/getbooks')
+// 3. 调用 send 函数
+xhr.send()
+// 4. 监听 onreadystatechange 事件
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+	// 获取服务器响应的数据
+	console.log(xhr.responseText)
+  }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### jQuery中的Ajax
 > 浏览器中提供的XMLHttpRequest用法比较复杂，所以jQuery对 XMLHttpRequest进行了封装，提供了-系列Ajax相关的函数，极大地降低了Ajax的使用难度。
 
