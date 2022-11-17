@@ -73,17 +73,46 @@
 > - $.post()
 > - $.ajax()
 
-#### $.get()函数的语法
+#### $.get()
 `$.get (ur1, [data], [callback])`
 
->三个参数各自代表的含义
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221117212245.png)
 
+#### $.post()
+
+`$.post (ur1,[data] , [callback])`
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221117212612.png)
+
+#### $.ajax()
+> 相比于$.get()和$.post()函数，jQuery中提供的$.ajax()函数，是一个功能比较综合的函数，它允许我们对Ajax请求进行更详细的配置。
+
+```js
+$.ajax({
+    type: '', //请求的方式，例如 GET 或 POST
+    url: '', //请求URL地址
+    data: { }, //请求携带数据
+    success: function (res) { } //请求成功回调函数
+})
+```
+
+## 接口
+> 使用Ajax请求数据时，被请求的URL地址，就叫做数据接口(简称接口)。同时，每个接口必须有请求方式。
+
+### 接口测试工具
+
+- [PostMan](https://www.postman.com/downloads/)
+- [Apifox](https://www.apifox.cn/)
+- [Apipost](https://www.apipost.cn/)
+
+### 接口文档
+> 接口文档，顾名思义就是接口的说明文档，它是我们调用接口的依据。好的接口文档包含了对接口URL，参数以及输出内容的说明，我们参照接口文档就能方便的知道接口的作用，以及接口如何进行调用。
 
 
-
-
-
-
-
-
+#### 妾口文档的组成部分
+- 接口名称:用来标识各个接口的简单说明，如登录接口，获取图书列表接口等。
+- 接口URL:接口的调用地址。
+- 调用方式:接口的调用方式，如GET或 POST。
+- 参数格式:接口需要传递的参数，每个参数必须包含参数名称、参数类型、是否必选、参数说明这4项内容。
+- 响应格式:接口的返回值的详细描述，一般包含数据名称、数据类型、说明3项内容。
+- 返回示例(可选)∶通过对象的形式，例举服务器返回数据的结构。
