@@ -51,6 +51,108 @@
 - 最简单的用法var xhrObj = new XMLHttpRequest())
 
 
+## 查询字符串(get请求)
+> 查询字符串(URL参数）是指在URL的末尾加上用于向服务器发送信息的字符串(变量)。
+
+> 格式:将英文的?放在URL的末尾，然后再加上**参数=值**，想加上多个参数的话，使用&符号进行分隔。将想要发送给服务器的数据添加到URL中。|
+
+## URL编码与解码
+
+### URL编码
+> URL地址中，只允许出现英文相关的字母、标点符号、数字，因此，在URL地址中不允许出现中文字符。
+ 
+> 如果URL中需要包含中文这样的字符，则必须对中文字符进行编码（转义)。
+
+> URL编码的原则:使用安全的字符(没有特殊用途或者特殊意义的可打印字符）去表示那些不安全的字符。
+
+> URL编码原则的通俗理解:使用英文字符去表示非英文字符。
+
+### 编解码 API
+- encodeURI()编码的函数
+- decodeURI()解码的函数
+
+```js
+var str = '黑马程序员'
+var str2 = encodeURI(str)
+console.log(str2)
+
+console.log('----------')
+var str3 = decodeURI('%E9%BB%91%E9%A9%AC')
+console.log(str3)
+```
+### URL编码的注意事项
+> 由于浏览器会自动对URL地址进行编码操作，因此，大多数情况下，程序员不需要关心URL地址的编码与解码操作。
+
+> 更多关于URL编码的知识(https://blog.csdn.net/Lxd_0111/article/details/78028889)
+
+## 数据交换格式
+> 数据交换格式，就是服务器端与客户端之间进行数据传输与交换的格式。
+
+> 前端领域，经常提及的**两种**数据交换格式分别是**XML和JSON**。其中XML用的非常少，重点学习JSON。
+
+
+### XML
+> XML的英文全称是Extensible Markup Language，即可扩展标记语言。因此，XML和HTML类似,也是一种标记语言。
+
+```xml
+<note>
+	<to>ls</to>
+	<from>zs</from>
+	<heading>通知</ heading>
+	<body>晚上开会</body>
+</note>
+```
+#### XML 和 HTML 的区别
+> XML和HTML虽然都是标记语言，但是，它们两者之间没有任何的关系。
+> - HTML被设计用来描述网页上的内容，是网页内容的载体
+> - XML被设计用来传输和存储数据，是数据的载体
+
+#### XML的缺点
+- XML格式臃肿，和数据无关的代码多，体积大，传输效率低
+- 在Javascript中解析XML比较麻烦
+
+### JSON
+> JSON 的英文全称是JavaScript Object Notation，即“JavaScript对象表示法”。
+> 
+>JSON就是Javascript对象和数组的字符串表示法，它使用文本表示一个JS对象或数组的信息，因此，**JSON的本质是字符串**。
+
+> **作用**:JSON是一种轻量级的文本数据交换格式，在作用上类似于XML，专门用于存储和传输数据，但是JSON 比XML更小、更快、更易解析。
+
+> **现状**:JSON是在2001年开始被推广和使用的数据格式，到现今为止，JSON已经成为了主流的数据交换格式。
+
+#### JSON的两种结构
+
+#### 对象结构
+> 对象结构在JSON中表示为{}括起来的内容。数据结构为`{key: value, key: value, ...}` 的键值对结构。其中，key必须是使用英文的双引号包裹的字符串，value的数据类型可以是**数字、字符串、布尔值、null、数组、对象**6种类型。
+
+#### 数组结构
+> 数组结构:数组结构在JSON中表示为[]括起来的内容。数据结构为[ "java " , "javascript",30, true ... ] 。数组中数据的类型可以是**数字、字符串、布尔值、null、数组、对象**6种类型。
+
+#### JSON语法注意事项
+- 性名必须使用双引号包裹
+- 符串类型的值必须使用双引号包裹
+- JSON中不允许使用单引号表示字符串
+- JSON中不能写注释
+- JSON的最外层必须是对象或数组格式
+- **不能**使用undefined或函数作为JSON的值
+---
+- > JSON的作用:在计算机与网络之间存储和传输数据。
+- > JSON的本质:用字符串来表示Javascript 对象数据或数组数据
+---
+#### JSON和JS对象的互转
+- JSON 转 JS对象
+  - JSON.parse()
+- JS对象 转 JSON
+  - JSON.stringify()
+
+### 序列化和反序列化
+> 把数据对象转换为字符串的过程，叫做序列化，例如:调用JSON.stringify()函数的操作，叫做JSON序列化。
+> 
+> 把字符串转换为数据对象的过程，叫做反序列化，例如:调用JSON.parse()函数的操作，叫做JSON反序列化。
+
+
+
+---
 ## 什么是Ajax
 
 > Ajax的全称是Asynchronous Javascript And XML(异步JavaScript和XML)。
@@ -64,20 +166,20 @@
 - 数据分页显示:当点击页码值的时候，通过ajax的形式，根据页码值动态刷新表格的数据
 - 数据的增删改查:数据的添加、删除、修改、查询操作，都需要通过ajax的形式，来实现数据的交互
 
-### XMLHttpRequest
+## XMLHttpRequest
 > XMLHttpRequest(简称xhr)是浏览器提供的Javascript对象，通过它，可以请求服务器上的数据资源。jQuery 中的Ajax函数，就是基于xhr 对象封装出来的。
 
-#### 使用xhr发起GET请求
+### 使用 xhr 发起 GET 请求
 - 创建xhr 对象
 - 调用xhr.open()函数
-- 调用xhr.s.end)函数
+- 调用xhr.send()函数
 - 监听xhr.onreadystatechange事件
 
 ```js
 // 1. 创建 XHR 对象
 var xhr = new XMLHttpRequest()
 // 2. 调用 open 函数
-xhr.open('GET', 'http://www.liulongbin.top:3006/api/getbooks')
+xhr.open('GET', 'http://www.liulongbin.top:3006/api/getbooks?id=1')
 // 3. 调用 send 函数
 xhr.send()
 // 4. 监听 onreadystatechange 事件
@@ -88,21 +190,165 @@ xhr.onreadystatechange = function () {
   }
 }
 ```
+### xhr对象的readyState属性
+> XMLHttpRequest对象的readyState属性，用来表示当前Ajax请求所处的状态。每个Ajax请求必然处于期中中的一个
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221117215539.png)
+
+### 使用 xhr 发起 POST 请求
+- 创建xhr对象
+- 调用xhr.open()函数
+- 设置Content-Type属性(固定写法)
+- 调用xhr.send()函数，同时指定要发送的数据
+- 监听xhr.onreadystatechange.事件
+
+```js
+// 1. 创建 xhr 对象
+var xhr = new XMLHttpRequest()
+// 2. 调用 open 函数
+xhr.open('POST', 'http://www.liulongbin.top:3006/api/addbook')
+// 3. 设置 Content-Type 属性
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+// 4. 调用 send 函数
+xhr.send('bookname=水浒传&author=施耐庵&publisher=上海图书出版社')
+// 5. 监听事件
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+	console.log(xhr.responseText)
+  }
+}
+```
+
+## XMLHttpRequest Level2的新特性
+
+### 旧版XMLHttpRequest的缺点
+- 只支持文本数据的传输，无法用来读取和上传文件
+- 传送和接收数据时，没有进度信息，只能提示有没有完成
+
+### XMLHttpRequest Level2的新功能
+- 可以设置HTTP请求的时限
+- 可以使用FormData 对象管理表单数据
+- 可以上传文件
+- 可以获得数据传输的进度信息
+
+### 设置HTTP请求时限
+> 有时，Ajax作很耗时，而且无法预知要花多少时间。如果网速很慢，用户可能要等很久。新版本的XMLHttpRequest对象，增加了 timeout 属性，可以设置HTTP请求的时限
+
+> 过了这个时限，就自动停止HTTP请求。与之配套的还有一个timeout事件
+
+```js
+var xhr = new XMLHttpRequest()
+xhr.timeout = 30
+// 设置超时以后的处理函数
+xhr.ontimeout = function () {
+  console.log('请求超时了！')
+}
+xhr.open('GET', 'http://www.liulongbin.top:3006/api/getbooks')
+xhr.send()
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+	console.log(xhr.responseText)
+  }
+}
+```
+
+### FormData对象管理表单数据
+> Ajax操作往往用来提交表单数据。为了方便表单处理，HTML5新增了一个FormData对象，可以模拟表单操作
+
+```js
+// 1. 创建 FormData 实例
+var fd = new FormData()
+// 2. 调用 append 函数，向 fd 中追加数据
+fd.append('uname', 'zs')
+fd.append('upwd', '123456')
+var xhr = new XMLHttpRequest()
+xhr.open('POST', 'http://www.liulongbin.top:3006/api/formdata')
+xhr.send(fd)
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+	console.log(JSON.parse(xhr.responseText))
+  }
+}
+```
+### FormData对象获取网页表单的值
+
+```html
+<body>
+    <form id="form1">
+        <input type="text" name="uname" autocomplete="off"/>
+        <input type="password" name="upwd"/>
+        <button type="submit">提交</button>
+    </form>
+    <script>
+        // 1. 通过 DOM 操作，获取到 form 表单元素
+        let form = document.querySelector('#form1');
+
+        form.addEventListener('submit', function (e) {
+            // 阻止表单的默认提交行为
+            e.preventDefault()
+
+            // 创建 FormData，快速获取到 form 表单中的数据
+            let fd = new FormData(form);
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://www.liulongbin.top:3006/api/formdata')
+            xhr.send(fd)
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(JSON.parse(xhr.responseText))
+                }
+            }
+        })
+    </script>
+</body>
+```
+
+### 上传文件
+> 新版XMLHttpRequest对象，不仅可以发送文本信息，还可以上传文件。
+
+- 定义UI结构
+- 验证是否选择了文件
+- 向FormData中追加文件
+- 使用xhr发起上传文件的请求
+- 监听onreadystatechange事件
+
+```js
+// 1. 获取到文件上传按钮
+var btnUpload = document.querySelector('#btnUpload')
+// 2. 为按钮绑定单击事件处理函数
+btnUpload.addEventListener('click', function () {
+  // 3. 获取到用户选择的文件列表
+  var files = document.querySelector('#file1').files
+  if (files.length <= 0) {
+	return alert('请选择要上传的文件！')
+  }
+  var fd = new FormData()
+  // 将用户选择的文件，添加到 FormData 中
+  fd.append('avatar', files[0])
+
+  var xhr = new XMLHttpRequest()
+  xhr.open('POST', 'http://www.liulongbin.top:3006/api/upload/avatar')
+  xhr.send(fd)
+
+  xhr.onreadystatechange = function () {
+	if (xhr.readyState === 4 && xhr.status === 200) {
+	  var data = JSON.parse(xhr.responseText)
+	  if (data.status === 200) {
+		// 上传成功
+		document.querySelector('#img').src = 'http://www.liulongbin.top:3006' + data.url
+	  } else {
+		// 上传失败
+		console.log('图片上传失败！' + data.message)
+	  }
+	}
+  }
+})
+```
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-### jQuery中的Ajax
+## jQuery中的Ajax
 > 浏览器中提供的XMLHttpRequest用法比较复杂，所以jQuery对 XMLHttpRequest进行了封装，提供了-系列Ajax相关的函数，极大地降低了Ajax的使用难度。
 
 > jQuery 中发起Ajax请求最常用的三个方法如下:
@@ -111,18 +357,18 @@ xhr.onreadystatechange = function () {
 > - $.post()
 > - $.ajax()
 
-#### $.get()
+### $.get()
 `$.get (ur1, [data], [callback])`
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221117212245.png)
 
-#### $.post()
+### $.post()
 
 `$.post (ur1,[data] , [callback])`
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221117212612.png)
 
-#### $.ajax()
+### $.ajax()
 > 相比于$.get()和$.post()函数，jQuery中提供的$.ajax()函数，是一个功能比较综合的函数，它允许我们对Ajax请求进行更详细的配置。
 
 ```js
