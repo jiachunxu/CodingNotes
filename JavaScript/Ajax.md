@@ -57,6 +57,30 @@
 
 > 通俗的理解:在网页中利用XMLHttpRequest对象和服务器进行数据交互的方式，就是Ajax。
 
+### Ajax的典型应用场景
+
+- 用户名检测:注册用户时，通过ajax的形式，动态检测用户名是否被占用
+- 搜索提示:当输入搜索关键字时，通过ajax的形式，动态加载搜索提示列表
+- 数据分页显示:当点击页码值的时候，通过ajax的形式，根据页码值动态刷新表格的数据
+- 数据的增删改查:数据的添加、删除、修改、查询操作，都需要通过ajax的形式，来实现数据的交互
+
+### jQuery中的Ajax
+> 浏览器中提供的XMLHttpRequest用法比较复杂，所以jQuery对 XMLHttpRequest进行了封装，提供了-系列Ajax相关的函数，极大地降低了Ajax的使用难度。
+
+> jQuery 中发起Ajax请求最常用的三个方法如下:
+>
+> - $.get()
+> - $.post()
+> - $.ajax()
+
+#### $.get()函数的语法
+`$.get (ur1, [data], [callback])`
+
+>三个参数各自代表的含义
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221117212245.png)
+
+
+
 
 
 
