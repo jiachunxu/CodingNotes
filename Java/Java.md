@@ -1755,6 +1755,50 @@ StringBuilder sb = new StringBuilder("abc");
 System.out.println(sb.append("def").append("aaaaaaaa").append("bbb").append("ooooooo").toString());;
 //链式调用方式：return this
 ```
+# 泛型(Generic)
+- JDK1.5以后
+- 泛型实际就是 一个<>引起来的 参数类型，这个参数类型  具体在使用的时候才会确定具体的类型。
+- 使用了泛型以后，可以确定集合中存放数据的类型，在编译时期就可以检查出来。
+- 使用泛型你可能觉得麻烦，实际使用了泛型才会简单，后续的遍历等操作简单。
+- 泛型的类型：都是引用数据类型，不能是基本数据类型。
+- ArrayList<Integer> al = new ArrayList<Integer>();
+- 在JDK1.7以后可以写为：ArrayList<Integer> al = new ArrayList<>();  
+- <>   钻石运算符
+
+## 泛型方法
+> 方法的泛型的参数类型要和当前的类的泛型无关
+
+> 泛型方法对应的那个泛型参数类型和当前所在的这个类是否是泛型类，泛型是啥无关
+
+> 泛型方法定义的时候，前面要加上<T>
+
+> 原因：如果不加的话，会把T当做一种数据类型，然而代码中没有T类型那么就会报错
+
+> T的类型是在调用方法的时候确定的
+
+> 泛型方法可以是静态方法
+
+## 泛型参数存在继承的情况
+> A和B是子类父类的关系，但是`G<A>`和`G<B>`不存在继承关系的。是并列关系。
+
+## 泛型参数通配符
+>  A 和 B是子类父类的关系，`G<A>`和`G<B>`不存在子类父类关系，是并列的
+
+> 加入通配符？后，`G<?>`就变成了 `G<A>`和`G<B>`的父类
+
+> 不能随意添加数据
+```
+ArrayList<?> objects = new ArrayList<>();
+objects.add(12);//报错
+```
+## 泛型受限
+- 泛型的上限
+  > List<? extends Person> 相当于 List<? extends Person>是List<Person>的父类，是List<Person的子类>的父类
+
+
+- 泛型的下限
+  >List<? super Person> 相当于 List<? super Person>是List<Person>的父类，是List<Person的父类>的父类
+
 
 # 集合
 
@@ -1803,30 +1847,16 @@ public static void main(String[] args) {
 
 - ArrayList
 - Vector
-
-#### List遍历
-
-```
-//List集合 遍历：
-//方式1：普通for循环：
-System.out.println("---------------------");
-for(int i = 0;i<list.size();i++){
-    System.out.println(list.get(i));
-}
-//方式2：增强for循环：
-System.out.println("---------------------");
-for(Object obj:list){
-    System.out.println(obj);
-}
-//方式3：迭代器：
-System.out.println("---------------------");
-Iterator it = list.iterator();
-while(it.hasNext()){
-    System.out.println(it.next());
-}
-```
+- LinkedList
 
 
+### Set 接口
+- HashSet
+- LinkedHashSet
+
+## Map 接口
+- HashMap
+- TreeMap
 
 
 
