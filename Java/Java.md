@@ -1758,19 +1758,24 @@ System.out.println(sb.append("def").append("aaaaaaaa").append("bbb").append("ooo
 
 # 集合
 
-> - Collection
->   - List
->     - ArrayList
->     - LinkedList
->   - Set
->     - HashSet
->     - TreeSet
+- Collection
+  - List
+    - ArrayList
+    - LinkedList
+  - Set
+    - HashSet
+    - TreeSet
 
-> - Map
->   - HashMap
->   - TreeMap
+- Map
+  - HashMap
+  - TreeMap
 
-
+## 常用方法
+- 增加：add(E e) addAll(Collection<? extends E> c)
+- 删除：clear() remove(Object o)
+- 修改：
+- 查看：iterator() size()
+- 判断：contains(Object o)  equals(Object o) isEmpty()
 
 
 
