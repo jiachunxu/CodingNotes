@@ -1735,7 +1735,7 @@ String s7 = new String("abc");
 System.out.println(s6.equals(s7));//true
 ```
 
-> compareTo
+> compareTo方法
 
 ```
 String s8 = new String("abc");
@@ -1784,7 +1784,7 @@ public static void main(String[] args) {
     //对集合遍历（对集合中元素进行查看）
     //方式1：普通for循环
     /*for(int i= 0;i<col.size();i++){
-        col.
+        col.get(i);
     }*/
     //方式2：增强for循环
     for(Object o:col){
@@ -1799,7 +1799,32 @@ public static void main(String[] args) {
 }
 ```
 
+### List接口
 
+- ArrayList
+- Vector
+
+#### List遍历
+
+```
+//List集合 遍历：
+//方式1：普通for循环：
+System.out.println("---------------------");
+for(int i = 0;i<list.size();i++){
+    System.out.println(list.get(i));
+}
+//方式2：增强for循环：
+System.out.println("---------------------");
+for(Object obj:list){
+    System.out.println(obj);
+}
+//方式3：迭代器：
+System.out.println("---------------------");
+Iterator it = list.iterator();
+while(it.hasNext()){
+    System.out.println(it.next());
+}
+```
 
 
 
