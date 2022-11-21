@@ -68,10 +68,24 @@ module.exports = {
 	- 会对打包生成的文件进行代码压缩和性能优化
 	- 打包速度很慢，仅适合在项目发布阶段使用
 
+### webpack.config.js 文件的作用
+
+> webpack.config.js 是 webpack 的配置文件。webpack 在真正开始打包构建之前，会先读取这个配置文件，从而基于给定的配置，对项目进行打包。
+
+> 注意：由于 webpack 是基于 node.js 开发出来的打包工具，因此在它的配置文件中，支持使用 node.js 相关的语法和模块进行 webpack 的个性化配置。
+
+### webpack 中的默认约定
+
+> 在 webpack 4.x 和 5.x 的版本中，有如下的默认约定：
+- 默认的打包入口文件为 src -> index.js
+- 默认的输出文件路径为 dist -> main.js
+
+> 注意：可以在 webpack.config.js中修改打包的默认约定
 
 
+### 自定义打包的入口与出口
 
-
+> 在 webpack.config.js 配置文件中，通过 entry 节点指定打包的入口。通过 output 节点指定打包的出口。
 
 
 
