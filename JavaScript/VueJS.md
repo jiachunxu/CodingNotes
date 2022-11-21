@@ -23,5 +23,68 @@
 - webpack（ https://www.webpackjs.com/ ）
 - parcel（ https://zh.parceljs.org/ ）
 
-# webpack 
+# webpack
+
+> webpack 是前端项目工程化的具体解决方案。
+
+> 主要功能：它提供了友好的前端模块化开发支持，以及代码压缩混淆、处理浏览器端 JavaScript 的兼容性、性能优化等强大的功能。
+
+> 好处：让程序员把工作的重心放到具体功能的实现上，提高了前端开发效率和项目的可维护性。
+
+> 注意：目前 Vue，React 等前端项目，基本上都是基于 webpack 进行工程化开发的。
+
+## 安装 webpack
+
+`npm  install  webpack@5.42.1  webpack-cli@4.7.2 -D`
+
+## 配置 webpack
+
+- 在项目根目录中，创建名为 webpack.config.js 的 webpack 配置文件，并初始化如下的基本配置
+
+```js
+module.exports = {
+    mode: 'development' //mode用来指定构建模式。可选值有development和production
+}
+```
+
+- 在 package.json 的 scripts 节点下，新增 dev 脚本如下
+
+```
+"scripts": {
+    "dev" : "webpack" //script节点下的脚本，可以通过npm run执行。例如npm run dev
+}
+```
+
+- 在终端中运行 npm run dev 命令，启动 webpack 进行项目的打包构建
+
+### mode 的可选值
+
+- development
+	- 开发环境
+	- 不会对打包生成的文件进行代码压缩和性能优化
+	- 打包速度快，适合在开发阶段使用
+- production
+	- 生产环境
+	- 会对打包生成的文件进行代码压缩和性能优化
+	- 打包速度很慢，仅适合在项目发布阶段使用
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
