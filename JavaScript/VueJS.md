@@ -105,6 +105,73 @@
 > 注意：相对于 v-text 指令来说，插值表达式在开发中更常用一些！因为它不会覆盖元素中默认的文本内容。
 
 - v-html
+> v-text 指令和插值表达式只能渲染纯文本内容。如果要把包含 HTML 标签的字符串渲染为页面的 HTML 元素，则需要用到 v-html 这个指令
+
+### 属性绑定指令
+
+> 如果需要为元素的属性动态绑定属性值，则需要用到 v-bind 属性绑定指令
+
+> 由于 v-bind 指令在开发中使用频率非常高，因此，vue 官方为其提供了简写形式（简写为英文的 : ）
+
+```
+<img :src="photo" alt="" style="width: 150px;">
+<div :title="'box' + index">这是一个 div</div>
+```
+
+> 在 vue 提供的模板渲染语法中，除了支持绑定简单的数据值之外，还支持 Javascript 表达式的运算
+
+
+### 事件绑定指令
+
+> vue 提供了 v-on 事件绑定指令，用来辅助程序员为 DOM 元素绑定事件监听。
+
+> 通过 v-on 绑定的事件处理函数，需要在 methods 节点中进行声明
+
+> 由于 v-on 指令在开发中使用频率非常高，因此，vue 官方为其提供了简写形式（简写为英文的 @ ）
+
+> 注意：
+> 原生 DOM 对象有 onclick、oninput、onkeyup 等原生事件，替换为 vue 的事件绑定形式后，分别为：v-on:click、v-on:input、v-on:keyup
+
+#### $event
+
+> $event 是 vue 提供的特殊变量，用来表示原生的事件参数对象 event。$event 可以解决事件参数对象 event 被覆盖的问题。
+
+```
+<button @click="add($event, 1)">+N</button>
+```
+
+#### 事件修饰符
+
+> 在事件处理函数中调用 event.preventDefault() 或 event.stopPropagation() 是非常常见的需求。因此，vue 提供了事件修饰符的概念，来辅助程序员更方便的对事件的触发进行控制。
+
+|事件修饰符|说明|
+|---|---|
+|.prevent|阻止默认行为（例如:阻止a连接的跳转、阻止表单的提交等)|
+|.stop|阻止事件冒泡|
+|.capture|以捕获模式触发当前的事件处理函数|
+|.once|绑定的事件只触发1次|
+|.self|只有在event.target是当前元素自身时触发事件处理函数|
+
+```
+<a href="http://www.baidu.com" @click.prevent="show">跳转到百度首页</a>
+```
+
+#### 按键修饰符
+
+> 在监听键盘事件时，我们经常需要判断详细的按键。此时，可以为键盘相关的事件添加按键修饰符
+
+```
+<input type="text" @keyup.esc="clearInput" @keyup.enter="commitAjax">
+```
+
+
+
+
+
+
+
+
+
 
 
 
