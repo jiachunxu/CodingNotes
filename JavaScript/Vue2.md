@@ -463,7 +463,6 @@ vue create 项目的名称
 - index.html 中需要预留一个el 区域
 - main.js 把App.vue 渲染到了index.html 所预留的区域中
 
-
 ## vue 组件
 
 > 组件化开发指的是：根据封装的思想，把页面上可重用的UI 结构封装为组件，从而方便项目的开发和维护。
@@ -481,14 +480,30 @@ vue create 项目的名称
 
 > 其中，每个组件中必须包含template 模板结构，而script 行为和style 样式是可选的组成部分。
 
-
 #### template
 
-vue 规定：每个组件对应的模板结构，需要定义到<template> 节点中。
+> vue 规定：每个组件对应的模板结构，需要定义到<template> 节点中。
 
+```js
+<template>
 
+</template>
+```
 
+注意：
 
+- template 是vue 提供的容器标签，只起到包裹性质的作用，它不会被渲染为真正的DOM 元素
+- template 中只能包含唯一的根节点 (Vue3支持多根节点)
+
+#### script
+
+> vue 规定：开发者可以在<script> 节点中封装组件的JavaScript 业务逻辑。
+
+```js
+<script>
+    export default {}
+</script>
+```
 
 
 
