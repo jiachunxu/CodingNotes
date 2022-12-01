@@ -579,12 +579,13 @@ vue create 项目的名称
 > 在vue 项目的main.js 入口文件中，通过Vue.component() 方法，可以注册全局组件。
 
 ```js
-Vue.component('my-component-name', { /* ... */ })
+import Test from '@/components/Test.vue'
+Vue.component('MyTest', Test)
 ```
 
+### 组件的props
 
-
-
+> props 是组件的自定义属性，在封装通用组件的时候，合理地使用props 可以极大的提高组件的复用性！
 
 
 
