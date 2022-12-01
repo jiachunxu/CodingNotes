@@ -505,11 +505,11 @@ vue create 项目的名称
 </script>
 ```
 
+> .vue 组件中的data 必须是函数
 
+> vue 规定：.vue 组件中的data 必须是一个函数，不能直接指向一个数据对象
 
-
-
-
+会导致多个组件实例共用同一份数据的问题，请参考官方给出的示例：https://cn.vuejs.org/v2/guide/components.html#data-必须是一个函数
 
 
 
