@@ -641,15 +641,31 @@ Vue.component('MyTest', Test)
 > 注意：生命周期强调的是时间段，生命周期函数强调的是时间点。
 
 
+## 组件生命周期函数的分类
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202062018.png)
 
 
+## 生命周期图示
+
+> 可以参考vue 官方文档给出的“生命周期图示”，进一步理解组件生命周期执行的过程：
+(https://cn.vuejs.org/v2/guide/instance.html#生命周期图示)
 
 
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/lifecycle.png)
 
 
+# 组件之间的数据共享
 
+组件之间的最常见的关系:
+- 父子关系
+- 兄弟关系
 
+## 父子组件之间的数据共享
 
+- 子 -> 父
+- 父 -> 子
+
+### 父组件向子组件共享数据
 
 
 
