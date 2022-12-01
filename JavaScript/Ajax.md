@@ -165,9 +165,9 @@ console.log(str3)
 #### JSON和JS对象的互转
 
 - JSON 转 JS对象
-	- JSON.parse()
+  - JSON.parse()
 - JS对象 转 JSON
-	- JSON.stringify()
+  - JSON.stringify()
 
 ### 序列化和反序列化
 
@@ -311,33 +311,33 @@ xhr.onreadystatechange = function () {
 ```html
 
 <body>
-    <form id="form1">
-        <input type="text" name="uname" autocomplete="off"/>
-        <input type="password" name="upwd"/>
-        <button type="submit">提交</button>
-    </form>
-    <script>
-        // 1. 通过 DOM 操作，获取到 form 表单元素
-        let form = document.querySelector('#form1');
+<form id="form1">
+    <input type="text" name="uname" autocomplete="off"/>
+    <input type="password" name="upwd"/>
+    <button type="submit">提交</button>
+</form>
+<script>
+    // 1. 通过 DOM 操作，获取到 form 表单元素
+    let form = document.querySelector('#form1');
 
-        form.addEventListener('submit', function (e) {
-            // 阻止表单的默认提交行为
-            e.preventDefault()
+    form.addEventListener('submit', function (e) {
+        // 阻止表单的默认提交行为
+        e.preventDefault()
 
-            // 创建 FormData，快速获取到 form 表单中的数据
-            let fd = new FormData(form);
+        // 创建 FormData，快速获取到 form 表单中的数据
+        let fd = new FormData(form);
 
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://www.liulongbin.top:3006/api/formdata')
-            xhr.send(fd)
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://www.liulongbin.top:3006/api/formdata')
+        xhr.send(fd)
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    console.log(JSON.parse(xhr.responseText))
-                }
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(JSON.parse(xhr.responseText))
             }
-        })
-    </script>
+        }
+    })
+</script>
 </body>
 ```
 
@@ -541,8 +541,28 @@ document.querySelector('#btn4').addEventListener('click', function () {
     })
 })
 ```
+
 ### 使用 await async简化使用 axios
 
+```js
+document.querySelector('#btnGET').addEventListener('click', async function () {
+    /* axios.get('url地址', {
+      // GET 参数
+      params: {}
+    }) */
+
+    const {data: res} = await axios.get('http://www.liulongbin.top:3006/api/getbooks', {
+        params: {id: 1}
+    })
+    console.log(res)
+})
+
+document.querySelector('#btnPOST').addEventListener('click', async function () {
+    // axios.post('url', { /* POST 请求体数据 */ })
+    const {data: res} = await axios.post('http://www.liulongbin.top:3006/api/post', {name: 'zs', gender: '女'})
+    console.log(res)
+})
+```
 
 # 节流和防抖
 
