@@ -541,6 +541,8 @@ document.querySelector('#btn4').addEventListener('click', function () {
     })
 })
 ```
+### 使用 await async简化使用 axios
+
 
 # 节流和防抖
 
