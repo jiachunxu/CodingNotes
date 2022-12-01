@@ -511,7 +511,6 @@ vue create 项目的名称
 
 会导致多个组件实例共用同一份数据的问题，请参考官方给出的示例：https://cn.vuejs.org/v2/guide/components.html#data-必须是一个函数
 
-
 #### style
 
 > vue 规定：组件内的<style> 节点是可选的，开发者可以在<style> 节点中编写样式美化当前组件的UI 结构。
@@ -528,12 +527,60 @@ vue create 项目的名称
 
 ### 使用组件的三个步骤
 
+```html
 
+<template>
+    <div class="app-container">
+        <h1>App 根组件</h1>
 
+        <button
+                @click="flag = !flag">Toggle Flag
+        </button>
+        <Test info="你好" v-if="flag"></Test>
 
+        <hr/>
 
+        <div class="box">
+            <!-- 渲染 Left 组件和 Right 组件 -->
+            <!-- 3. 以标签形式，使用注册好的组件 -->
+            <Left></Left>
+            <Right></Right>
+        </div>
+    </div>
+</template>
 
+<script>
+    // 1. 导入需要使用的 .vue 组件
+    import Left from '@/components/Left.vue'
+    import Right from '@/components/Right.vue'
+    import Test from '@/components/Test.vue'
 
+    export default {
+        data() {
+            return {
+                flag: true
+            }
+        },
+        // 2. 注册组件
+        components: {
+            Left,
+            Right,
+            Test
+        }
+    }
+</script>
+```
+
+### 通过components 注册的是私有子组件
+
+> 在组件A 的components 节点下，注册了组件F。则组件F 只能用在组件A 中；不能被用在组件C 中。
+
+### 注册全局组件
+> 在vue 项目的main.js 入口文件中，通过Vue.component() 方法，可以注册全局组件。
+
+```js
+Vue.component('my-component-name', { /* ... */ })
+```
 
 
 
