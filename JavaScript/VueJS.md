@@ -164,6 +164,50 @@
 <input type="text" @keyup.esc="clearInput" @keyup.enter="commitAjax">
 ```
 
+### 双向绑定指令
+
+> vue 提供了 v-model 双向数据绑定指令，用来辅助开发者在不操作 DOM 的前提下，快速获取表单的数据
+
+
+```
+  <div id="app">
+    <p>用户的名字是：{{ username }}</p>
+    <input type="text" v-model="username">
+    <hr>
+
+    <select v-model="city">
+      <option value="">请选择城市</option>
+      <option value="1">北京</option>
+      <option value="2">上海</option>
+      <option value="3">广州</option>
+    </select>
+  </div>
+  
+  const vm = new Vue({
+    // el 属性是固定的写法，表示当前 vm 实例要控制页面上的哪个区域，接收的值是一个选择器
+    el: '#app',
+    // data 对象就是要渲染到页面上的数据
+    data: {
+      username: 'zhangsan',
+      city: '2'
+    }
+  })
+```
+
+#### v-model 指令的修饰符
+
+> 为了方便对用户输入的内容进行处理，vue 为 v-model 指令提供了 3 个修饰符
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202043602.png)
+
+
+
+
+
+
+
+
+
 
 
 
