@@ -46,25 +46,20 @@
 - 创建 vm 实例对象（vue 实例对象）
 
 ```js
-<body>
-    <!-- 希望 Vue 能够控制下面的这个 div，帮我们在把数据填充到 div 内部 -->
-    <div id="app">{{username}}</div>
 
-    <!-- 1. 导入 Vue 的库文件，在 window 全局就有了 Vue 这个构造函数 -->
-    <script src="./lib/vue-2.6.12.js"></script>
-    <!-- 2. 创建 Vue 的实例对象 -->
-    <script>
-        // 创建 Vue 的实例对象
-        const vm = new Vue({
-        // el 属性是固定的写法，表示当前 vm 实例要控制页面上的哪个区域，接收的值是一个选择器
-        el: '#app',
-        // data 对象就是要渲染到页面上的数据
-        data: {
+
+<!-- 1. 导入 Vue 的库文件，在 window 全局就有了 Vue 这个构造函数 -->
+//<script src="./lib/vue-2.6.12.js"></script>
+
+// 创建 Vue 的实例对象
+const vm = new Vue({
+    // el 属性是固定的写法，表示当前 vm 实例要控制页面上的哪个区域，接收的值是一个选择器
+    el: '#app',
+    // data 对象就是要渲染到页面上的数据
+    data: {
         username: 'zhangsan'
     }
-    })
-    </script>
-</body>
+})
 ```
 
 ## vue 的调试工具 vue-devtools
@@ -320,36 +315,96 @@ Vue.filter('capi', function (str) {
 <!--最终把 filterB处理的结果，作为最终的值渲染到页面上 -->
 {{ message | filterA | filterB }}
 ```
+
 ### 过滤器传参
 
 > 过滤器的本质是 JavaScript 函数，因此可以接收参数
 
-
 ### 过滤器的兼容性
 
-> 过滤器仅在 vue 2.x 和 1.x 中受支持，在 vue 3.x 的版本中剔除了过滤器相关的功能。
-在企业级项目开发中：
+> 过滤器仅在 vue 2.x 和 1.x 中受支持，在 vue 3.x 的版本中剔除了过滤器相关的功能。 在企业级项目开发中：
+
 - 如果使用的是 2.x 版本的 vue，则依然可以使用过滤器相关的功能
 - 如果项目已经升级到了 3.x 版本的 vue，官方建议使用计算属性或方法代替被剔除的过滤器功能具体的迁移指南，
 
 请参考 vue 3.x 的官方文档给出的说明：
 https://v3.vuejs.org/guide/migration/filters.html#migration-strategy
 
-
 ## watch 侦听器
 
+> watch 侦听器允许开发者监视数据的变化，从而针对数据的变化做特定的操作
 
+```js
+const vm = new Vue({
+    el: '#app',
+    data: {
+        username: 'admin'
+    },
+    // 所有的侦听器，都应该被定义到 watch 节点下
+    watch: {
+        // 侦听器本质上是一个函数，要监视哪个数据的变化，就把数据名作为方法名即可
+        // 新值在前，旧值在后
+        username(newVal) {
+            if (newVal === '') return
+            // 1. 调用 jQuery 中的 Ajax 发起请求，判断 newVal 是否被占用！！！
+            $.get('https://www.escook.cn/api/finduser/' + newVal, function (result) {
+                console.log(result)
+            })
+        }
+    }
+})
+```
 
+### immediate 选项
 
+> 默认情况下，组件在初次加载完毕后不会调用watch 侦听器。如果想让watch 侦听器立即被调用，则需要使 用immediate 选项
 
+```js
+const vm = new Vue({
+    el: '#app',
+    data: {
+        username: 'admin'
+    },
+    // 所有的侦听器，都应该被定义到 watch 节点下
+    watch: {
+        // 定义对象格式的侦听器
+        username: {
+            // 侦听器的处理函数
+            handler(newVal, oldVal) {
+                console.log(newVal, oldVal)
+            },
+            // immediate 选项的默认值是 false
+            // immediate 的作用是：控制侦听器是否自动触发一次！
+            immediate: true
+        }
+    }
+})
+```
 
+### deep 选项
 
+> 如果watch 侦听的是一个对象，如果对象中的属性值发生了变化，则无法被监听到。此时需要使用 deep 选项
 
+### 监听对象单个属性的变化
 
-
-
-
-
+```js
+const vm = new Vue({
+    el: '#app',
+    data: {
+        info: {
+            username: 'admin',
+            address: {
+                city: '北京'
+            }
+        }
+    },
+    watch: {
+        'info.username'(newVal) {
+            console.log(newVal)
+        }
+    }
+})
+```
 
 
 
