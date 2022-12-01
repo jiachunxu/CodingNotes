@@ -406,42 +406,85 @@ const vm = new Vue({
 })
 ```
 
+## 计算属性
+
+> 计算属性指的是通过一系列运算之后，最终得到一个属性值。
+>
+> 这个动态计算出来的属性值可以被模板结构或methods 方法使用。
+
+```js
+var vm = new Vue({
+    el: '#app',
+    data: {
+        r: 0,
+        g: 0,
+        b: 0
+    },
+    // 所有的计算属性，都要定义到 computed 节点之下
+    // 计算属性在定义的时候，要定义成“方法格式”
+    computed: {
+        // rgb 作为一个计算属性，被定义成了方法格式，
+        // 最终，在这个方法中，要返回一个生成好的 rgb(x,x,x) 的字符串
+        rgb() {
+            return `rgb(${this.r}, ${this.g}, ${this.b})`
+        }
+    }
+})
+```
+
+### 计算属性的特点
+
+- 虽然计算属性在声明的时候被定义为方法，但是计算属性的本质是一个属性
+- 计算属性会缓存计算的结果，只有计算属性依赖的数据变化时，才会重新进行运算
+
+## SPA
+
+> 单页面应用程序（英文名：Single Page Application）简称SPA
+
+## vue-cli
+
+> vue-cli 是Vue.js 开发的标准工具。它简化了程序员基于webpack 创建工程化的Vue 项目的过程。
+
+[中文官网](https://cli.vuejs.org/zh/)
+
+```
+// 安装
+npm install -g @vue/cli
+
+// 基于vue-cli 快速生成工程化的Vue 项目
+vue create 项目的名称
+```
+
+### vue 项目的运行流程
+
+> 在工程化的项目中，vue 要做的事情很单纯：通过main.js 把App.vue 渲染到index.html 的指定区域中。
+
+- App.vue 用来编写待渲染的模板结构
+- index.html 中需要预留一个el 区域
+- main.js 把App.vue 渲染到了index.html 所预留的区域中
 
 
+## vue 组件
+
+> 组件化开发指的是：根据封装的思想，把页面上可重用的UI 结构封装为组件，从而方便项目的开发和维护。
+
+### vue 中的组件化开发
+
+- vue 是一个支持组件化开发的前端框架。
+- vue 中规定：组件的后缀名是.vue。之前接触到的App.vue 文件本质上就是一个vue 的组件。
+
+### vue 组件的三个组成部分
+
+- template -> 组件的模板结构
+- script -> 组件的JavaScript 行为
+- style -> 组件的样式
+
+> 其中，每个组件中必须包含template 模板结构，而script 行为和style 样式是可选的组成部分。
 
 
+#### template
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+vue 规定：每个组件对应的模板结构，需要定义到<template> 节点中。
 
 
 
