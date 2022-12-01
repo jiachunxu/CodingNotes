@@ -576,10 +576,12 @@ vue create 项目的名称
 > 在组件A 的components 节点下，注册了组件F。则组件F 只能用在组件A 中；不能被用在组件C 中。
 
 ### 注册全局组件
+
 > 在vue 项目的main.js 入口文件中，通过Vue.component() 方法，可以注册全局组件。
 
 ```js
 import Test from '@/components/Test.vue'
+
 Vue.component('MyTest', Test)
 ```
 
@@ -587,16 +589,56 @@ Vue.component('MyTest', Test)
 
 > props 是组件的自定义属性，在封装通用组件的时候，合理地使用props 可以极大的提高组件的复用性！
 
+```
+<script>
+    export default {
+      props: ['自定义属性A'，'自定义属性B'，'其它自定义属性`... ],
+      data(){
+        return {}
+      }
+</script>
+```
+
+- props 是只读的
+  - vue 规定：组件中封装的自定义属性是只读的，程序员不能直接修改props 的值。否则会直接报错
+  - 要想修改props 的值，可以把props 的值转存到data 中，因为data 中的数据都是可读可写的！
+
+- props 的default 默认值
+- props 的type 值类型
+- props 的required 必填项
+
+```
+  props: {
+    init: {
+      default: 0,
+      type: Number,
+      required: true
+    }
+  }
+```
+
+### style 节点的scoped 属性
+
+> 为了提高开发效率和开发体验，vue 为style 节点提供了scoped 属性，从而防止组件之间的样式冲突问题
+
+```
+<style scoped>
+</style>
+```
+
+#### /deep/ 样式穿透
+
+> 如果给当前组件的style 节点添加了scoped 属性，则当前组件的样式对其子组件是不生效的。如果想让某些样
+式对子组件生效，可以使用/deep/ 深度选择器。
 
 
+# 生命周期& 生命周期函数
 
-
-
-
-
-
-
-
+> 生命周期（Life Cycle）是指一个组件从创建-> 运行-> 销毁的整个阶段，强调的是一个时间段。
+> 
+> 生命周期函数：是由vue 框架提供的内置函数，会伴随着组件的生命周期，自动按次序执行。
+> 
+> 注意：生命周期强调的是时间段，生命周期函数强调的是时间点。
 
 
 
