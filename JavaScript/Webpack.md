@@ -195,8 +195,202 @@ loader 加载器的作用：协助 webpack 打包处理特定的文件模块。�
 
 ### 4. 打包处理 less 文件
 
+- 运行 npm  i  less-loader@10.0.1  less@4.1.1 -D 命令
+- 在 webpack.config.js 的 module -> rules 数组中，添加 loader 规则如下：
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202032530.png)
+
+### 5. 打包处理样式表中与 url 路径相关的文件
+
+- 运行 `npm  i url-loader@4.1.1  file-loader@6.2.0  -D` 命令
+- 在 webpack.config.js 的 module -> rules 数组中，添加 loader 规则如下
+  
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202032639.png)
+
+> 其中 ? 之后的是 loader 的参数项：
+> 
+> > limit 用来指定图片的大小，单位是字节（byte）
+> 
+> > 只有 ≤ limit 大小的图片，才会被转为 base64 格式的图片
+
+
+### 6. 打包处理 js 文件中的高级语法(babel-loader)
+
+> webpack 只能打包处理一部分高级的 JavaScript 语法。对于那些 webpack 无法处理的高级 js 语法，需要借助于 babel-loader 进行打包处理。
+
+```
+npm  i  babel-loader@8.2.2 @babel/core@7.14.6 @babel/plugin-proposal-decorators@7.14.5 -D
+```
+
+在 webpack.config.js 的 module -> rules 数组中，添加 loader 规则如下
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202033012.png)
+
+### 配置 babel-loader
+
+在项目根目录下，创建名为 babel.config.js 的配置文件，定义 Babel 的配置项如下
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202033132.png)
+
+详情请参考 Babel 的官网 https://babeljs.io/docs/en/babel-plugin-proposal-decorators
+
+
+# 打包发布
+
+项目开发完成之后，需要使用 webpack 对项目进行打包发布，主要原因有以下两点：
+- 开发环境下，打包生成的文件存放于内存中，无法获取到最终打包生成的文件
+- 开发环境下，打包生成的文件不会进行代码压缩和性能优化
+
+为了让项目能够在生产环境中高性能的运行，因此需要对项目进行打包发布。
+
+## 配置 webpack 的打包发布
+
+在 package.json 文件的 scripts 节点下，新增 build 命令
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202033356.png)
+
+> --model 是一个参数项，用来指定 webpack 的运行模式。production 代表生产环境，会对打包生成的文件进行代码压缩和性能优化。
+
+> 注意：通过 --model 指定的参数项，会覆盖 webpack.config.js 中的 model 选项。
+
+
+## 把 JavaScript 文件统一生成到 js 目录中
+在 webpack.config.js 配置文件的 output 节点中，进行如下的配置
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202033552.png)
+
+## 把图片文件统一生成到 image 目录中
+修改 webpack.config.js 中的 url-loader 配置项，新增 outputPath 选项即可指定图片文件的输出路径
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202033641.png)
+
+## 自动清理 dist 目录下的旧文件
+
+为了在每次打包发布时自动清理掉 dist 目录中的旧文件，可以安装并配置 clean-webpack-plugin 插件
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202033737.png)
+
+# Source Map
+
+Source Map 就是一个信息文件，里面储存着位置信息。也就是说，Source Map 文件中存储着压缩混淆后的代码，所对应的转换前的位置
+
+有了它，出错的时候，除错工具将直接显示原始代码，而不是转换后的代码，能够极大的方便后期的调试。
+
+## webpack 开发环境下的 Source Map
+
+在开发环境下，webpack 默认启用了 Source Map 功能。当程序运行出错时，可以直接在控制台提示错误行的位置，并定位到具体的源代码：
+
+### 默认 Source Map 的问题
+
+开发环境下默认生成的 Source Map，记录的是生成后的代码的位置。会导致运行时报错的行数与源代码的行数不一致的问题。
+
+### 解决默认 Source Map 的问题
+
+开发环境下，推荐在 webpack.config.js 中添加如下的配置，即可保证运行时报错的行数与源代码的行数保持一致
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202034123.png)
+
+## webpack 生产环境下的 Source Map
+
+在生产环境下，如果省略了 devtool 选项，则最终生成的文件中不包含 Source Map。这能够防止原始代码通过 Source Map 的形式暴露给别有所图之人。
+
+### 只定位行数不暴露源码
+
+在生产环境下，如果只想定位报错的具体行数，且不想暴露源码。此时可以将 devtool 的值设置为nosources-source-map。
+
+### 定位行数且暴露源码
+
+在生产环境下，如果想在定位报错行数的同时，展示具体报错的源码。此时可以将 devtool 的值设置为source-map。
+
+> 采用此选项后：你应该将你的服务器配置为，不允许普通用户访问 source map 文件！
+
+## Source Map 的最佳实践
+
+- 开发环境下：
+  - 建议把 devtool 的值设置为 eval-source-map
+  - 好处：可以精准定位到具体的错误行
+- 生产环境下：
+  - 建议关闭 Source Map 或将 devtool 的值设置为 nosources-source-map
+  - 好处：防止源码泄露，提高网站的安全性
+
+
+ 
 
 
 
 
+ 
 
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
