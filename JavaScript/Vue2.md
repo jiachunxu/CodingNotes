@@ -848,8 +848,9 @@ methods: {
 
 ## 作用域插槽
 
+> 在封装组件的过程中，可以为预留的 <slot> 插槽绑定 props 数据，这种带有 props 数据的 <slot> 叫做“作用域插槽”。
 
-
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202211946.png)
 
 
 
