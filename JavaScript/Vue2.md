@@ -628,22 +628,19 @@ Vue.component('MyTest', Test)
 
 #### /deep/ 样式穿透
 
-> 如果给当前组件的style 节点添加了scoped 属性，则当前组件的样式对其子组件是不生效的。如果想让某些样
-式对子组件生效，可以使用/deep/ 深度选择器。
-
+> 如果给当前组件的style 节点添加了scoped 属性，则当前组件的样式对其子组件是不生效的。如果想让某些样 式对子组件生效，可以使用/deep/ 深度选择器。
 
 # 生命周期& 生命周期函数
 
 > 生命周期（Life Cycle）是指一个组件从创建-> 运行-> 销毁的整个阶段，强调的是一个时间段。
-> 
+>
 > 生命周期函数：是由vue 框架提供的内置函数，会伴随着组件的生命周期，自动按次序执行。
-> 
+>
 > 注意：生命周期强调的是时间段，生命周期函数强调的是时间点。
 
-
 ## 组件生命周期函数的分类
-![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202062018.png)
 
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202062018.png)
 
 ## 生命周期图示
 
@@ -653,10 +650,10 @@ Vue.component('MyTest', Test)
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/lifecycle.png)
 
-
 # 组件之间的数据共享
 
 组件之间的最常见的关系:
+
 - 父子关系
 - 兄弟关系
 
@@ -666,6 +663,263 @@ Vue.component('MyTest', Test)
 - 父 -> 子
 
 ### 父组件向子组件共享数据
+
+> 父组件向子组件共享数据需要使用**自定义属性**。
+
+```
+//父组件
+<Son :msg="message" :user="userinfo"></Son>
+data() {
+  return {
+  message: "hello vue.js ' ,
+  userinfo: { name: 'zs', age: 20 }
+  }
+}
+```
+
+```
+<template>
+  <div>
+    <h5>Son组件</h5>
+    <p>父组件传递过来的 msg 值是: f{ msg }}</p>
+    <p>父组件传递过来的 user 值是:f{ user }}</p>
+  </div>
+</template>
+props:[ 'msg', 'user']
+```
+
+### 子组件向父组件共享数据
+
+> 子组件向父组件共享数据使用自定义事件。
+
+```
+//子组件
+export default {
+  data() {
+    return { count: 0 }
+  },
+  methods: {
+  add() {
+    this.count += 1
+    //修改数据时，通过$emit(）触发自定义事件
+    this.$emit('numchange', this.count)}
+  }
+}
+```
+
+```
+//父组件
+<Son @numchange="getNewCount"></Son>
+export default {
+  data() {
+    return { countFromSon: 0 }
+  },
+  methods: {
+    getNewCount(val) {
+      this.count += 1
+      this.countFromSon = val
+    }
+  }
+}
+```
+
+### 兄弟组件之间的数据共享
+
+> 在vue2.x 中，兄弟组件之间数据共享的方案是EventBus。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202205722.png)
+
+> EventBus 的使用步骤
+>
+> - 创建eventBus.js 模块，并向外共享一个Vue 的实例对象
+> - 在数据发送方，调用bus.$emit('事件名称', 要发送的数据) 方法触发自定义事件
+> - 在数据接收方，调用bus.$on('事件名称', 事件处理函数) 方法注册一个自定义事件
+
+# ref 引用
+
+> 每个vue 的组件实例上，都包含一个$refs 对象，里面存储着对应的DOM 元素或组件的引用。默认情况下， 组件的$refs 指向一个空对象。
+
+## 使用ref 引用DOM 元素
+
+```
+<h3 ref="myh3">MyRef 组件</h3>
+<button @click="getRef">获取$refs引用</button>
+
+methods: {
+  getRef() {
+    //通过 this.$refs.引用的名称可以获取到DOM元素的引用console.log(this.$refs.myh3)
+    //操作DOM元素，把文本颜色改为红色
+    this.$refs.myh3.style.color = 'red'
+  }，
+}
+
+```
+
+## 使用ref 引用组件实例
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202210331.png)
+
+## this.$nextTick(cb) 方法
+
+> 组件的$nextTick(cb) 方法，会把cb 回调推迟到下一个DOM 更新周期之后执行。通俗的理解是：等组件的DOM 更新完成之后，再执行cb 回调函数。从而能保证cb 回调函数可以操作到最新的DOM 元素。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202210500.png)
+
+# 动态组件& 插槽& 自定义指令
+
+## 动态组件
+
+> 动态组件指的是动态切换组件的显示与隐藏。
+
+### 实现动态组件渲染
+
+> vue 提供了一个内置的 <component> 组件，专门用来实现动态组件的渲染。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202210706.png)
+
+### 使用keep-alive 保持状态
+
+> 默认情况下，切换动态组件时无法保持组件的状态。此时可以使用 vue 内置的 <keep-alive> 组件保持动态组件的状态。
+
+```
+<keep-alive>
+  <component :is="comName">
+  </component>
+</keep-alive>
+```
+
+### keep-alive 对应的生命周期函数
+
+> 当组件被缓存时，会自动触发组件的 deactivated 生命周期函数。
+
+> 当组件被激活时，会自动触发组件的 activated 生命周期函数。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202210951.png)
+
+### keep-alive 的include 属性
+
+> include 属性用来指定：只有名称匹配的组件会被缓存。多个组件名之间使用英文的逗号分隔
+
+```
+<keep-alive include="MyLeft,MyRight">
+  <component :is="comName">
+  </component>
+</keep-alive>
+```
+
+## 插槽
+
+> 插槽（Slot）是 vue 为组件的封装者提供的能力。允许开发者在封装组件时，把不确定的、希望由用户指定的部分定义为插槽。
+
+> 可以把插槽认为是组件封装期间，为用户预留的内容的占位符。
+
+## 体验插槽的基础用法
+
+> 在封装组件时，可以通过 <slot> 元素定义插槽，从而为用户预留内容占位符。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202211352.png)
+
+> 没有预留插槽的内容会被丢弃
+
+## 后备内容
+
+> 封装组件时，可以为预留的 <slot> 插槽提供后备内容（默认内容）。如果组件的使用者没有为插槽提供任何内容，则后备内容会生效。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202211527.png)
+
+## 具名插槽
+
+> 如果在封装组件时需要预留多个插槽节点，则需要为每个 <slot> 插槽指定具体的 name 名称。这种带有具体名称的插槽叫做“具名插槽”。
+
+> 注意：没有指定 name 名称的插槽，会有隐含的名称叫做 “default”。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202211618.png)
+
+
+### 为具名插槽提供内容
+
+> 在向具名插槽提供内容的时候，我们可以在一个 <template> 元素上使用 v-slot 指令，并以 v-slot 的参数的形式提供其名称。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
