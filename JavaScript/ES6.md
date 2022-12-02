@@ -207,66 +207,192 @@ thenFs
     .then((r3) => {
         console.log(r3)
     })
-
+    .catch(err => {
+        console.log(err.message)
+    })
 ```
 
+### 通过 .catch 捕获错误
 
+> 在 Promise 的链式操作中如果发生了错误，可以使用 Promise.prototype.catch 方法进行捕获和处理
 
+> 如果不希望前面的错误导致后续的 .then 无法正常执行，则可以将 .catch 的调用提前
 
+```js
+import thenFs from 'then-fs'
 
+thenFs
+    .readFile('./files/11.txt', 'utf8')
+    .catch((err) => {
+        console.log(err.message)
+    })
+    .then((r1) => {
+        console.log(r1)
+        return thenFs.readFile('./files/2.txt', 'utf8')
+    })
+    .then((r2) => {
+        console.log(r2)
+        return thenFs.readFile('./files/3.txt', 'utf8')
+    })
+    .then((r3) => {
+        console.log(r3)
+    })
+```
 
+### Promise.all() 方法
 
+> Promise.all() 方法会发起并行的 Promise 异步操作，等所有的异步操作全部结束后才会执行下一步的 .then 操作（等待机制）。
 
+```js
+import thenFs from 'then-fs'
 
+const promiseArr = [
+    thenFs.readFile('./files/3.txt', 'utf8'),
+    thenFs.readFile('./files/2.txt', 'utf8'),
+    thenFs.readFile('./files/1.txt', 'utf8'),
+]
 
+Promise.all(promiseArr).then(result => {
+    console.log(result)
+})
+```
 
+> 注意：数组中 Promise 实例的顺序，就是最终结果的顺序！
 
+### Promise.race()
 
+> Promise.race() 方法Promise.race() 方法会发起并行的 Promise 异步操作，只要任何一个异步操作完成，就立即执行下一步的.then 操作（赛跑机制）。
 
+```js
+import thenFs from 'then-fs'
 
+const promiseArr = [
+    thenFs.readFile('./files/3.txt', 'utf8'),
+    thenFs.readFile('./files/2.txt', 'utf8'),
+    thenFs.readFile('./files/1.txt', 'utf8'),
+]
 
+Promise.race(promiseArr).then(result => {
+    console.log(result)
+})
+```
 
+### 基于 Promise 封装读文件的方法
 
+> 方法的封装要求：
+>
+> - 方法的名称要定义为 getFile
+> - 方法接收一个形参 fpath，表示要读取的文件的路径
+> - 方法的返回值为 Promise 实例对象
 
+```js
+import fs from 'fs'
 
+function getFile(fpath) {
+    return new Promise(function (resolve, reject) {
+        // resolve 形参是:调用getFiles()方法时，通过.then指定的“成功的"回调函数
+        // reject 形参是:调用getFiles()方法时，通过.then指定的“失败的"回调函数
+        fs.readFile(fpath, 'utf8', (err, dataStr) => {
+            if (err) return reject(err)
+            resolve(dataStr)
+        })
+    })
+}
 
+getFile('./files/11.txt')
+    .then((r1) => {
+        console.log(r1)
+    })
+    .catch((err) => console.log(err.message))
+```
 
+## async/await
 
+> async/await 是 ES8（ECMAScript 2017）引入的新语法，用来简化 Promise 异步操作。
+>
+> 在 async/await 出现之前，开发者只能通过链式 .then() 的方式处理 Promise 异步操作。
 
+> .then 链式调用的优点：解决了回调地狱的问题
+>
+> .then 链式调用的缺点：代码冗余、阅读性差、不易理解
 
+```js
+import thenFs from 'then-fs'
 
+console.log('A')
 
+async function getAllFile() {
+    console.log('B')
+    const r1 = await thenFs.readFile('./files/1.txt', 'utf8')
+    console.log(r1)
+    const r2 = await thenFs.readFile('./files/2.txt', 'utf8')
+    console.log(r2)
+    const r3 = await thenFs.readFile('./files/3.txt', 'utf8')
+    console.log(r3)
+    console.log('D')
+}
 
+getAllFile()
+console.log('C')
+```
 
+### async/await 的使用注意事项
 
+- 如果在 function 中使用了 await，则 function 必须被 async 修饰
+- 在 async 方法中，第一个 await 之前的代码会同步执行，await 之后的代码会异步执行
 
+----
 
+# EventLoop
 
+## JavaScript 是单线程的语言
 
+> JavaScript 是一门单线程执行的编程语言。也就是说，同一时间只能做一件事情。
 
+> 单线程执行任务队列的问题：如果前一个任务非常耗时，则后续的任务就不得不一直等待，从而导致程序假死的问题。
 
+## 同步任务和异步任务
 
+> 为了防止某个耗时任务导致程序假死的问题，JavaScript 把待执行的任务分为了两类
 
+- 同步任务（synchronous）
+  - 又叫做非耗时任务，指的是在主线程上排队执行的那些任务
+  - 只有前一个任务执行完毕，才能执行后一个任务
+- 异步任务（asynchronous）
+  - 又叫做耗时任务，异步任务由 JavaScript 委托给宿主环境进行执行
+  - 当异步任务执行完成后，会通知 JavaScript 主线程执行异步任务的回调函数
 
+## 同步任务和异步任务的执行过程
 
+- 1 同步任务由 JavaScript 主线程次序执行
+- 2 异步任务委托给宿主环境执行
+- 3 已完成的异步任务对应的回调函数，会被加入到任务队列中等待执行
+- 4 JavaScript 主线程的执行栈被清空后，会读取任务队列中的回调函数，次序执行
+- 5 JavaScript 主线程不断重复上面的第 4 步
 
+## EventLoop 的基本概念
 
+> JavaScript 主线程从“任务队列”中读取异步任务的回调函数，放到执行栈中依次执行。这个过程是循环不断的，所以整个的这种运行机制又称为 EventLoop（事件循环）。
 
+# 宏任务和微任务
 
+> JavaScript 把异步任务又做了进一步的划分，异步任务又分为两类，分别是：
 
+- 宏任务（macrotask）
+  - 异步 Ajax 请求、
+  - setTimeout、setInterval、
+  - 文件操作
+  - 其它宏任务
+- 微任务（microtask）
+  - Promise.then、.catch 和 .finally
+  - process.nextTick
+  - 其它微任务
 
+## 宏任务和微任务的执行顺序
 
-
-
-
-
-
-
-
-
-
-
-
+> 每一个宏任务执行完之后，都会检查是否存在待执行的微任务，
+>
+> 如果有，则执行完所有微任务之后，再继续执行下一个宏任务。
 
 
 
