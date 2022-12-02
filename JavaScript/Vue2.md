@@ -852,55 +852,114 @@ methods: {
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202211946.png)
 
+### 使用作用域插槽
+
+> 可以使用 v-slot: 的形式，接收作用域插槽对外提供的数据。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202212139.png)
+
+### 解构插槽Prop
+
+> 作用域插槽对外提供的数据对象，可以使用解构赋值简化数据的接收过程。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202212726.png)
+
+# 自定义指令
+
+> vue 官方提供了 v-text、v-for、v-model、v-if 等常用的指令。除此之外 vue 还允许开发者自定义指令。
+
+## 自定义指令的分类
+
+- 私有自定义指令
+- 全局自定义指令
+
+## 私有自定义指令
+
+> 在每个 vue 组件中，可以在 directives 节点下声明私有自定义指令。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202212914.png)
+
+### 使用自定义指令
+
+> 在使用自定义指令时，需要加上 v- 前缀。
+
+### 为自定义指令动态绑定参数值
+
+> 在 template 结构中使用自定义指令时，可以通过等号（=）的方式，为当前指令动态绑定参数值
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202213311.png)
 
 
+### 通过binding 获取指令的参数值
+
+> 通过binding 获取指令的参数值
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202213449.png)
 
 
+### update 函数
+
+> 自定义指令7. update 函数bind 函数只调用 1 次：当指令第一次绑定到元素时调用，当 DOM 更新时 bind 函数不会被触发。 update 函数会在每次 DOM 更新时被调用。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202213537.png)
+
+### 函数简写
+
+> 如果 insert 和update 函数中的逻辑完全相同，则对象格式的自定义指令可以简写成函数格式
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202213724.png)
+
+## 全局自定义指令
+
+> 全局共享的自定义指令需要通过“Vue.directive()”进行声明
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202213915.png)
+
+# 路由
+
+> 路由（英文：router）就是对应关系。
+
+## 前端路由
+
+> Hash 地址与组件之间的对应关系。
+
+### 前端路由的工作方式
+
+- 用户点击了页面上的路由链接
+- 导致了 URL 地址栏中的 Hash 值发生了变化
+- 前端路由监听了到 Hash 地址的变化
+- 前端路由把当前 Hash 地址对应的组件渲染都浏览器中
 
 
+### 实现简易的前端路由
+
+- 步骤1：通过 <component> 标签 的is属性切换组件
+- 步骤2：在 App.vue 组件中，为 <a> 链接添加对应的 hash 值
+- 步骤3：在 created 生命周期函数中，监听浏览器地址栏中 hash 地址的变化，动态切换要展示的组件的名称(window.onhashchange)
+
+##  vue-router
+
+> vue-router 是 vue.js 官方给出的路由解决方案。它只能结合 vue 项目进行使用，能够轻松的管理 SPA 项目中组件的切换。
+
+> vue-router 的官方文档地址：https://router.vuejs.org/zh/
 
 
+```
+// 安装 vue2中
+npm i vue-router@3.5.2 -S
+```
 
+### 创建路由模块
 
+> 在 src 源代码目录下，新建 router/index.js 路由模块
 
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202215014.png)
 
+### 导入并挂载路由模块
 
+> 在 src/main.js 入口文件中，导入并挂载路由模块。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202215050.png)
 
 
 
