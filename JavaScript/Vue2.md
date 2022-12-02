@@ -767,7 +767,7 @@ methods: {
 
 # 动态组件& 插槽& 自定义指令
 
-## 动态组件
+# 动态组件
 
 > 动态组件指的是动态切换组件的显示与隐藏。
 
@@ -807,7 +807,7 @@ methods: {
 </keep-alive>
 ```
 
-## 插槽
+# 插槽
 
 > 插槽（Slot）是 vue 为组件的封装者提供的能力。允许开发者在封装组件时，把不确定的、希望由用户指定的部分定义为插槽。
 
@@ -840,13 +840,13 @@ methods: {
 
 > 在向具名插槽提供内容的时候，我们可以在一个 <template> 元素上使用 v-slot 指令，并以 v-slot 的参数的形式提供其名称。
 
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202211746.png)
 
+### 具名插槽的简写形式
 
+> 跟 v-on 和 v-bind 一样，v-slot 也有缩写，即把参数之前的所有内容 (v-slot:) 替换为字符 #。例如 v-slot:header可以被重写为 #header
 
-
-
-
-
+## 作用域插槽
 
 
 
