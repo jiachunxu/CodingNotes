@@ -961,23 +961,121 @@ npm i vue-router@3.5.2 -S
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202215050.png)
 
+### 声明路由链接和占位符
+
+> 在 src/App.vue 组件中，使用 vue-router 提供的 <router-link> 和 <router-view> 声明路由链接和占位符
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202215349.png)
+
+### 声明路由的匹配规则
+
+> 在 src/router/index.js 路由模块中，通过 routes 数组声明路由的匹配规则。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202215439.png)
 
 
+## vue-router 的常见用法
+
+### 路由重定向
+
+> 路由重定向指的是：用户在访问地址 A 的时候，强制用户跳转到地址 C ，从而展示特定的组件页面。
+> 
+> 通过路由规则的 redirect 属性，指定一个新的路由地址，可以很方便地设置路由的重定向
 
 
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202215610.png)
 
 
+### 嵌套路由
+
+> 通过路由实现组件的嵌套展示，叫做嵌套路由。
+
+#### 声明子路由链接和子路由占位符
+
+> 在 About.vue 组件中，声明 tab1 和 tab2 的子路由链接以及子路由占位符。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202215734.png)
+
+#### 通过children 属性声明子路由规则
+
+> 在 src/router/index.js 路由模块中，导入需要的组件，并使用 children 属性声明子路由规则
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202215821.png)
 
 
+## 动态路由匹配
+
+> 动态路由指的是：把 Hash 地址中可变的部分定义为参数项，从而提高路由规则的复用性。
+> 
+> 在 vue-router 中使用英文的冒号（:）来定义路由的参数项。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202215922.png)
+
+### $route.params 参数对象
+
+> 在动态路由渲染出来的组件中，可以使用 this.$route.params 对象访问到动态匹配的参数值
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202220153.png)
+
+### 使用props 接收路由参数
+
+> 为了简化路由参数的获取形式，vue-router 允许在路由规则中开启 props 传参。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202220309.png)
+
+## 声明式导航& 编程式导航
+
+- 在浏览器中，点击链接实现导航的方式，叫做声明式导航。
+  - 例如：普通网页中点击 <a> 链接、vue 项目中点击 <router-link> 都属于声明式导航
+
+- 在浏览器中，调用 API 方法实现导航的方式，叫做编程式导航。
+  - 例如：普通网页中调用 location.href 跳转到新页面的方式，属于编程式导航
+
+## vue-router 中的编程式导航API
+
+- this.$router.push('hash 地址')
+  - 跳转到指定 hash 地址，并增加一条历史记录
+- this.$router.replace('hash 地址')
+  - 跳转到指定的 hash 地址，并替换掉当前的历史记录
+- this.$router.go(数值 n) (-1,1)
+  - 实现导航历史前进、后退
+
+### $router.go 的简化用法
+
+> 在实际开发中，一般只会前进和后退一层页面。
+> 因此 vue-router 提供了如下两个便捷方法：
+
+- $router.back()
+  - 在历史记录中，后退到上一个页面
+- $router.forward()
+  - 在历史记录中，前进到下一个页面
 
 
+## 导航守卫
 
+> 导航守卫可以控制路由的访问权限。
 
+### 全局前置守卫
 
+> 每次发生路由的导航跳转时，都会触发全局前置守卫。
 
+> 因此，在全局前置守卫中，程序员可以对每个路由进行访问权限的控制
 
+### 守卫方法的3 个形参
 
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202221136.png)
 
+### next 函数的3 种调用方式
+
+- 当前用户拥有后台主页的访问权限，直接放行：next()
+- 当前用户没有后台主页的访问权限，强制其跳转到登录页面：next('/login')
+- 当前用户没有后台主页的访问权限，不允许跳转到后台主页：next(false)
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202221234.png)
+
+### 控制后台主页的访问权限
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221202221435.png)
 
 
 
