@@ -216,6 +216,137 @@ app.mount('#app')
 ## Pinia
 
 
+## vue 3.x 中全局配置axios 
+
+> 在 main.js 入口文件中，通过 app.config.globalProperties 全局挂载 axios
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221203225922.png)
+
+# vue-router
+
+`npm install vue-router@4`
+
+## vue-router 的基本用法
+
+```js
+import { createRouter, createWebHashHistory } from 'vue-router'
+
+const router = createRouter({
+    history: createWebHashHistory(),
+    routes: [
+        { path: '/', redirect: '/login' },
+        { path: '/login', component: Login, name: 'login' },
+        {
+            path: '/home',
+            redirect: '/home/users',
+            component: Home,
+            name: 'home',
+            children: [
+                { path: 'settings', component: Settings },
+                { path: 'users/:id', component: UserDetail, props: true },
+            ],
+        },
+    ],
+})
+
+// 全局路由导航守卫
+router.beforeEach((to, from, next) => {
+    // 判断用户访问的是否为登录页
+    if (to.path === '/login') return next()
+    // 获取 token 值
+    const tokenStr = localStorage.getItem('token')
+    if (!tokenStr) {
+        next('/login')
+    } else {
+        next()
+    }
+})
+
+export default router
+```
+
+```js
+<template>
+  <router-link to="home"> </router-link> 
+  <router-link to="home"> </router-link>
+  
+  <router-view> </router-view>
+</template>
+```
+
+## vue-router 的高级用法
+
+### 自定义路由高亮的class 类
+
+> 在创建路由的实例对象时，开发者可以基于 linkActiveClass 属性，自定义路由链接被激活时所应用的类名
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221203232743.png)
+
+
+### 动态路由
+
+> 把 Hash 地址中可变的部分定义为参数项，从而提高路由规则的复用性。在 vue-router 中使用英文的冒号（:）来定义路由的参数项。
+
+#### $route.params 参数对象
+
+> 通过动态路由匹配的方式渲染出来的组件中，可以使用 $route.params 对象访问到动态匹配的参数值
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221203233026.png)
+
+#### 使用props 接收路由参数
+
+> 为了简化路由参数的获取形式，vue-router 允许在路由规则中开启 props 传参。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221203233137.png)
+
+
+### 命名路由
+
+> 通过 name 属性为路由规则定义名称的方式，叫做命名路由。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221203233300.png)
+
+> 注意：命名路由的 name 值不能重复，必须保证唯一性！
+
+### vue-router 中的编程式导航API
+
+- this.$router.push('hash 地址')
+- this.$router.go(数值 n)
+
+### 使用命名路由实现编程式导航
+
+> 调用 push 函数期间指定一个配置对象，name 是要跳转到的路由规则、params 是携带的路由参数
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20221203233808.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
