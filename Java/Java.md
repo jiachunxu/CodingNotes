@@ -30,19 +30,17 @@
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/关键字2.png)
 
 
-
-
+---
 
 # 数据类型
 
-
 ## 常量
 
-常量分为两种： 常量通常指的是一个固定的值，例如：1、2、3、’a’、’b’、true、false、”helloWorld”等。
+> 常量分为两种： 常量通常指的是一个固定的值，例如：1、2、3、’a’、’b’、true、false、”helloWorld”等。
 
-在Java语言中，主要是利用关键字final来定义一个常量。 常量一旦被初始化后不能再更改其值。
-<br>
-为了更好的区分和表述，一般将1、2、3、’a’、’b’、true、false、”helloWorld”等称为**字面常量**，而使用final修饰的PI等称为**符号常量**（字符常量）。
+> 在Java语言中，主要是利用关键字final来定义一个常量。 常量一旦被初始化后不能再更改其值。
+
+> 为了更好的区分和表述，一般将1、2、3、’a’、’b’、true、false、”helloWorld”等称为**字面常量**，而使用final修饰的PI等称为**符号常量**（字符常量）。
 
 注意：逻辑常量就两个值，一个是true，一个是false
 
@@ -79,7 +77,7 @@
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/进制表.png)
 
-#### 整型数据类型：
+### 整型数据类型：
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/整型数据类型.png)
 
