@@ -62,7 +62,7 @@
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/数据类型.png)
 
-### 整数类型
+### 1.3.1 整数类型
 
     十进制整数，如：99, -500, 0
 
@@ -74,7 +74,7 @@
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/进制表.png)
 
-### 整型数据类型：
+### 1.3.2 整型数据类型：
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/整型数据类型.png)
 
@@ -98,13 +98,15 @@
     long num6 = 12;
 ```
 
-#### 浮点类型
+### 1.3.3 浮点类型
 
-（1）十进制数形式，例如:
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/浮点类型.png)
+
+> （1）十进制数形式
 
     3.14       314.0      0.314
 
-（2）科学记数法形式，如
+> （2）科学记数法形式
 
 ```  
     314e2      314E2 (E的大小写没有区分)    314E-2
@@ -112,13 +114,13 @@
     double  f2 = 314e-2; //314*10^(-2)-->3.14
 ```
 
-> float类型又被称作单精度类型，尾数可以精确到7位有效数字，在很多情况下，float类型的精度很难满足需求。
+> **float类型又被称作单精度类型**，尾数可以精确到7位有效数字
 
-> 而double表示这种类型的数值精度约是float类型的两倍，又被称作双精度类型，绝大部分应用程序都采用double类型。
+> **double**表示这种类型的数值精度约是float类型的两倍，又被称作**双精度类型**，绝大部分应用程序都采用double类型。
 
-> float类型的数值有一个后缀F或者f ，没有后缀F/f的浮点数值默认为double类型。 也可以在浮点数值后添加后缀D或者d， 以明确其为double类型。
-
-![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/浮点类型.png)
+> float类型的数值有一个后缀F或者f ，没有后缀F/f的浮点数值默认为double类型。 
+> 
+> 也可以在浮点数值后添加后缀D或者d， 以明确其为double类型。
 
 ```  
     //浮点类型的常量有两种形式：
