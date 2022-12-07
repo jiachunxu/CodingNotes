@@ -1863,12 +1863,13 @@ public static void main(String[] args) {
 
 - ArrayList
 - Vector
-- LinkedList
+- LinkedList()
 
 ### Set 接口
 
 - HashSet
 - LinkedHashSet
+- TreeSet
 
 ## Map 接口
 
