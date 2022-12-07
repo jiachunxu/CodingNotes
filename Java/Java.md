@@ -1622,7 +1622,7 @@ System.out.println(parse2);
 
 - 演示
 
-``` 
+``` java
 //格式化类：DateTimeFormatter
 //方式一:预定义的标准格式。如: ISO_LOCAL_DATE_TIME;ISO_LOCAL_DATE;IS0_LOCAL_TIME
 DateTimeFormatter df1 = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
@@ -1656,7 +1656,7 @@ System.out.println(parse1);
 - 构造器私有化，不能创建Math类的对象
 - Math内部的所有的属性，方法都被static修饰：类名.直接调用，无需创建对象
 
-```
+``` java
 //常用属性：
 System.out.println(Math.PI);//π
 //常用方法：
@@ -1671,7 +1671,7 @@ System.out.println("取小的那个值："+Math.min(3, 6));
 
 #### Random类
 
-```
+``` java
 //返回带正号的 double 值，该值大于等于 0.0 且小于 1.0。
 System.out.println("随机数："+Math.random());
 //学习Random类
@@ -1694,7 +1694,7 @@ System.out.println(r2.nextDouble());//在 0.0 和 1.0 之间均匀分布的 doub
 
 > 构造器：底层就是给对象底层的value数组进行赋值操作
 
-```
+``` java
 //通过构造器来创建对象：
 String s1 = new String();
 String s2 = new String("abc");
@@ -1703,7 +1703,7 @@ String s3 = new String(new char[]{'a','b','c'});
 
 > 常用方法
 
-```
+``` java
 String s4 = "abc";
 System.out.println("字符串的长度为："+s4.length());
 String s5 = new String("abc");
@@ -1863,18 +1863,147 @@ public static void main(String[] args) {
 
 - ArrayList
 - Vector
-- LinkedList()
+- LinkedList(同时实现了 Queue,Deque)
 
 ### Set 接口
 
-- HashSet
-- LinkedHashSet
 - TreeSet
+- HashSet
+  - LinkedHashSet
 
 ## Map 接口
 
-- HashMap
 - TreeMap
+- Hashtable
+- ConcunrrentHashMap
+- HashMap
+  - LinkedHashMap
+
+### 同步类容器
+
+- Collections.synchronizedList()
+- Collections.synchronizedMap()
+
+### 并发容器
+
+- ConcurrentHashMap
+- CopyOnWriteArrayList
+- CopyOnWriteArraySet
+
+### 队列(Queue)
+
+- Deque(双端队列)
+- BlockingQueue (阻塞队列)
+  - DelayQueue
+  - PriorityBlockingQueue
+  - SynchronousQueue
+  - LinkedBlockingQueue
+  - ArrayBlockingQueue
+
+# IO流
+
+## File类 (文件 或 目录)
+
+### 对文件操作
+
+``` java
+  File f = new File("d:\\test.txt");
+  File f1 = new File("d:\\test.txt");
+  File f2 = new File("d:/test.txt");
+  //File.separator属性帮我们获取当前操作系统的路径拼接符号
+ //在windows，dos下，系统默认用“\”作为路径分隔符 ，在unix，url中，使用“/”作为路径分隔符。
+  File f3 = new File("d:"+File.separator+"test.txt");//建议使用这种
+  //常用方法：
+  System.out.println("文件是否可读："+f.canRead());
+  System.out.println("文件是否可写："+f.canWrite());
+  System.out.println("文件的名字："+f.getName());
+  System.out.println("上级目录："+f.getParent());
+  System.out.println("是否是一个目录："+f.isDirectory());
+  System.out.println("是否是一个文件："+f.isFile());
+  System.out.println("是否隐藏："+f.isHidden());
+  System.out.println("文件的大小："+f.length());
+  System.out.println("是否存在："+f.exists());
+  
+  System.out.println(f == f1);//比较两个对象的地址
+  System.out.println(f.equals(f1));//比较两个对象对应的文件的路径
+  //跟路径相关的：
+  System.out.println("绝对路径："+f.getAbsolutePath());
+  System.out.println("相对路径："+f.getPath());
+  System.out.println("toString:"+f.toString());
+  System.out.println("----------------------");
+  File f5 = new File("demo.txt");
+  if(!f5.exists()){
+      f5.createNewFile();
+  }
+  //绝对路径指的就是：真实的一个精准的，完整的路径
+  System.out.println("绝对路径："+f5.getAbsolutePath());
+  //相对路径：有一个参照物，相对这个参照物的路径。
+  //在main方法中，相对位置指的就是：D:\IDEA_workspace\TestJavaSE
+  //在junit的测试方法中，相对路径指的就是模块位置
+  System.out.println("相对路径："+f5.getPath());
+  //toString的效果永远是  相对路径
+  System.out.println("toString:"+f5.toString());
+  File f6 = new File("a/b/c/demo.txt");
+  if(!f5.exists()){
+      f5.createNewFile();
+  }
+  System.out.println("绝对路径："+f6.getAbsolutePath());
+  System.out.println("相对路径："+f6.getPath());
+```
+
+### 对目录操作
+
+``` java
+    File f = new File("D:\\IDEA_workspace");
+    System.out.println("文件是否可读："+f.canRead());
+    System.out.println("文件是否可写："+f.canWrite());
+    System.out.println("文件的名字："+f.getName());
+    System.out.println("上级目录："+f.getParent());
+    System.out.println("是否是一个目录："+f.isDirectory());
+    System.out.println("是否是一个文件："+f.isFile());
+    System.out.println("是否隐藏："+f.isHidden());
+    System.out.println("文件的大小："+f.length());
+    System.out.println("是否存在："+f.exists());
+    System.out.println("绝对路径："+f.getAbsolutePath());
+    System.out.println("相对路径："+f.getPath());
+    System.out.println("toString:"+f.toString());
+    //跟目录相关的方法：
+    File f2 = new File("D:\\a\\b\\c");
+    //创建目录：
+    //f2.mkdir();//创建单层目录
+    //f2.mkdirs();//创建多层目录
+    //删除：如果是删除目录的话，只会删除一层，并且前提：这层目录是空的，里面没有内容，如果内容就不会被删除
+    f2.delete();
+    //查看：
+    String[] list = f.list();//文件夹下目录/文件对应的名字的数组
+    for(String s:list){
+        System.out.println(s);
+    }
+    System.out.println("=========================");
+    File[] files = f.listFiles();//作用更加广泛
+    for(File file:files){
+        System.out.println(file.getName()+","+file.getAbsolutePath());
+    }
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
