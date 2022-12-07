@@ -1,6 +1,4 @@
-
 # Java
-
 
 ## 标志符
 
@@ -36,7 +34,7 @@
 
 > 在Java语言中，主要是利用关键字final来定义一个常量。 常量一旦被初始化后不能再更改其值。
 
-> 为了更好的区分和表述，一般将1、2、3、’a’、’b’、true、false、”helloWorld”等称为**字面常量**， 
+> 为了更好的区分和表述，一般将1、2、3、’a’、’b’、true、false、”helloWorld”等称为**字面常量**，
 > 而使用final修饰的PI等称为**符号常量**（字符常量）。
 
 > 注意：逻辑常量就两个值，一个是true，一个是false
@@ -47,11 +45,11 @@
   > ` type varName [=value][,varName[=value]...];`[ ]中的内容为可选项，即可有可无
   `    int     age = 19 , age2 = 90 ; int  age,age2;`
 - 变量的声明：
-	- （1）定义一个变量，没有给变量进行赋值，变量相当于没有定义：
-	- （2）变量如果没有进行赋值的话，那么使用的时候会出错
+  - （1）定义一个变量，没有给变量进行赋值，变量相当于没有定义：
+  - （2）变量如果没有进行赋值的话，那么使用的时候会出错
 - 变量的赋值: `int age = 10;`
-	- 变量的值可以更改：
-	- 变量不可以重复定义：
+  - 变量的值可以更改：
+  - 变量不可以重复定义：
 - 变量的作用域：作用域指的就是作用范围，有效作用范围就是离它最近的{}
 
 ## 1.3 基本数据类型
@@ -78,7 +76,7 @@
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/整型数据类型.png)
 
-```     
+``` java
     //定义整数类型的变量：
     //给变量赋值的时候，值可以为不同进制的：
     int num1 = 12 ;     //默认情况下赋值就是十进制的情况
@@ -104,11 +102,13 @@
 
 > （1）十进制数形式
 
+``` java
     3.14       314.0      0.314
+```
 
 > （2）科学记数法形式
 
-```  
+```  java
     314e2      314E2 (E的大小写没有区分)    314E-2
     double  f = 314e2;  //314*10^2-->31400.0
     double  f2 = 314e-2; //314*10^(-2)-->3.14
@@ -118,11 +118,11 @@
 
 > **double**表示这种类型的数值精度约是float类型的两倍，又被称作**双精度类型**，绝大部分应用程序都采用double类型。
 
-> float类型的数值有一个后缀F或者f ，没有后缀F/f的浮点数值默认为double类型。 
-> 
+> float类型的数值有一个后缀F或者f ，没有后缀F/f的浮点数值默认为double类型。
+>
 > 也可以在浮点数值后添加后缀D或者d， 以明确其为double类型。
 
-```  
+``` java
     //浮点类型的常量有两种形式：
     //十进制形式：
     double num1 = 3.14;
@@ -144,9 +144,9 @@
     */
 ```
 
-#### 字符类型
+### 1.3.4 字符类型
 
-``` 
+``` java
 char a='我';
 char b='B';
 char c='c';
@@ -160,9 +160,12 @@ char c='c';
 【3】ASCII表：
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/ASCII表.png)
 
-#### 编码和字符集
+### 编码和字符集
 
-> 编码是信息从一种形式或格式转换为另一种形式的过程，也称为计算机编程语言的代码简称编码。用预先规定的方法将文字、数字或其它对象编成数码，或将信息、数据转换成规定的电脉冲信号。编码在电子计算机、电视、遥控和通讯等方面广泛使用。编码是信息从一种形式或格式转换为另一种形式的过程。解码，是编码的逆过程。
+> 编码是信息从一种形式或格式转换为另一种形式的过程，也称为计算机编程语言的代码简称编码。
+> 用预先规定的方法将文字、数字或其它对象编成数码，或将信息、数据转换成规定的电脉冲信号。
+> 编码在电子计算机、电视、遥控和通讯等方面广泛使用。
+> 编码是信息从一种形式或格式转换为另一种形式的过程。解码，是编码的逆过程。
 
 **由权威机构形成的编码表才可以称之为：字符集**
 
@@ -172,14 +175,14 @@ char c='c';
 | GB2312    | 简体中文字符集| 最多使用两个字节编码|
 | Unicode   |国际通用字符集| |
 
-UTF标准：
-
-三种编码方案： UTF-8，UTF-16,UTF-32
+> UTF标准：
+>
+> 三种编码方案： UTF-8，UTF-16,UTF-32
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/utf8.png)
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/utf8_2.png)
 
-#### 布尔类型
+### 1.3.5 布尔类型
 
 ```  
     //创建一个布尔类型的变量：
@@ -191,7 +194,7 @@ UTF标准：
 
 ### 基本数据类型的转换
 
-```  
+```  java 
     //类型转换的两种形式：
     double d = 6;   //int-->double  自动类型转换
     int i = (int)6.5;   //double--->int  强制类型转换 （强转）
@@ -435,9 +438,9 @@ public class Test {
 
 - 方法的重载只跟：方法名和形参列表有关，与修饰符，返回值类型无关。
 - 注意：形参列表不同指的是什么？
-	- 个数不同 add()   add(int num1)   add(int num1,int num2)
-	- 顺序不同 add(int num1,double num2)   add(double num1,int num2)
-	- 类型不同 add(int num1)   add(double num1)
+  - 个数不同 add()   add(int num1)   add(int num1,int num2)
+  - 顺序不同 add(int num1,double num2)   add(double num1,int num2)
+  - 类型不同 add(int num1)   add(double num1)
 
 ## 数组
 
@@ -1125,10 +1128,10 @@ public class Test {
 ### 内部类
 
 - 成员内部类
-	- 非静态的成员内部类
-	- 静态成员内部类
+  - 非静态的成员内部类
+  - 静态成员内部类
 - 局部内部类
-	- 匿名内部类
+  - 匿名内部类
 
 ---
 
@@ -1358,30 +1361,30 @@ public class TestOuter {
 ### 异常的分类
 
 - Object
-	- Throwable
-		- Error
-		- Exception
-			- 检查异常
-				- IllegalAccessException
-				- ClassNotFoundException
-				- InstantiationException
-			- 运行时异常
-				- NullPinterException
-				- ArraylndexOutOfBoundsException
+  - Throwable
+    - Error
+    - Exception
+      - 检查异常
+        - IllegalAccessException
+        - ClassNotFoundException
+        - InstantiationException
+      - 运行时异常
+        - NullPinterException
+        - ArraylndexOutOfBoundsException
 
 ### throw 和 throws 的区别
 
 - 位置不同：
-	- throw：方法内部
-	- throws: 方法的签名处，方法的声明处
+  - throw：方法内部
+  - throws: 方法的签名处，方法的声明处
 
 - 内容不同：
-	- throw+异常对象（检查异常，运行时异常）
-	- throws+异常的类型（可以多个类型，用，拼接）
+  - throw+异常对象（检查异常，运行时异常）
+  - throws+异常的类型（可以多个类型，用，拼接）
 
 - 作用不同：
-	- throw：异常出现的源头，制造异常。
-	- throws:在方法的声明处，告诉方法的调用者，这个方法中可能会出现我声明的这些异常。
+  - throw：异常出现的源头，制造异常。
+  - throws:在方法的声明处，告诉方法的调用者，这个方法中可能会出现我声明的这些异常。
 
 ### 重载和重写的异常
 
@@ -1761,17 +1764,20 @@ StringBuilder sb = new StringBuilder("abc");
 System.out.println(sb.append("def").append("aaaaaaaa").append("bbb").append("ooooooo").toString());;
 //链式调用方式：return this
 ```
+
 # 泛型(Generic)
+
 - JDK1.5以后
-- 泛型实际就是 一个<>引起来的 参数类型，这个参数类型  具体在使用的时候才会确定具体的类型。
+- 泛型实际就是 一个<>引起来的 参数类型，这个参数类型 具体在使用的时候才会确定具体的类型。
 - 使用了泛型以后，可以确定集合中存放数据的类型，在编译时期就可以检查出来。
 - 使用泛型你可能觉得麻烦，实际使用了泛型才会简单，后续的遍历等操作简单。
 - 泛型的类型：都是引用数据类型，不能是基本数据类型。
 - ArrayList<Integer> al = new ArrayList<Integer>();
-- 在JDK1.7以后可以写为：ArrayList<Integer> al = new ArrayList<>();  
+- 在JDK1.7以后可以写为：ArrayList<Integer> al = new ArrayList<>();
 - <>   钻石运算符
 
 ## 泛型方法
+
 > 方法的泛型的参数类型要和当前的类的泛型无关
 
 > 泛型方法对应的那个泛型参数类型和当前所在的这个类是否是泛型类，泛型是啥无关
@@ -1785,40 +1791,44 @@ System.out.println(sb.append("def").append("aaaaaaaa").append("bbb").append("ooo
 > 泛型方法可以是静态方法
 
 ## 泛型参数存在继承的情况
+
 > A和B是子类父类的关系，但是`G<A>`和`G<B>`不存在继承关系的。是并列关系。
 
 ## 泛型参数通配符
->  A 和 B是子类父类的关系，`G<A>`和`G<B>`不存在子类父类关系，是并列的
+
+> A 和 B是子类父类的关系，`G<A>`和`G<B>`不存在子类父类关系，是并列的
 
 > 加入通配符？后，`G<?>`就变成了 `G<A>`和`G<B>`的父类
 
 > 不能随意添加数据
+
 ```
 ArrayList<?> objects = new ArrayList<>();
 objects.add(12);//报错
 ```
+
 ## 泛型受限
+
 - 泛型的上限
   > List<? extends Person> 相当于 List<? extends Person>是List<Person>的父类，是List<Person的子类>的父类
 
 
 - 泛型的下限
-  >List<? super Person> 相当于 List<? super Person>是List<Person>的父类，是List<Person的父类>的父类
-
+  > List<? super Person> 相当于 List<? super Person>是List<Person>的父类，是List<Person的父类>的父类
 
 # 集合
 
 - Collection
-	- List
-		- ArrayList
-		- LinkedList
-	- Set
-		- HashSet
-		- TreeSet
+  - List
+    - ArrayList
+    - LinkedList
+  - Set
+    - HashSet
+    - TreeSet
 
 - Map
-	- HashMap
-	- TreeMap
+  - HashMap
+  - TreeMap
 
 ## Collection集合的遍历
 
@@ -1855,12 +1865,13 @@ public static void main(String[] args) {
 - Vector
 - LinkedList
 
-
 ### Set 接口
+
 - HashSet
 - LinkedHashSet
 
 ## Map 接口
+
 - HashMap
 - TreeMap
 
