@@ -10,7 +10,8 @@
 >
 > 废弃的旧功能如下：过滤器、不再支持 $on，$off 和 $once 实例方法等
 
-详细的变更信息，请参考官方文档给出的迁移指南：https://v3.vuejs.org/guide/migration/introduction.html
+> 详细的变更信息，请参考官方文档给出的迁移指南：
+> https://v3.vuejs.org/guide/migration/introduction.html
 
 
 ## 创建项目
@@ -33,7 +34,7 @@
 
 ### 全局注册组件
 
-```js
+``` js
 //main.js
 
 import {createApp} from 'vue'
