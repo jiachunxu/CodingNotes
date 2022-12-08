@@ -437,10 +437,6 @@ var vm = new Vue({
 - 虽然计算属性在声明的时候被定义为方法，但是计算属性的本质是一个属性
 - 计算属性会缓存计算的结果，只有计算属性依赖的数据变化时，才会重新进行运算
 
-## SPA
-
-> 单页面应用程序（英文名：Single Page Application）简称SPA
-
 ## vue-cli
 
 > vue-cli 是Vue.js 开发的标准工具。它简化了程序员基于webpack 创建工程化的Vue 项目的过程。
