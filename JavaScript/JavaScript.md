@@ -45,7 +45,7 @@
 
 - 外部 JS文件
 
-```js
+``` js
 <script src="my.js"></script>
 ```
 
@@ -1102,7 +1102,7 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 
 #### H5自定义属性
 
-```html
+``` html
 
 <body>
     <div getTime="20" data-index="2" data-list-name="andy"></div>
@@ -1176,7 +1176,7 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 - attachEvent
   > ie9以前的版本支持
 
-```html
+``` html
 
 <body>
     <button>传统注册事件</button>
@@ -1206,7 +1206,7 @@ console.log(str.indexOf('春', 3)); // 从索引号是 3的位置开始往后查
 - removeEventListener 删除事件
 - detachEvent
 
-```html
+``` html
 
 <body>
     <div>1</div>
@@ -1687,9 +1687,9 @@ setInterval(function () {
     console.log(div.clientHeight);
     // scroll滚动事件当我们滚动条发生变化会触发的事件
     div.addEventListener('scroll', function() {
-    console.log(div.scrollTop);
+    console.log(div.scrollTop)
 
-})
+    })
 </script>
 ```
 
