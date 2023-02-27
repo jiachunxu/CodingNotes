@@ -1999,6 +1999,7 @@ public static void main(String[] args) {
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230227200549.png)
 
+### 文本文件复制
 ``` java
     //1.有一个源文件
     File f1 = new File("d:\\Test.txt");
@@ -2041,6 +2042,7 @@ public static void main(String[] args) {
     
 ```
 
+### 非文本文件复制
 
 
 
