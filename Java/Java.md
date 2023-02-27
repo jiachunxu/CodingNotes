@@ -2287,12 +2287,17 @@ public static void main(String[] args) {
 
 > 序列化自定义类
 >
-> 1.实现Serializable接口
+> 1.实现 Serializable 或者 Externalizable 接口
 >
 > 2.添加 `private static final long serialVersionUID`(建议,非必须)
 
 
+> 序列化细节
+> (1) 被序列化的类的内部的所有属性，必须是可序列化的 （基本数据类型都是可序列化的）
+>
+> (2) static，transient修饰的属性 不可以被序列化。
 
+# 多线程
 
 
 
