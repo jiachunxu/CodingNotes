@@ -43,7 +43,7 @@
 - 原始类型：number / string / boolean / null / undefined / symbol。
 - 对象类型：object（包括，数组、对象、函数等对象）。
 
-```ts
+``` ts
 let age: number = 18
 
 let myName: string = '刘老师'
@@ -59,7 +59,7 @@ let s: symbol = Symbol()
 
 ### 数组类型
 
-```ts
+``` ts
 let numbers: number[] = [1, 3, 5]
 let numbers1: Array<number> = [1, 3, 5]
 let b: boolean[] = [true, false]
@@ -74,7 +74,7 @@ let arr2: number | string[] = 123
 
 ### 函数类型
 
-```ts
+``` ts
 // 1. 单独指定参数、返回值类型：
 
 function add1(num1: number, num2: number): number {
@@ -105,7 +105,7 @@ function mySlice(start: number, end?: number): void {
 
 ### 对象类型
 
-```ts
+``` ts
 let person1: { name: string; age: number; sayHi(): void; greet(name: string): void } = {
     name: '刘老师',
     age: 18,
@@ -146,13 +146,13 @@ myAxios({
 
 ### 联合类型
 
-```ts
+``` ts
 let arr: (number | string)[] = [1, 3, 5, 'a', 'b']
 ```
 
 ### 类型别名
 
-```ts
+``` ts
 type CustomArray = (number | string)[]
 
 let arr: CustomArray = [1, 3, 5, 'a', 'b']
@@ -161,7 +161,7 @@ let arr1: CustomArray = [1, 'x', 2, 'y']
 
 ### 接口
 
-```ts
+``` ts
 let person0: { name: string; age: number; sayHi(): void } = {
     name: '刘老师',
     age: 18,
@@ -189,7 +189,7 @@ let person: IPerson = {
 
 ### 接口 vs 类型别名
 
-```ts
+``` ts
 // 接口：
 interface IPerson {
     name: string
@@ -215,7 +215,7 @@ let person: IPerson = {
 
 ### 接口继承
 
-```ts
+``` ts
 interface Point2D {
     x: number
     y: number
@@ -239,7 +239,7 @@ let p3: Point3D = {
 
 > 元组类型可以确切地标记出有多少个元素，以及每个元素的类型
 
-```ts
+``` ts
 let position: [number, string] = [39, '114']
 ```
 
@@ -249,7 +249,7 @@ let position: [number, string] = [39, '114']
 >
 > 使用场景：用来表示一组明确的可选值列表。
 
-```ts
+``` ts
 let str1 = 'Hello TS'
 
 const str2: 'Hello TS' = 'Hello TS'
@@ -268,7 +268,7 @@ changeDirection('left')
 
 > 字符串枚举必须指定初始值
 
-```ts
+``` ts
 enum Direction {
     Up,
     Down,
@@ -307,7 +307,7 @@ changeDirection(Direction.Left)
 
 ### 枚举原理
 
-```js
+``` js
 var Direction;
 (function (Direction) {
     Direction["Up"] = "UP";
@@ -335,7 +335,7 @@ changeDirection(Direction.Up);
 
 > 注意：因为不推荐使用 any，所以，这两种情况下都应该提供类型！
 
-```ts
+``` ts
 let obj: any = {x: 0}
 
 // 访问不存在的属性 或者 赋值
@@ -395,7 +395,7 @@ let ret: typeof add(1, 2)
 >
 > 2 决定函数返回值时。
 
-```ts
+``` ts
 // 声明变量并立即初始化值，此时，可以省略类型注解
 let age = 18
 
@@ -432,7 +432,7 @@ console.log('object')
 - 通过类型断言，aLink 的类型变得更加具体，这样就可以访问a 标签特有的属性或方法了。
 - 另一种语法，使用 <> 语法，这种语法形式不常用知道即可
 
-```ts
+``` ts
 const aLink = document.getElementById('link') as HTMLAnchorElement
 const aLink2 = <HTMLAnchorElement>document.getElementById('link')
 aLink.href
