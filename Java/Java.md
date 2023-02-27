@@ -2407,7 +2407,7 @@ public class TestRandomNum implements Callable<Integer> {
 - join() 当一个线程调用了join方法，这个线程就会先被执行，它执行结束以后才可以去执行其余的线程。
 - 注意：必须先start，再join才有效。
 - sleep() 人为制造阻塞
-- setDaemon(true) 先设置，再启动, 主线程停止的时候，子线程也不要继续执行了
+- setDaemon(true) 先设置，再启动, 主线程停止的时候，子线程也不要继续执行了 主线程不可设置为守护线程
 
 
 
