@@ -188,7 +188,7 @@ char c='c';
 
 ### 1.3.5 布尔类型
 
-```  
+``` java 
     //创建一个布尔类型的变量：
     boolean flag1 = true;
     boolean flag2 = false;
@@ -372,9 +372,9 @@ byte类型的表数范围的 -128是怎么算出来的
 
 - **break 停止循环**
 
-``` 
-//break带标签的使用
-public class Test {
+  ``` java
+  //break带标签的使用
+  
     public static void main(String[] args) {
         outer:
         //----》定义标签结束的位置
@@ -385,26 +385,24 @@ public class Test {
             }
         }
     }
-}
-```
+  
+  ```
 
 - **continue 结束本次循环，继续下一次循环**
 
-``` 
-//continue带标签的使用
-public class Test {
-    public static void main(String[] args) {
-
-        outer:
-        for (int i = 1; i <= 100; i++) {
-            while (i == 36) {
-                continue outer;  //1-100没有36
-            }
-            System.out.println(i);
-        }
-    }
-}
-```
+  ``` java
+      //continue带标签的使用
+      public static void main(String[] args) {
+  
+          outer:
+          for (int i = 1; i <= 100; i++) {
+              while (i == 36) {
+                  continue outer;  //1-100没有36
+              }
+              System.out.println(i);
+          }
+      }
+  ```
 
 - **return 跟循环无关 结束当前方法**
 
@@ -477,20 +475,20 @@ String[] args  --->形参
 **可变参数**
 
 ``` 
-        1.可变参数：作用提供了一个方法，参数的个数是可变的,解决了部分方法的重载问题
-        int...num
-        double...num
-        boolean...num
+  1.可变参数：作用提供了一个方法，参数的个数是可变的,解决了部分方法的重载问题
+  int...num
+  double...num
+  boolean...num
 
-        2.可变参数在JDK1 .5之后加入的新特性
-        3.方法的内部对可变参数的处理跟数组是一样
-        4.可变参数和其他数据一起作为形参的时候，可变参数一定要放在最后
-        5.我们自己在写代码的时候，建议不要使用可变参数。
+  2.可变参数在JDK1 .5之后加入的新特性
+  3.方法的内部对可变参数的处理跟数组是一样
+  4.可变参数和其他数据一起作为形参的时候，可变参数一定要放在最后
+  5.我们自己在写代码的时候，建议不要使用可变参数。
 ```
 
 **Arrays工具类**
 
-```
+``` java
 int[] arr = {1,3,7,2,4,8};
 //toString:对数组进行遍历查看的，返回的是一个字符串，这个字符串比较好看
 Arrays.toString(arr);
@@ -521,8 +519,7 @@ Arrays.fill(arr5,10);
 
 ### 二维数组
 
-``` 
-public class TestArray15 {
+``` java
     public static void main(String[] args) {
         //定义一个二维数组：
         int[][] arr = new int[3][];
@@ -535,8 +532,6 @@ public class TestArray15 {
 
         arr[2] = new int[]{9, 10};
     }
-}
-
 ```
 
 ## 面向对象
@@ -590,7 +585,7 @@ public class TestArray15 {
 
 ### 构造器
 
-``` 
+``` java
 public class Person {
     //构造器：没有任何参数的构造器我们叫做：空参构造器--》空构造器
     public Person() {
@@ -637,7 +632,7 @@ public class Person {
 
 #### 构造器重载
 
-``` 
+``` java
 public class Person {
     //属性：
     String name;
@@ -704,7 +699,7 @@ public class Person {
 - （3）this 修饰构造器：
   > 同一个类中的构造器可以相互用this调用，注意：this修饰构造器必须放在第一行
 
-#### static
+#### 关键字 static
 
 > static可以修饰：属性，方法，代码块，内部类。
 
@@ -741,7 +736,7 @@ public class Person {
 
 > 【2】代码块分类：普通块，构造块，静态块，同步块（多线程）
 
-``` 
+``` java
 public class Test {
     //属性
     int a;
@@ -1001,10 +996,9 @@ public class Test {
   >
   > 三，父类引用指向子类对象：
 
->
->
+---
 
-``` 
+``` java
     Animal an = new Pig();
     // 左侧：编译期的类型
     // 右侧：运行期的类型
@@ -1144,8 +1138,8 @@ public class Test {
 
 > 成员内部类
 
-``` 
-  /**
+``` java
+ /**
  * 1.类的组成：属性，方法，构造器，代码块（普通块，静态块，构造块，同步块），内部类
  * 2.一个类TestOuter的内部的类SubTest叫内部类， 内部类 ：SubTest  外部类：TestOuter
  * 3.内部类：成员内部类 (静态的，非静态的) 和  局部内部类（位置：方法内，块内，构造器内）
@@ -1230,7 +1224,7 @@ class Demo{
 
 > 局部内部类
 
-``` 
+``` java
 public class TestOuter {
     //1.在局部内部类中访问到的变量必须是被final修饰的
     public void method(){
@@ -1504,7 +1498,7 @@ Date date4 =  Date.valueOf("2019-3-8");
 > - String--->java.sql.Date
 > - java.sql.Date--->java.util.Date
 
-``` 
+``` java
 //（1）String--->java.sql.Date
 java.sql.Date date = java.sql.Date.valueOf("2015-9-24");
 //（2）java.sql.Date--->java.util.Date
@@ -1516,7 +1510,7 @@ System.out.println(date2.toString());
 
 - 引入 SimpleDateFormat
 
-``` 
+``` java
 //日期转换：
 //SimpleDateFormat(子类) extends DateFormat（父类是一个抽象类）
 //格式化的标准已经定义好了：
@@ -1538,7 +1532,7 @@ Date date = new Date();
 
 #### Calendar
 
-``` 
+``` java
 //Calendar是一个抽象类，不可以直接创建对象
 //GregorianCalendar()子类 extends Calendar（父类是一个抽象类）
 Calendar cal = new GregorianCalendar();
@@ -1568,7 +1562,7 @@ System.out.println(cal);
 
 #### LocalDate/LocalTime/LocalDateTime JDK1.8新增
 
-``` 
+``` java
 //1.完成实例化：
 //方法1：now()--获取当前的日期，时间，日期+时间
 LocalDate localDate = LocalDate.now();
@@ -1615,7 +1609,7 @@ System.out.println(localDateTime3);
 
 - 重点
 
-``` 
+``` java
 //自定义的格式。如: ofPattern( "yyyy-MM-dd hh:mm:ss") ---》重点，以后常用
 DateTimeFormatter df3 = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
 //LocalDateTime-->String:
@@ -2000,14 +1994,17 @@ public static void main(String[] args) {
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230227200549.png)
 
 ### 文本文件复制
+
+> FileReader
+>
+> FileWriter
+
 ``` java
     //1.有一个源文件
     File f1 = new File("d:\\Test.txt");
     //2.有一个目标文件：
     File f2 = new File("d:\\Demo.txt");
-  
     FileReader fr = new FileReader(f1);
-  
     FileWriter fw = new FileWriter(f2);
     //开始动作：
     //方式1：一个字符一个字符的复制：
@@ -2044,33 +2041,255 @@ public static void main(String[] args) {
 
 ### 非文本文件复制
 
+> FileInputStream
+>
+> FileOutputStream
 
+``` java
+    //功能：完成图片的复制：
+    //1.有一个源图片
+    File f1 = new File("d:\\LOL.jpg");
+    //2.有一个目标图片：
+    File f2 = new File("d:\\LOL2.jpg");
+    FileInputStream fis = new FileInputStream(f1);
+    FileOutputStream fos = new FileOutputStream(f2);
+    //5.开始复制：（边读边写）
+    //方式一:一个字节,一个字节操作
+    /*
+    int n = fis.read();
+    while(n!=-1){
+        fos.write(n);
+        n = fis.read();
+    }
+    */
+    
+    // 方式二:利用缓冲数组
+    byte[] b = new byte[1024*8];
+    int len = fis.read(b);
+    while(len!=-1) {
+        fos.write(b,0,len);
+        len = fis.read(b);
+    }
+    
+    //6.关闭流：(倒着关闭流，先用后关)
+    fos.close();
+    fis.close();
 
+```
 
+### 缓冲字节流
 
+> BufferedInputStream
+>
+> BufferedOutputStream
 
+``` java
+    //1.有一个源图片
+    File f1 = new File("d:\\LOL.jpg");
+    //2.有一个目标图片：
+    File f2 = new File("d:\\LOL2.jpg");  
+    FileInputStream fis = new FileInputStream(f1);   
+    FileOutputStream fos = new FileOutputStream(f2);  
+    BufferedInputStream bis = new BufferedInputStream(fis);
+    BufferedOutputStream bos = new BufferedOutputStream(fos);
+    byte[] b = new byte[1024*6];
+    int len = bis.read(b);
+    while(len!=-1){
+        bos.write(b,0,len);
+        // bos.flush(); 底层已经帮我们做了刷新缓冲区的操作，底层调用flushBuffer()
+        len = bis.read(b);
+    }
+    //8.关闭流：
+    //倒着关：
+    //如果处理流包裹着节点流的话，那么其实只要关闭高级流（处理流），那么里面的字节流也会随之被关闭。
+    bos.close();
+    bis.close();
+```
 
+### 缓冲字符流
 
+> BufferedReader
+>
+> BufferedWriter
 
+``` java
+    //1.有一个源文件：
+    File f1 = new File("d:\\Test.txt");
+    //2.有一个目标文件：
+    File f2 = new File("d:\\Demo.txt");
+    FileReader fr = new FileReader(f1);
+    FileWriter fw = new FileWriter(f2);
+    BufferedReader br = new BufferedReader(fr);
+    BufferedWriter bw = new BufferedWriter(fw);
 
+    //方式1：读取一个字符，输出一个字符：
+    /*
+    int n = br.read();
+    while(n!=-1){
+        bw.write(n);
+        n = br.read();
+    }
+    */
+    //方式2:利用缓冲数组：
+    /*
+    char[] ch = new char[30];
+    int len = br.read(ch);
+    while(len!=-1){
+        bw.write(ch,0,len);
+        len = br.read(ch);
+    }
+    */
+    //方式3：读取String：
+    String str = br.readLine();//每次读取文本文件中一行，返回字符串
+    while(str!=null){
+        bw.write(str);
+        //在文本文件中应该再写出一个换行：
+        bw.newLine();//新起一行
+        str = br.readLine();
+    }
+    //8.关闭流
+    bw.close();
+    br.close();
+```
 
+### 转换流
 
+> InputStreamReader
+>
+> OutputStreamWriter
 
+``` java
+    //1.有一个源文件
+    File f1 = new File("d:\\Test.txt");
+    //2.有一个目标文件：
+    File f2 = new File("d:\\Demo.txt");
+    //3.输入方向：
+    FileInputStream fis = new FileInputStream(f1);
+    InputStreamReader isr = new InputStreamReader(fis,"utf-8");
+    //4.输出方向：
+    FileOutputStream fos = new FileOutputStream(f2);
+    OutputStreamWriter osw = new OutputStreamWriter(fos,"gbk");
+    //5.开始动作：
+    char[] ch = new char[20];
+    int len = isr.read(ch);
+    while(len!=-1){
+        osw.write(ch,0,len);
+        len = isr.read(ch);
+    }
+    //6.关闭流：
+    osw.close();
+    isr.close();
+```
 
+### System类-IO流
 
+> System.in  : “标准”输入流。---默认情况下 从键盘输入
+>
+> System.out  :“标准”输出流。---默认情况下，输出到控制台。
 
+#### System.in
 
+``` java
+    //得到的是标准的输入流：--》从键盘输入：
+    //InputStream in = System.in;
+    //调用方法：
+    //int n = in.read();//read方法等待键盘的录入，所以这个方法是一个阻塞方法。
+    //System.out.println(n);
+    
+    //Scanner的作用：扫描器：起扫描作用的，扫键盘的从这根管出来的数据
+    /*
+    Scanner sc = new Scanner(System.in);
+    int i = sc.nextInt();
+    System.out.println(i);
+    */
 
+    Scanner sc = new Scanner(new FileInputStream(new File("d:\\Test.txt")));
+    while(sc.hasNext()){
+        System.out.println(sc.next());
+    }
+```
 
+#### System.out
 
+``` java
+    PrintStream out = System.out;
+    //调用方法：
+    out.print("你好1");//直接在控制台写出，但是不换行
+    out.print("你好2");
+    out.print("你好3");
+    out.println("你好4");
 
+    System.out.println("你是");
+    System.out.print("你是");
+```
 
+``` java
+    String mylog = "my log";
+    PrintStream out = new PrintStream("X:/mylog.log"); // 如果mylog.log不存在，会自动创建
+    System.setOut(out); // 重新分配“标准”输出流
+    System.out.println(mylog); // 本该输出到控制台的内容被定向到了mylog.log
+```
 
+### 数据流
 
+> DataInputStream:    读入到内存中
+>
+> DataOutputStream:   写出到文件中
 
+``` java
+    // DataOutputStream
+    
+    DataOutputStream dos = new DataOutputStream(new FileOutputStream(new File("d:\\Demo2.txt")));
+    //向外将变量写到文件中去：
+    dos.writeUTF("你好");
+    dos.writeBoolean(false);
+    dos.writeDouble(6.9);
+    dos.writeInt(82);
+    //关闭流：
+    dos.close();
+```
 
+``` java
+    // DataInputStream
+    
+    DataInputStream dis = new DataInputStream(new FileInputStream(new File("d:\\Demo2.txt")));
+    //将文件中内容读取到程序中来：
+    System.out.println(dis.readUTF());
+    System.out.println(dis.readBoolean());
+    System.out.println(dis.readDouble());
+    System.out.println(dis.readInt());
+    //关闭流：
+    dis.close();
+```
 
+### 对象流
 
+> ObjectInputStream 反序列化
+>
+> ObjectOutputStream 序列化
+
+``` java
+    // 序列化
+    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("d:\\Demo3.txt")));
+    //将内存中的字符串写出到文件中：
+    oos.writeObject("你好");
+    //关闭流：
+    oos.close();
+    
+    // 反序列化
+   ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("d:\\Demo3.txt")));
+    //读取：
+    String s = (String)(ois.readObject());
+    System.out.println(s);
+    //关闭流：
+    ois.close();
+```
+
+> 序列化自定义类
+>
+> 1.实现Serializable接口
+>
+> 2.添加 `private static final long serialVersionUID`(建议,非必须)
 
 
 
