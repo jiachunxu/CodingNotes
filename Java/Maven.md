@@ -6,7 +6,7 @@
 
 #### 配置本地仓库
 
-```xml
+``` xml
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -19,7 +19,7 @@
 
 #### 配置镜像仓库配置
 
-```xml
+``` xml
 
 <mirror>
     <!-- 指定镜像ID（可自己改名） -->
@@ -36,7 +36,7 @@
 
 ### JDK配置
 
-```xml
+``` xml
 
 <profile>
     <!-- settings.xml中的id不能随便起的 -->
@@ -190,7 +190,7 @@
 
 > 【1】 settings.xml文件中配置全局编译器插件： 找到profiles节点，在里面加入profile节点：
 
-```xml
+``` xml
 
 <profile>
     <!-- 定义的编译器插件ID，全局唯一，名字随便起 -->
@@ -211,7 +211,7 @@
 
 > 【2】配置编译器插件：pom.xml配置片段
 
-```xml
+``` xml
 <!-- 配置maven的编译插件 -->
 <build>
     <plugins>
@@ -240,7 +240,7 @@
 
 > 我现在想把非resources下面的文件也打包到classes下面配置：
 
-```xml
+``` xml
 
 <build>
     <resources>
