@@ -2299,6 +2299,173 @@ public static void main(String[] args) {
 
 # 多线程
 
+## 程序，进程，线程
+
+- 程序(program)：是为完成特定任务、用某种语言编写的一组指令的集合,是一段静态的代码。 （程序是静态的）
+- 进程(process)：是程序的一次执行过程。正在运行的一个程序，进程作为资源分配的单位，在内存中会为每个进程分配不同的内存区域。
+  （进程是动态的）是一个动的过程 ，进程的生命周期  :  有它自身的产生、存在和消亡的过程
+- 线程(thread)，进程可进一步细化为线程， 是一个程序内部的一条执行路径。 若一个进程同一时间并行执行多个线程，就是支持多线程的。
+
+## 并行和并发
+
+- 并行：多个CPU同时执行多个任务
+- 并发：一个CPU“同时”执行多个任务（采用时间片切换）
+
+## 创建线程的方式
+
+### 继承 Thread 类
+
+``` java
+public class TestThread extends Thread{
+    
+    // 重写 run() 方法 ,实现主要逻辑    
+    @Override
+    public void run() {
+        for (int i = 1; i <= 10 ; i++) {
+            System.out.println(this.getName()+i);
+        }
+    }
+    public static void main(String[] args) {
+        
+        TestThread tt = new TestThread();
+        tt.setName("子线程");
+
+        tt.start();   // 启动线程
+        //主线程中也要输出十个数：
+        for (int i = 1; i <= 10 ; i++) {
+            System.out.println(Thread.currentThread().getName()+"2-------"+i);
+        }
+    }   
+}
+```
+
+### 实现 Runnable 接口
+
+``` java
+public class TestThread implements Runnable{
+    // 重写 run() 方法 ,实现主要逻辑
+    @Override
+    public void run() {
+        //输出1-10数字：
+        for (int i = 1; i <= 10 ; i++) {
+            System.out.println(Thread.currentThread().getName()+"----"+i);
+        }
+    }
+     
+    public static void main(String[] args) {
+
+        TestThread tt = new TestThread();      
+        Thread t = new Thread(tt,"子线程");       
+        t.start();
+    }
+}
+```
+
+### 实现 Callable 接口
+
+``` java
+public class TestRandomNum implements Callable<Integer> {
+    /*
+    1.实现Callable接口，可以不带泛型，如果不带泛型，那么call方式的返回值就是Object类型
+    2.如果带泛型，那么call的返回值就是泛型对应的类型
+    3.从call方法看到：方法有返回值，可以跑出异常
+    */
+    
+    // 重写 call() 方法, 实现主要逻辑 
+    @Override
+    public Integer call() throws Exception {
+        return new Random().nextInt(10);//返回10以内的随机数
+    }
+     //这是main方法，程序的入口
+    public static void main(String[] args) throws Exception {
+        //定义一个线程对象：
+        TestRandomNum trn = new TestRandomNum();
+        FutureTask ft = new FutureTask(trn);
+        Thread t = new Thread(ft);
+        t.start();
+        //获取线程得到的返回值：
+        Object obj = ft.get();
+        System.out.println(obj);
+    }
+}
+```
+
+### 线程池
+
+## 线程的生命周期
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230227214455.png)
+
+## 线程的常用方法
+
+- start() : 启动当前线程，表面上调用start方法，实际在调用线程里面的run方法
+- run() : 线程类 继承 Thread类 或者 实现Runnable接口的时候，都要重新实现这个run方法
+- currentThread() :Thread类中一个静态方法：获取当前正在执行的线程
+- setName() 设置线程名字
+- getName() 读取线程名字
+- setPriority() 设置优先级 级别:1-10,默认为 5, 优先级越高被 cpu 调用的概率越高
+- join() 当一个线程调用了join方法，这个线程就会先被执行，它执行结束以后才可以去执行其余的线程。
+- 注意：必须先start，再join才有效。
+- sleep() 人为制造阻塞
+- setDaemon(true) 先设置，再启动, 主线程停止的时候，子线程也不要继续执行了
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
