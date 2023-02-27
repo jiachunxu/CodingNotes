@@ -2396,6 +2396,8 @@ public class TestRandomNum implements Callable<Integer> {
 
 ![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230227214455.png)
 
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230227231812.png)
+
 ## 线程的常用方法
 
 - start() : 启动当前线程，表面上调用start方法，实际在调用线程里面的run方法
@@ -2409,31 +2411,361 @@ public class TestRandomNum implements Callable<Integer> {
 - sleep() 人为制造阻塞
 - setDaemon(true) 先设置，再启动, 主线程停止的时候，子线程也不要继续执行了 主线程不可设置为守护线程
 
+## 线程安全问题
+
+### 同步代码块
+
+``` java
+synchronized (同步监视器) {
+    //锁必须多个线程用的是同一把锁！！！
+}
+```
+
+**同步监视器总结**
+
+- 同步监视器必须是引用数据类型，不能是基本数据类型
+- 也可以创建一个专门的同步监视器，没有任何业务含义
+- 一般使用共享资源做同步监视器即可
+- 在同步代码块中不能改变同步监视器对象的引用
+- 尽量不要String和包装类Integer做同步监视器
+- 建议使用final修饰同步监视器
+
+**强调**：同步代码块中能发生CPU的切换吗？能！！！ 但是后续的被执行的线程也无法执行同步代码块（因为锁仍旧close）
+
+**其他**
+
+- 多个代码块使用了同一个同步监视器（锁），锁住一个代码块的同时，也锁住所有使用该锁的所有代码块，其他线程无法访问其中的任何一个代码块
+- 多个代码块使用了同一个同步监视器（锁），锁住一个代码块的同时，也锁住所有使用该锁的所有代码块，
+  但是没有锁住使用其他同步监视器的代码块，其他线程有机会访问其他同步监视器的代码块
+
+### 同步方法
+
+``` java
+public static synchronized void buyTicket(){  //锁住的  同步监视器： 字节码对象
+    
+}
+
+public synchronized void buyTicket(){   //锁住的是this
+
+}
+```
+
+**关于同步方法**
+
+- 不要将run()定义为同步方法
+- 非静态同步方法的同步监视器是this
+- 静态同步方法的同步监视器是 类名.class 字节码信息对象
+- 同步代码块的效率要高于同步方法
+- 原因：同步方法是将线程挡在了方法的外部，而同步代码块锁将线程挡在了代码块的外部，但是却是方法的内部
+- 同步方法的锁是this，一旦锁住一个方法，就锁住了所有的同步方法；同步代码块只是锁住使用该同步监视器的代码块，而没有锁住使用其他监视器的代码块
+
+### Lock锁
+
+``` java
+public class BuyTicketThread implements Runnable {
+    int ticketNum = 10;
+    //拿来一把锁：
+    Lock lock = new ReentrantLock();
+    @Override
+    public void run() {
+        //此处有1000行代码
+        for (int i = 1; i <= 100 ; i++) {
+            //打开锁：
+            lock.lock();
+            try{
+                if(ticketNum > 0){
+                    System.out.println("我在"+Thread.currentThread().getName()+"买到了北京到哈尔滨的第" + ticketNum-- + "张车票");
+                }
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }finally {
+                //关闭锁：--->即使有异常，这个锁也可以得到释放
+                lock.unlock();
+            }
+        }
+        //此处有1000行代码
+    }
+}
+```
+
+**Lock锁**
+
+- JDK1.5后新增新一代的线程同步方式:Lock锁
+- 与采用synchronized相比，lock可提供多种锁方案，更灵活
+- synchronized是Java中的关键字，这个关键字的识别是靠JVM来识别完成的呀。是虚拟机级别的。
+- 但是Lock锁是API级别的，提供了相应的接口和对应的实现类，这个方式更灵活，表现出来的性能优于之前的方式。
+
+**Lock和synchronized的区别**
+
+- Lock是显式锁（手动开启和关闭锁，别忘记关闭锁），synchronized是隐式锁
+- Lock只有代码块锁，synchronized有代码块锁和方法锁
+- 使用Lock锁，JVM将花费较少的时间来调度线程，性能更好。并且具有更好的扩展性（提供更多的子类）
+
+### 线程同步的优缺点
+
+- 线程安全，效率低
+- 可能造成死锁 : 不同的线程争夺对方的锁
+
+### 线程通信问题
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230227231812.png)
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230227231945.png)
+
+- 注意：wait方法和notify方法 是必须放在同步方法或者同步代码块中才生效的 （因为在同步的基础上进行线程的通信才是有效的）
+- 注意：sleep和wait的区别：sleep进入阻塞状态没有释放锁，wait进入阻塞状态但是同时释放了锁
+
+### Loc锁情况下的线程通信
+
+> Condition 是在Java 1.5中才出现的，它用来替代传统的 Object 的 wait()、notify() 实现线程间的协作，
+>
+> 相比使用Object的wait(), notify(),使用 Condition 的 await()、signal() 这种方式实现线程间协作更加安全和高效。
 
 
+> 更加精细的控制多线程的休眠与唤醒。对于同一个锁，我们可以创建多个 Condition
+>
+> 一个 Condition 包含一个等待队列。一个Lock可以产生多个Condition，所以可以有多个等待队列。
 
+> 在 Object 的监视器模型上，一个对象拥有一个同步队列和等待队列，而 Lock（同步器）拥有一个同步队列和多个等待队列。
 
+> Object 中的 wait(), notify(), notifyAll() 方法是和"同步锁" ( synchronized 关键字) 捆绑使用的；而 Condition 是需要与"
+> 互斥锁"/"共享锁"捆绑使用的。
 
+> 调用 Condition 的 await(), signal(), signalAll() 方法,都必须在 lock 保护之内，就是说必须在lock.lock()
+> 和lock.unlock之间才可以使用
 
+> Conditon 中的 await() 对应 Object 的 wait()
 
+> Condition 中的 signal() 对应 Object 的 notify()
 
+> Condition 中的 signalAll() 对应 Object 的 notifyAll()
 
+- void await() throws InterruptedException 造成当前线程在接到信号或被中断之前一直处于等待状态。
 
+> 与此 Condition 相关的锁以原子方式释放，并且出于线程调度的目的，将禁用当前线程，且在发生以下四种情况之一
+> 以前，当前线程将一直处于休眠状态
 
+- > 其他某个线程调用此 Condition 的 signal() 方法，并且碰巧将当前线程选为被唤醒的线程
+- > 或者其他某个线程调用此 Condition 的 signalAll() 方法
+- > 或者其他某个线程中断当前线程，且支持中断线程的挂起
+- > 或者发生“虚假唤醒”
 
+> 在所有情况下，在此方法可以返回当前线程之前，都必须重新获取与此条件有关的锁。在线程返回时，可以保证它保持此锁。
+---
 
+- void signal() 唤醒一个等待线程。
 
+- > 如果所有的线程都在等待此条件，则选择其中的一个唤醒。在从 await 返回之前，该线程必须重新获取锁。
 
+- void signalAll() 唤醒所有等待线程。
 
+- > 如果所有的线程都在等待此条件，则唤醒所有线程。在从 await 返回之前，每个线程都必须重新获取锁。
 
+# 网络编程
 
+- InetAddress 封装了IP
+  - `InetAddress ia2 = InetAddress.getByName("localhost");`
+- InetSocketAddress 封装了IP，端口号
+  - `InetSocketAddress isa = new InetSocketAddress("192.168.199.217",8080);`
 
+## 网络通信原理--套接字
 
+### 基于TCP的网络编程
 
+#### 单向通信
 
+**客户端**
 
+``` java
+public class TestClient {//客户端
+    //这是一个main方法，是程序的入口：
+    public static void main(String[] args) throws IOException {
+        //1.创建套接字：指定服务器的ip和端口号：
+        Socket s = new Socket("192.168.199.217",8888);
+        //2.对于程序员来说，向外发送数据 感受 --》利用输出流：
+        OutputStream os = s.getOutputStream();
+        DataOutputStream dos = new DataOutputStream(os);
+        //利用这个OutputStream就可以向外发送数据了，但是没有直接发送String的方法
+        //所以我们又在OutputStream外面套了一个处理流：DataOutputStream
+        dos.writeUTF("你好");
+        //3.关闭流  +  关闭网络资源：
+        dos.close();
+        os.close();
+        s.close();
+    }
+}
+```
 
+**服务器**
 
+``` java
+public class TestServer {//服务器
+    //这是一个main方法，是程序的入口：
+    public static void main(String[] args) throws IOException {
+        //1.创建套接字： 指定服务器的端口号
+        ServerSocket ss = new ServerSocket(8888);
+        //2.等着客户端发来的信息：
+        Socket s = ss.accept();//阻塞方法:等待接收客户端的数据，什么时候接收到数据，什么时候程序继续向下执行。
+        //accept()返回值为一个Socket，这个 Socket 其实就是客户端的 Socket
+        //接到这个 Socket 以后，客户端和服务器才真正产生了连接，才真正可以通信了
+        //3.感受到的操作流：
+        InputStream is = s.getInputStream();
+        DataInputStream dis = new DataInputStream(is);
+        //4.读取客户端发来的数据：
+        String str = dis.readUTF();
+        System.out.println("客户端发来的数据为："+str);
+        
+        //5.关闭流+关闭网络资源：
+        dis.close();
+        is.close();
+        s.close();
+        ss.close();
+    }
+}
+```
+
+#### 多线程接收用户请求
+
+``` java
+public class ServerThread extends Thread {//线程：专门处理客户端的请求
+    InputStream is = null;
+    ObjectInputStream ois = null;
+    OutputStream os = null;
+    DataOutputStream dos = null;
+    Socket s = null;
+    public ServerThread(Socket s){
+        this.s = s;
+    }
+    @Override
+    public void run() {
+        try{
+            //2.等着客户端发来的信息：
+            is = s.getInputStream();
+            ois = new ObjectInputStream(is);
+            //4.读取客户端发来的数据：
+            User user = (User)(ois.readObject());
+            //对对象进行验证：
+            boolean flag = false;
+            if(user.getName().equals("娜娜")&&user.getPwd().equals("123123")){
+                flag = true;
+            }
+            //向客户端输出结果：---》操作流---》输出流
+            os = s.getOutputStream();
+            dos = new DataOutputStream(os);
+            dos.writeBoolean(flag);
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if(dos!=null){
+                    dos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if(os!=null){
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if(ois!=null){
+                    ois.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if(is!=null){
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+```
+
+``` java
+public class TestServer {//服务器
+    //这是一个main方法，是程序的入口：
+    public static void main(String[] args) {
+        System.out.println("服务器启动了");
+        //1.创建套接字： 指定服务器的端口号
+        ServerSocket ss = null;
+        Socket s = null;
+        int count = 0;//定义一个计数器，用来计数  客户端的请求
+        try {
+            ss = new ServerSocket(8888);
+            while(true){//加入死循环，服务器一直监听客户端是否发送数据
+                s = ss.accept();
+                //阻塞方法:等待接收客户端的数据，什么时候接收到数据，什么时候程序继续向下执行。
+                new ServerThread(s).start();
+                count++;
+                //输入请求的客户端的信息：
+                System.out.println("当前是第"+count+"个用户访问我们的服务器,对应的用户是："+s.getInetAddress());
+            }
+        } catch (IOException  e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+**注意** : 先开服务器，再开启客户端
+
+### 基于UDP的网络编程
+
+#### 单向通信
+
+``` java
+public class TestSend {//发送方：
+    //这是一个main方法，是程序的入口：
+    public static void main(String[] args) throws IOException {
+        System.out.println("学生上线。。。");
+        DatagramSocket ds = new DatagramSocket(8888);
+        String str = "你好";
+        byte[] bytes = str.getBytes();
+        /*
+        需要四个参数：
+        1.指的是传送数据转为字节数组
+        2.字节数组的长度
+        3.封装接收方的ip
+        4.指定接收方的端口号
+        */
+        DatagramPacket dp = new DatagramPacket(bytes,bytes.length, InetAddress.getByName("localhost"),9999);
+        ds.send(dp);
+        ds.close();
+    }
+}
+```
+
+``` java
+public class TestReceive { //接收方
+    //这是一个main方法，是程序的入口：
+    public static void main(String[] args) throws IOException {
+        System.out.println("老师上线了。。");
+
+        DatagramSocket ds = new DatagramSocket(9999);
+        //2.有一个空的数据包，打算用来接收  对方传过来的数据包：
+        byte[] b = new byte[1024];
+        DatagramPacket dp = new DatagramPacket(b,b.length);
+        //3.接收对方的数据包，然后放入我们的dp数据包中填充
+        ds.receive(dp);//接收完以后 dp里面就填充好内容了
+        //4.取出数据：
+        byte[] data = dp.getData();
+        String s = new String(data,0,dp.getLength());
+        //dp.getLength()数组包中的有效长度
+        System.out.println("学生对我说："+s);
+        ds.close();
+    }
+}
+```
 
 
 
