@@ -95,7 +95,7 @@ const add: (num1: number, num2: number) => number = (num1, num2) => {
 function greet(name: string): void {
     console.log('Hello', name)
 }
-
+ 
 
 // 可选参数
 function mySlice(start: number, end?: number): void {
