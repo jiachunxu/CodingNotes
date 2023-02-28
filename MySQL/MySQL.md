@@ -219,18 +219,76 @@ alter user 'root'@'localhost' identified with mysql_native_password by 'root';
 
 > 记录也被称为一行数据，是表里的一行。在关系型数据库的表里，一行数据是指一条完整的记录。
 
+#### 创建数据库
+
+``` mysql
+CREATE DATABASE databasename;
+
+CREATE DATABASE IF NOT EXISTS test_db_char
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_chinese_ci;
+```
+
+#### 创建数据库表
+
+``` mysql
+-- 这是一个单行注释
+/*
+多行注释
+*/
+/*
+建立一张用来存储学生信息的表
+字段包含学号、姓名、性别，年龄、入学日期、班级，email等信息
+*/
+-- 创建数据库表：
+create table t_student(
+    sno int(6), -- 6显示长度 
+    sname varchar(5), -- 5个字符
+    sex char(1),
+    age int(3),
+    enterdate date,
+    classname varchar(10),
+    email varchar(15)
+);
+-- 查看表的结构：展示表的字段详细信息
+desc t_student;
+-- 查看表中数据：
+select * from t_student;
+-- 查看建表语句：
+show create table t_student;
+/*
+CREATE TABLE `t_student` (
+  `sno` int DEFAULT NULL,
+  `sname` varchar(5) DEFAULT NULL,
+  `sex` char(1) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `enterdate` date DEFAULT NULL,
+  `classname` varchar(10) DEFAULT NULL,
+  `email` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+*/
+
+```
+
+### 数据库表列类型
+
+- 整数类型
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230228233532.png)
+
+> MySQL支持选择在该类型关键字后面的括号内指定整数值的显示宽度(例如，INT(4))。
+>
+> 显示宽度并不限制可以在列内保存的值的范围，也不限制超过列的指定宽度的值的显示
+>
+> 主键自增：不使用序列，通过auto_increment，要求是整数类型
+
+- 浮点数类型
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230228233731.png)
+
+> 需要注意的是与整数类型不一样的是，浮点数类型的宽度不会自动扩充。
 > 
-
-
-
-
-
-
-
-
-
-
-
+> score double(4,1)--小数部分为1位，总宽度4位，并且不会自动扩充。
 
 
 
