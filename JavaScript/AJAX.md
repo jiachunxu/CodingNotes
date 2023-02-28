@@ -79,7 +79,7 @@
 - encodeURI()编码的函数
 - decodeURI()解码的函数
 
-```js
+``` js
 var str = '黑马程序员'
 var str2 = encodeURI(str)
 console.log(str2)
@@ -105,8 +105,7 @@ console.log(str3)
 
 > XML的英文全称是Extensible Markup Language，即可扩展标记语言。因此，XML和HTML类似,也是一种标记语言。
 
-```xml
-
+``` xml
 <note>
     <to>ls</to>
     <from>zs</from>
@@ -313,7 +312,7 @@ xhr.onreadystatechange = function () {
 
 ### FormData对象获取网页表单的值
 
-```html
+``` html
 
 <body>
 <form id="form1">
