@@ -203,7 +203,7 @@ console.log(str3)
 - 调用xhr.send()函数
 - 监听xhr.onreadystatechange事件
 
-```js
+``` js
 // 1. 创建 XHR 对象
 var xhr = new XMLHttpRequest()
 // 2. 调用 open 函数
@@ -233,7 +233,7 @@ xhr.onreadystatechange = function () {
 - 调用xhr.send()函数，同时指定要发送的数据
 - 监听xhr.onreadystatechange.事件
 
-```js
+``` js
 // 1. 创建 xhr 对象
 var xhr = new XMLHttpRequest()
 // 2. 调用 open 函数
@@ -270,7 +270,7 @@ xhr.onreadystatechange = function () {
 
 > 过了这个时限，就自动停止HTTP请求。与之配套的还有一个timeout事件
 
-```js
+``` js
 var xhr = new XMLHttpRequest()
 xhr.timeout = 30
 // 设置超时以后的处理函数
@@ -290,7 +290,7 @@ xhr.onreadystatechange = function () {
 
 > Ajax操作往往用来提交表单数据。为了方便表单处理，HTML5新增了一个FormData对象，可以模拟表单操作
 
-```js
+``` js
 // 1. 创建 FormData 实例
 var fd = new FormData()
 // 2. 调用 append 函数，向 fd 中追加数据
@@ -351,7 +351,7 @@ xhr.onreadystatechange = function () {
 - 使用xhr发起上传文件的请求
 - 监听onreadystatechange事件
 
-```js
+``` js
 // 1. 获取到文件上传按钮
 var btnUpload = document.querySelector('#btnUpload')
 // 2. 为按钮绑定单击事件处理函数
@@ -386,7 +386,7 @@ btnUpload.addEventListener('click', function () {
 
 > 新版本的XMLHttpRequest对象中，可以通过监听xhr.upload.onprogress,事件，来获取到文件的上传进度。
 
-```js
+``` js
 // 创建 XHR 对象
 var xhr = new XMLHttpRequest()
 // 监听 xhr.upload 的 onprogress 事件
@@ -426,7 +426,7 @@ xhr.upload.onprogress = function (e) {
 
 > 相比于$.get()和$.post()函数，jQuery中提供的$.ajax()函数，是一个功能比较综合的函数，它允许我们对Ajax请求进行更详细的配置。
 
-```js
+``` js
 $.ajax({
     type: '', //请求的方式，例如 GET 或 POST
     url: '', //请求URL地址
@@ -471,7 +471,7 @@ $.ajax({
 
 `axios.get('url', { params: { /*参数*/ } }).then(callback)`
 
-```js
+``` js
 var url = 'http://www.liulongbin.top:3006/api/get'
 var paramsObj = {name: 'zs', age: 20}
 axios.get(url, {params: paramsObj}).then(function (res) {
@@ -483,7 +483,7 @@ axios.get(url, {params: paramsObj}).then(function (res) {
 
 ` axios.post('url', { /*参数*/ }).then(callback)`
 
-```js
+``` js
  //   请求的 URL 地址
 var url = 'http://www.liulongbin.top:3006/api/post'
 //   要提交到服务器的数据
@@ -498,7 +498,7 @@ axios.post(url, dataObj).then(function (res) {
 
 ### 直接使用axios发起请求
 
-```js
+``` js
  axios({
         method: '请求类型',
         url: '请求的URL地址',
@@ -514,7 +514,7 @@ then(callback)
 
 示例
 
-```js
+``` js
 document.querySelector('#btn3').addEventListener('click', function () {
     var url = 'http://www.liulongbin.top:3006/api/get'
     var paramsData = {name: '钢铁侠', age: 35}
@@ -544,7 +544,7 @@ document.querySelector('#btn4').addEventListener('click', function () {
 
 ### 使用 await async简化使用 axios
 
-```js
+``` js
 document.querySelector('#btnGET').addEventListener('click', async function () {
     /* axios.get('url地址', {
       // GET 参数
