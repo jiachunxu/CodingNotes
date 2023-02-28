@@ -2767,55 +2767,489 @@ public class TestReceive { //接收方
 }
 ```
 
+# 注解
+
+> JDK5.0 新增 --- 注解( Annotation ),也叫元数据
+
+> 注解其实就是代码里的特殊标记，这些标记可以在编译,类加载,运行时被读取,并执行相应的处理。
+> 通过使用注解,程序员可以在不改变原有逻辑的情况下，在源文件中嵌入一些补充信息。
+> 代码分析工具、开发工具和部署工具可以通过这些补充信息进行验证或者进行部署。
 
 
+**注解的重要性**
+
+> Annotation 可以像修饰符一样被使用，可用于修饰包，类，构造器,方法，成员变量,参数，局部变量的声明，
+> 这些信息被保存在 Annotation 的 "name = value" 对中。
+>
+> 在 JavaSE 中，注解的使用目的比较简单，例如标记过时的功能，忽略警告等。
+>
+> 在 JavaEE 中注解占据了更重要的角色，例如: 用来配置应用程序的任何切面，代替 JavaEE 旧版中所遗留的繁冗代码和 XML 配置等。
+> 未来的开发模式都是基于注解的，JPA(java 的持久化 API)是基于注解的，Spring2.5 以后都是基于注解的
+>
+> Hibernate3.x 以后也是基于注解的，现在的 Struts2 有一部分也是基于注解的了，注解是一种趋势，一定程度上可以说 框架=注解+反射+设计模式。
+
+## Junit 的注解
+
+``` java
+public class CalculatorTest {
+    @Before
+    public void init(){
+        System.out.println("方法执行开始了。。。");
+    }
+    @After
+    public void close(){
+        System.out.println("方法执行结束了。。。");
+    }
+    @Test
+    public void testAdd(){
+        System.out.println("测试add方法");
+        Calculator cal = new Calculator();
+        int result = cal.add(10, 30);
+        Assert.assertEquals(40,result);//第一个参数：预测结果  第二个参数：实际结果
+    }
+}
+```
+
+## 文档相关的注解
+
+- 说明注释允许你在程序中嵌入关于程序的信息。你可以使用 javadoc 工具软件来生成信息，并输出到 HTML 文件中。
+- 说明注释，使你更加方便的记录你的程序信息。
+- 文档注解我们一般使用在文档注释中，配合 javadoc 工具
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230228195513.png)
+
+- @param @return 和 @exception 这三个标记都是只用于方法的。
+
+- @param 的格式要求: @param 形参名 形参类型 形参说明
+
+- @return 的格式要求: @return 返回值类型返回值说明，如果方法的返回值类型是 void 就不能写
+
+- @exception 的格式要求: @exception 异常类型异常说明
+
+- @param 和 @exception 可以并列多个
+
+## JDK 内置的3个注解
+
+- @Override : 限定重写父类方法，该注解只能用于方法
+- @Deprecated : 用于表示所修饰的元素(类,方法，构造器，属性等)已过时。通常是因为所修饰的结构危险或存在更好的选择
+- @SuppressWarnings : 抑制编译器警告
+
+## 自定义注解
+
+``` java
+public @interface MyAnnotation2 {
+    String value() default "abc";
+}
+```
+
+- 无参数方法名字 -- 成员变量的名字
+- 无参数方法的返回值 -- 成员变量的类型
+
+> **PS** ：注意：如果只有一个成员变量的话，名字尽量叫value。
+
+### 使用注解
+
+- 使用注解的话，如果你定义了配置参数，就必须给配置参数进行赋值操作
+- 如果只有一个参数，并且这个参数的名字为value的话，那么value=可以省略不写
+- 如果你给配置参数设置默认的值了，那么使用的时候可以无需传值
+- 一个注解的内部是可以不定义配置参数的
+
+- 内部没有定义配置参数的注解 -- 可以叫做标记
+- 内部定义配置参数的注解 -- 元数据
+
+## 元注解
+
+> 元注解是**修饰其它注解的注解**
+
+> JDK5.0 提供了四种元注解：**Retention**, **Target**, **Documented**, **Inherited**
+
+### Retention
+
+> @Retention : 用于修饰注解，用于指定修饰的那个注解的生命周期
+> @Rentention 包含一个 RetentionPolicy 枚举类型的成员变量,使用 @Rentention 时必须为该 value 成员变量
+>
+
+- RetentionPolicy.SOURCE : 在源文件中有效(即源文件保留),编译器直接丢弃这种策略的注释，在 .class 文件中不会保留注解信息
+
+- RetentionPolicy.CLASS : 在class文件中有效(即class保留)  但是当运行 Java 程序时，他就不会继续加载了，不会保留在内存中，JVM
+  不会保留注解。如果注解没有加 Retention 元注解，那么相当于默认的注解就是这种状态。
+
+- RetentionPolicy.RUNTIME :在运行时有效(即运行时保留),当运行 Java 程序时，JVM 会保留，加载在内存中了，那么程序可以通过反射获取该注释。
+
+### Target
+
+> 用于修饰注解的注解，用于指定被修饰的注解能用于修饰哪些程序元素。@Target 也包含一个名为 value 的成员变量。
+
+### Documented
+
+> 用于指定被该元注解修饰的注解类将被 javadoc 工具提取成文档。默认情况下，javadoc 是 不包括注解的，但是加上了这个注解生成的文档中就会带着注解了
 
 
+> 如果：Documented 注解修饰了 Deprecated 注解
+>
+> 那么 Deprecated 注解就会在 javadoc 提取的时候，提取到 API 文档中
+
+### Inherited
+
+> 被它修饰的 Annotation 将具有继承性。如果某个类使用了被 @Inherited 修饰的 Annotation, 则其子类将自动具有该注解。
+
+**案例** : 如果 MyAnno 注解使用了 @Inherited 之后，就具备了继承性，那么相当于子类 Student 也使用了这个 MyAnno
+
+# 枚举
+
+> JDK1.5以后使用 enum 关键字创建枚举类
+
+``` java
+public enum Season {
+    SPRING("春天","春暖花开"),
+    SUMMER("夏天","烈日炎炎"),
+    AUTUMN("秋天","硕果累累"),
+    WINTER("冬天","冰天雪地");
+    //属性：
+    private final String seasonName ;//季节名字
+    private final String seasonDesc ;//季节描述
+
+    //构造器私有化，外界不能调用这个构造器，只能Season内部自己调用
+    private Season(String seasonName, String seasonDesc){
+        this.seasonName = seasonName;
+        this.seasonDesc = seasonDesc;
+    }
+    //额外因素：
+    public String getSeasonName() {
+        return seasonName;
+    }
+    public String getSeasonDesc() {
+        return seasonDesc;
+    }
+    //toString();
+    @Override
+    public String toString() {
+        return "Season{" +
+                "seasonName='" + seasonName + '\'' +
+                ", seasonDesc='" + seasonDesc + '\'' +
+                '}';
+    }
+}
+```
+
+## Enum 类的常用方法
+
+``` java
+    // 用 enum 关键字创建的 Season 枚举类上面的父类是：java.lang.Enum, 常用方法子类 Season 可以直接拿过来使用：
+    // toString();--->获取对象的名字
+    Season autumn = Season.AUTUMN;
+    System.out.println(autumn); // AUTUMN
+    System.out.println("--------------------");
+    // values : 返回枚举类对象的数组
+    Season[] values = Season.values();
+    for( Season s:values ){
+        System.out.println(s);
+    }
+    System.out.println("--------------------");
+    // valueOf ：通过对象名字获取这个枚举对象
+    // 注意 ：对象的名字必须传正确，否则抛出异常
+    Season autumn1 = Season.valueOf("AUTUMN");
+    System.out.println(autumn1);
+```
+
+## 枚举类实现接口
+
+``` java
+public interface TestInterface {
+    void show();
+}
+
+public enum Season implements TestInterface {
+    SPRING,
+    SUMMER,
+    AUTUMN,
+    WINTER;
+    @Override
+    public void show() {
+        System.out.println("这是Season....");
+    }
+}
+
+// 不同的对象调用的 show 方法也不同
+
+public enum Season implements TestInterface {
+    SPRING{
+        @Override
+        public void show() {
+            System.out.println("这是春天。。。");
+        }
+    },
+    SUMMER{
+        @Override
+        public void show() {
+            System.out.println("这是夏天。。");
+        }
+    },
+    AUTUMN{
+        @Override
+        public void show() {
+            System.out.println("这是秋天");
+        }
+    },
+    WINTER{
+        @Override
+        public void show() {
+            System.out.println("这是冬天");
+        }
+    };
+    /*@Override
+    public void show() {
+        System.out.println("这是Season....");
+    }*/
+}
+```
+
+# 反射
+
+## Class 类
+
+``` java
+  // 方式1 ：通过 getClass() 方法获取
+  Person p = new Person();
+  Class c1 = p.getClass();
+  System.out.println(c1);
+  
+  // 方式2 ：通过内置 class 属性：
+  Class c2 = Person.class;
+  System.out.println(c2);
+  System.out.println(c1==c2);
+
+  // 方式3 ：-- 用的最多：调用 Class 类提供的静态方法 forName
+  Class c3 = Class.forName("com.zhaoss.test02.Person"); // 可能抛异常
+  
+  // 方式4：利用类的加载器(了解技能点)
+  ClassLoader loader = Test.class.getClassLoader();
+  Class c4 = loader.loadClass("com.zhaoss.test02.Person");
+```
+
+## 可以作为 Class 类的实例的种类
+
+**Class 类的具体的实例**
+
+- 类：外部类，内部类
+- 接口
+- 注解
+- 数组
+- 基本数据类型
+- void
+
+``` java
+  /*
+  Class类的具体的实例：
+  （1）类：外部类，内部类
+  （2）接口
+  （3）注解
+  （4）数组
+  （5）基本数据类型
+  （6）void
+   */
+  Class c1 = Person.class;
+  Class c2 = Comparable.class;
+  Class c3 = Override.class;
+  int[] arr1 = {1,2,3};
+  Class c4 = arr1.getClass();
+  int[] arr2 = {5,6,7};
+  Class c5 = arr2.getClass();
+  System.out.println(c4==c5); // 结果 ：true, 同一个维度，同一个元素类型,得到的字节码就是同一个
+  
+  Class c6 = int.class;
+  Class c7 = void.class;
+```
+
+## 获取运行时类的完整结构
+
+``` java
+//作为一个父类
+public class Person implements Serializable {
+    //属性
+    private int age;
+    public String name;
+    //方法
+    private void eat(){
+        System.out.println("Person---eat");
+    }
+    public void sleep(){
+        System.out.println("Person---sleep");
+    }
+}
+
+/*
+@Target:定义当前注解能够修饰程序中的哪些元素
+@Retention:定义注解的声明周期
+ */
+@Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MyAnnotation {
+    String value();//属性
+}
+
+public interface MyInterface {//自定义的接口
+    //随便定义一个抽象方法：
+    void myMethod();
+}
+
+@MyAnnotation(value="hello")
+public class Student extends Person implements MyInterface{
+    //属性：
+    private int sno;//学号
+    double height;//身高
+    protected double weight;//体重
+    public double score;//成绩
+    //方法：
+    @MyAnnotation(value="himethod")
+    public String showInfo(){
+        return "我是一名三好学生";
+    }
+    public String showInfo(int a,int b){
+        return "重载方法====我是一名三好学生";
+    }
+    private void work(){
+        System.out.println("我以后会找工作--》成为码农  程序员 程序猿  程序媛");
+    }
+    void happy(){
+        System.out.println("做人最重要的就是开心每一天");
+    }
+    protected int getSno(){
+        return sno;
+    }
+    //构造器
+    public Student(){
+        System.out.println("空参构造器");
+    }
+    private Student(int sno){
+        this.sno = sno;
+    }
+    Student(int sno,double weight){
+        this.sno = sno;
+        this.weight = weight;
+    }
+    protected Student(int sno,double height,double weight){
+        this.sno = sno;
+    }
+    @Override
+    @MyAnnotation(value="hellomyMethod")
+    public void myMethod() {
+        System.out.println("我重写了myMethod方法。。");
+    }
+    @Override
+    public String toString() {
+        return "Student{" +
+                "sno=" + sno +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", score=" + score +
+                '}';
+    }
+}
+```
+
+### 反射使用
+
+``` java
+  Class cls = Student.class;
+
+  // getConstructors 只能获取当前运行时类的被 public 修饰的构造器
+  Constructor[] c1 = cls.getConstructors();
+ 
+  // getDeclaredConstructors : 获取运行时类的全部修饰符的构造器
+  Constructor[] c2 = cls.getDeclaredConstructors();
+
+  // 得到空构造器
+  Constructor con1 = cls.getConstructor();
+  
+  // 得到两个参数的有参构造器：
+  Constructor con2 = cls.getConstructor(double.class, double.class);
+ 
+  // 得到一个参数的有参构造器：并且是 private 修饰的
+  Constructor con3 = cls.getDeclaredConstructor(int.class);
+  
+  // 有了构造器以后我就可以创建对象：
+  Object o1 = con1.newInstance();
+  Object o2 = con2.newInstance(180.5, 170.6);
+
+  // getFields : 获取运行时类和父类中被 public 修饰的属性
+  Field[] fields = cls.getFields();
+ 
+  // getDeclaredFields : 获取运行时类中的所有属性
+  Field[] declaredFields = cls.getDeclaredFields();
+
+  //获取指定的属性：
+  Field score = cls.getField("score");
+  Field sno = cls.getDeclaredField("sno");
 
 
+  // 获取属性的数据类型：
+  Class clazz = sno.getType();
+  System.out.println(clazz.getName());
+  
+  // 获取属性的名字：
+  String name = sno.getName();
+  
+  // 给属性赋值 ：(给属性设置值，必须要有对象)
+  Field sco = cls.getField("score");
+  Object obj = cls.newInstance();
+  sco.set(obj,98); // 给 obj 这个对象的 score 属性设置具体的值，这个值为 98
+  System.out.println(obj);
+  
+  
+  // getMethods : 获取运行时类的方法还有所有父类中的方法(被 public 修饰)
+  Method[] methods = cls.getMethods();
+  
+  // getDeclaredMethods : 获取运行时类中的所有方法
+  Method[] declaredMethods = cls.getDeclaredMethods();
 
+  //获取指定的方法：
+  Method showInfo1 = cls.getMethod("showInfo");
+  Method showInfo2 = cls.getMethod("showInfo", int.class, int.class);
+  Method work = cls.getDeclaredMethod("work",int.class);
 
+  /*
+  @注解
+  修饰符 返回值类型  方法名(参数列表) throws XXXXX{}
+   */
+  // 名字
+  System.out.println(work.getName());
+  
+  // 修饰符
+  int modifiers = work.getModifiers();
+  System.out.println(modifiers);
+  System.out.println(Modifier.toString(modifiers));
+  
+  // 返回值
+  System.out.println(work.getReturnType());
+  
+  // 参数列表
+  Class[] parameterTypes = work.getParameterTypes();
 
+  // 获取注解
+  Method myMethod = cls.getMethod("myMethod");
+  Annotation[] annotations = myMethod.getAnnotations();
 
+  //  获取异常
+  Class[] exceptionTypes = myMethod.getExceptionTypes();
 
+  // 调用方法
+  Object o = cls.newInstance();
+  myMethod.invoke(o); // 调用o对象的 mymethod 方法
+  System.out.println(showInfo2.invoke(o,12,45));;
+  
+  Class[] interfaces = cls.getInterfaces();
 
+  //得到父类的接口：
+  //先得到父类的字节码信息：
+  Class superclass = cls.getSuperclass();
+  //得到接口：
+  Class[] interfaces1 = superclass.getInterfaces();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  //获取运行时类所在的包：
+  Package aPackage = cls.getPackage();
+  System.out.println(aPackage);
+  System.out.println(aPackage.getName());
+  //获取运行类的注解：
+  Annotation[] annotations = cls.getAnnotations();
+```
