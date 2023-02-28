@@ -507,9 +507,9 @@ axios.post(url, dataObj).then(function (res) {
  axios({
         method: '请求类型',
         url: '请求的URL地址',
-        data:/*POST数据*/
+        data:/* POST 数据*/
     },
-    params : { /*GET参数*/ }
+    params : { /* GET 参数*/ }
 })
 .then(callback)
 ```
