@@ -546,10 +546,12 @@ document.querySelector('#btn4').addEventListener('click', function () {
 
 ``` js
 document.querySelector('#btnGET').addEventListener('click', async function () {
-    /* axios.get('url地址', {
+    /* 
+    axios.get('url地址', {
       // GET 参数
       params: {}
-    }) */
+    })
+     */
 
     const {data: res} = await axios.get('http://www.liulongbin.top:3006/api/getbooks', {
         params: {id: 1}
