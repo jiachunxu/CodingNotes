@@ -1,5 +1,5 @@
 # MySQL
- 
+
 [MySQL8 下载地址](https://dev.mysql.com/downloads/windows/installer/8.0.html)
 
 ## 数据库基本概念
@@ -124,34 +124,92 @@ alter table student11 modify stu_id int(10) auto_increment;
 alter table studen11 modify stu_id int(10);
 ```
 
-###                                                
+## MySQl 命令
 
-###                                                
+- 登录的命令
+
+``` mysql
+ mysql -hlocalhost -uroot –p
+```
+
+- 访问数据库
+
+``` mysql
+  show databases;
+  use mysql;
+  show tables;
+```
+
+- 退出数据库
+
+``` mysql
+  quit
+  exit
+  \q
+```
+
+- 设置密码永不过期
+
+``` mysql
+alter user 'root'@'localhost' identified by 'root' password expire never;
+```
+
+- 设置加密规则为mysql_native_password
+
+``` mysql
+alter user 'root'@'localhost' identified with mysql_native_password by 'root';
+```
+
+# SQL语言
+
+> SQL（ Structured Query Language ）是结构化查询语言的简称，它是一种数据库查询和程序设计语言。
+>
+> 在数据库管理系统中，使用SQL语言来实现数据的存取、查询、更新等功能。
+>
+> SQL 是一种非过程化语言，只需提出“做什么”，而不需要指明“怎么做”。
 
 
+> SQL 是由 IBM 公司在 1974 ~ 1979 年之间根据 E.J.Codd 发表的关系数据库理论为基础开发的，其前身是 “SEQUEL”，后更名为 SQL。
+>
+> 由于 SQL 语言具有集数据查询、数据操纵、数据定义和数据控制功能于一体，类似自然语言、简单易用以及非过程化等特点，得到了快速的发展，
+>
+> 并于1986年10月，被美国国家标准协会（American National Standards Institute，ANSI）采用为关系数据库管理系统的标准语言，
+> 后为国际标准化组织（International Organization for Standardization，ISO）采纳为国际标准。
 
+## SQL 语言分为五个部分
 
+- 数据查询语言（Data Query Language，DQL）
+  - SELECT
+  - FROM
+  - WHERE
 
+---
 
+- 数据操作语言（Data Manipulation Language，DML）
+  - INSERT：增加数据
+  - UPDATE：修改数据
+  - DELETE：删除数据
 
+---
 
+- 数据定义语言（Data Definition Language，DDL）
+  - CREATE：创建数据库对象
+  - ALTER：修改数据库对象
+  - DROP：删除数据库对象
 
+--- 
 
+- 数据控制语言（Data Control Language，DCL）
+  - GRANT：授予用户某种权限
+  - REVOKE：回收授予的某种权限
 
+--- 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+- 事务控制语言（Transaction Control Language，TCL）
+  - START TRANSACTION：开启事务
+  - COMMIT：提交事务
+  - ROLLBACK：回滚事务
+  - SET TRANSACTION：设置事务的属性 
 
 
 
