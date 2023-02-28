@@ -209,15 +209,17 @@ alter user 'root'@'localhost' identified with mysql_native_password by 'root';
   - START TRANSACTION：开启事务
   - COMMIT：提交事务
   - ROLLBACK：回滚事务
-  - SET TRANSACTION：设置事务的属性 
+  - SET TRANSACTION：设置事务的属性
 
+### 数据库表
 
+> 表（Table）是数据库中数据存储最常见和最简单的一种形式，数据库可以将复杂的数据结构用较为简单的二维表来表示。二维表是由行和列组成的，分别都包含着数据
 
+> 每个表都是由若干行和列组成的，在数据库中表中的行被称为记录，表中的列被称为是这些记录的字段。
 
+> 记录也被称为一行数据，是表里的一行。在关系型数据库的表里，一行数据是指一条完整的记录。
 
-
-
-
+> 
 
 
 
