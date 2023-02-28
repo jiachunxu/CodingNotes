@@ -140,11 +140,14 @@ console.log(str3)
 
 #### 对象结构
 
-> 对象结构在JSON中表示为{}括起来的内容。数据结构为`{key: value, key: value, ...}` 的键值对结构。其中，key必须是使用英文的双引号包裹的字符串，value的数据类型可以是**数字、字符串、布尔值、null、数组、对象**6种类型。
+> 对象结构在JSON中表示为{}括起来的内容。数据结构为`{key: value, key: value, ...}`
+> 的键值对结构。其中，key必须是使用英文的双引号包裹的字符串，value的数据类型可以是**数字、字符串、布尔值、null、数组、对象**
+> 6种类型。
 
 #### 数组结构
 
-> 数组结构:数组结构在JSON中表示为[]括起来的内容。数据结构为[ "java " , "javascript",30, true ... ] 。数组中数据的类型可以是**数字、字符串、布尔值、null、数组、对象**6种类型。
+> 数组结构:数组结构在JSON中表示为[]括起来的内容。数据结构为[ "java " , "javascript",30, true ... ] 。数组中数据的类型可以是
+**数字、字符串、布尔值、null、数组、对象**6种类型。
 
 #### JSON语法注意事项
 
@@ -194,7 +197,8 @@ console.log(str3)
 
 ## XMLHttpRequest
 
-> XMLHttpRequest(简称xhr)是浏览器提供的Javascript对象，通过它，可以请求服务器上的数据资源。jQuery 中的Ajax函数，就是基于xhr 对象封装出来的。
+> XMLHttpRequest(简称xhr)是浏览器提供的Javascript对象，通过它，可以请求服务器上的数据资源。jQuery 中的Ajax函数，就是基于xhr
+> 对象封装出来的。
 
 ### 使用 xhr 发起 GET 请求
 
@@ -266,7 +270,8 @@ xhr.onreadystatechange = function () {
 
 ### 设置HTTP请求时限
 
-> 有时，Ajax作很耗时，而且无法预知要花多少时间。如果网速很慢，用户可能要等很久。新版本的XMLHttpRequest对象，增加了 timeout 属性，可以设置HTTP请求的时限
+> 有时，Ajax作很耗时，而且无法预知要花多少时间。如果网速很慢，用户可能要等很久。新版本的XMLHttpRequest对象，增加了 timeout
+> 属性，可以设置HTTP请求的时限
 
 > 过了这个时限，就自动停止HTTP请求。与之配套的还有一个timeout事件
 
