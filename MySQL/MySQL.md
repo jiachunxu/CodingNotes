@@ -127,6 +127,8 @@ alter table student8 modify stu_sex varchar(1) null;
 > defined as a key”错误。
 >
 > 由于自增约束会自动生成唯一的ID，所以自增约束通常会配合主键使用，并且只适用于整数类型。一般情况下，设置为自增约束字段的值会从1开始，每增加一条记录，该字段的值加1。
+>
+> 如果主键没有设定值，或者用null.default都可以完成主键自增的效果
 
 - 为已存在表中的字段添加自增约束
 
@@ -145,6 +147,241 @@ alter table student11 modify stu_id int(10) auto_increment;
 
 ``` mysql
 alter table studen11 modify stu_id int(10);
+```
+
+## 非外键约束
+
+``` mysql
+/*
+建立一张用来存储学生信息的表
+字段包含学号、姓名、性别，年龄、入学日期、班级，email等信息
+约束：
+建立一张用来存储学生信息的表
+字段包含学号、姓名、性别，年龄、入学日期、班级，email等信息
+【1】学号是主键 = 不能为空 +  唯一 ，主键的作用：可以通过主键查到唯一的一条记录【2】如果主键是整数类型，那么需要自增
+【3】姓名不能为空
+【4】Email唯一
+【5】性别默认值是男
+【6】性别只能是男女
+【7】年龄只能在18-50之间
+*/
+-- 创建数据库表：
+create table t_student(
+        sno int(6) primary key auto_increment, 
+        sname varchar(5) not null, 
+        sex char(1) default '男' check(sex='男' || sex='女'),
+        age int(3) check(age>=18 and age<=50),
+        enterdate date,
+        classname varchar(10),
+        email varchar(15) unique
+);
+-- 添加数据：
+--  1048 - Column 'sname' cannot be null 不能为null
+-- 3819 - Check constraint 't_student_chk_1' is violated. 违反检查约束
+
+insert into t_student values (1,'张三','男',21,'2023-9-1','java01班','zs@126.com');
+
+-- 1062 - Duplicate entry '1' for key 't_student.PRIMARY' 主键重复
+-- 1062 - Duplicate entry 'ls@126.com' for key 't_student.email' 违反唯一约束
+
+insert into t_student values (2,'李四','男',21,'2023-9-1','java01班','ls@126.com');
+insert into t_student values (3,'露露','男',21,'2023-9-1','java01班','ls@126.com');
+-- 如果主键没有设定值，或者用null.default都可以完成主键自增的效果
+insert into t_student (sname,enterdate) values ('菲菲','2029-4-5');
+insert into t_student values (null,'小明','男',21,'2023-9-1','java01班','xm@126.com');
+insert into t_student values (default,'小刚','男',21,'2023-9-1','java01班','xg@126.com');
+-- 如果sql报错，可能主键就浪费了，后续插入的主键是不连号的，我们主键也不要求连号的
+insert into t_student values (null,'小明','男',21,'2023-9-1','java01班','oo@126.com');
+-- 查看数据：
+select * from t_student;
+
+
+-- 删除表：
+drop table t_student;
+-- 创建数据库表：
+create table t_student(
+        sno int(6) auto_increment, 
+        sname varchar(5) not null, 
+        sex char(1) default '男',
+        age int(3),
+        enterdate date,
+        classname varchar(10),
+        email varchar(15),
+        constraint pk_stu primary key (sno),  -- pk_stu 主键约束的名字
+        constraint ck_stu_sex check (sex = '男' || sex = '女'),
+        constraint ck_stu_age check (age >= 18 and age <= 50),
+        constraint uq_stu_email unique (email)
+);
+-- 添加数据：
+insert into t_student values (1,'张三','男',21,'2023-9-1','java01班','zs@126.com');
+-- > 3819 - Check constraint 'ck_stu_sex' is violated.
+-- > 3819 - Check constraint 'ck_stu_age' is violated.
+-- > 1062 - Duplicate entry 'zs@126.com' for key 't_student.uq_stu_email'
+insert into t_student values (3,'李四','男',21,'2023-9-1','java01班','zs@126.com');
+-- 查看数据：
+select * from t_student;
+
+
+-- 在创建表以后添加约束
+
+
+-- 删除表：
+drop table t_student;
+-- 创建数据库表：
+create table t_student(
+        sno int(6), 
+        sname varchar(5) not null, 
+        sex char(1) default '男',
+        age int(3),
+        enterdate date,
+        classname varchar(10),
+        email varchar(15)
+);
+-- > 1075 - Incorrect table definition; there can be only one auto column and it must be defined as a key
+-- 错误的解决办法：就是auto_increment去掉
+-- 在创建表以后添加约束：
+alter table t_student add constraint pk_stu primary key (sno) ; -- 主键约束
+alter table t_student modify sno int(6) auto_increment; -- 修改自增条件
+alter table t_student add constraint ck_stu_sex check (sex = '男' || sex = '女');
+alter table t_student add constraint ck_stu_age check (age >= 18 and age <= 50);
+alter table t_student add constraint uq_stu_email unique (email);
+-- 查看表结构：
+desc t_student;
+
+```
+
+## 外键约束
+
+> 外键约束（ FOREIGN KEY，缩写FK）是用来实现数据库表的参照完整性的。
+>
+> 外键约束可以使两张表紧密的结合起来，特别是针对修改或者删除的级联操作时，会保证数据的完整性。
+
+``` mysql
+-- 先创建父表：班级表：
+create table t_class(
+        cno int(4) primary key auto_increment,
+        cname varchar(10) not null,
+        room char(4)
+)
+-- 添加班级数据：
+insert into t_class values (null,'java001','r803');
+insert into t_class values (null,'java002','r416');
+insert into t_class values (null,'大数据001','r103');
+-- 可以一次性添加多条记录：
+insert into t_class values (null,'java001','r803'),(null,'java002','r416'),(null,'大数据001','r103');
+-- 查询班级表：
+select * from t_class;
+-- 学生表删除：
+drop table t_student;
+-- 创建子表,学生表：
+create table t_student(
+        sno int(6) primary key auto_increment, 
+        sname varchar(5) not null, 
+        classno int(4)  -- 取值参考t_class表中的cno字段，不要求字段名字完全重复，但是类型长度定义 尽量要求相同。
+);
+-- 添加学生信息：
+insert into t_student values (null,'张三',1),(null,'李四',1),(null,'王五',2);
+-- 查看学生表：
+select * from t_student;
+-- 出现问题：
+-- 1.添加一个学生对应的班级编码为4：
+insert into t_student values (null,'丽丽',4);
+-- 2.删除班级2：
+delete from t_class where cno = 2;
+-- 出现问题的原因：
+-- 因为你现在的外键约束，没用语法添加进去，现在只是逻辑上认为班级编号是外键，没有从语法上定义
+-- 解决办法，添加外键约束：
+-- 注意：外键约束只有表级约束，没有列级约束：
+create table t_student(
+        sno int(6) primary key auto_increment, 
+        sname varchar(5) not null, 
+        classno int(4),-- 取值参考t_class表中的cno字段，不要求字段名字完全重复，但是类型长度定义 尽量要求相同。
+                                constraint fk_stu_classno foreign key (classno) references t_class (cno)
+);
+create table t_student(
+        sno int(6) primary key auto_increment, 
+        sname varchar(5) not null, 
+        classno int(4)
+);
+-- 在创建表以后添加外键约束：
+alter table t_student add constraint fk_stu_classno foreign key (classno) references t_class (cno)
+-- 上面的两个问题都解决了：
+-- 添加学生信息：
+-- > 1452 - Cannot add or update a child row: a foreign key constraint fails (`mytestdb`.`t_student`, CONSTRAINT `fk_stu_classno` FOREIGN KEY (`classno`) REFERENCES `t_class` (`cno`))
+insert into t_student values (null,'张三',1),(null,'李四',1),(null,'王五',2);
+-- 删除班级1：
+-- 2.删除班级2：
+insert into t_student values (null,'张三',3),(null,'李四',3),(null,'王五',3);
+-- > 1451 - Cannot delete or update a parent row: a foreign key constraint fails (`mytestdb`.`t_student`, CONSTRAINT `fk_stu_classno` FOREIGN KEY (`classno`) REFERENCES `t_class` (`cno`))
+delete from t_class where cno = 3;
+```
+
+### 外键策略
+
+``` mysql
+-- 学生表删除：
+drop table t_student;
+-- 班级表删除：
+drop table t_class;
+-- 注意：先删除从表，再删除主表。
+-- 先创建父表：班级表：
+create table t_class(
+        cno int(4) primary key auto_increment,
+        cname varchar(10) not null,
+        room char(4)
+)
+-- 可以一次性添加多条记录：
+insert into t_class values 
+    (null,'java001','r803'),
+    (null,'java002','r416'),
+    (null,'大数据001','r103');
+-- 添加学生表，添加外键约束：
+create table t_student(
+        sno int(6) primary key auto_increment, 
+        sname varchar(5) not null, 
+        classno int(4),-- 取值参考t_class表中的cno字段，不要求字段名字完全重复，但是类型长度定义 尽量要求相同。
+                                constraint fk_stu_classno foreign key (classno) references t_class (cno)
+);
+-- 可以一次性添加多条记录：
+insert into t_student values 
+    (null,'张三',1),
+    (null,'李四',1),
+    (null,'王五',2),
+    (null,'朱六',3);
+-- 查看班级表和学生表：
+select * from t_class;
+select * from t_student;
+-- 删除班级2：如果直接删除的话肯定不行因为有外键约束：
+-- 加入外键策略：
+-- 策略1：no action 不允许操作
+-- 通过操作sql来完成：
+-- 先把班级2的学生对应的班级 改为null 
+update t_student set classno = null where classno = 2;
+-- 然后再删除班级2：
+delete from t_class where cno = 2;
+-- 策略2：cascade 级联操作：操作主表的时候影响从表的外键信息：
+-- 先删除之前的外键约束：
+alter table t_student drop foreign key fk_stu_classno;
+-- 重新添加外键约束：
+alter table t_student add constraint fk_stu_classno foreign key (classno) references t_class (cno) on update cascade on delete cascade;
+-- 试试更新：
+update t_class set cno = 5 where cno = 3;
+-- 试试删除：
+delete from t_class where cno = 5;
+-- 策略3：set null  置空操作：
+-- 先删除之前的外键约束：
+alter table t_student drop foreign key fk_stu_classno;
+-- 重新添加外键约束：
+alter table t_student add constraint fk_stu_classno foreign key (classno) references t_class (cno) on update set null on delete set null;
+-- 试试更新：
+update t_class set cno = 8 where cno = 1;
+-- 注意：
+-- 1. 策略2 级联操作  和  策略2 的  删除操作  可以混着使用：
+alter table t_student add constraint fk_stu_classno foreign key (classno) references t_class (cno) on update cascade on delete set null ;
+-- 2.应用场合：
+-- （1）朋友圈删除，点赞。留言都删除  --  级联操作
+-- （2）解散班级，对应的学生 置为班级为null就可以了，-- set null
+
 ```
 
 ## MySQl 命令
@@ -198,6 +435,8 @@ alter user 'root'@'localhost' identified with mysql_native_password by 'root';
 >
 > 并于1986年10月，被美国国家标准协会（American National Standards Institute，ANSI）采用为关系数据库管理系统的标准语言，
 > 后为国际标准化组织（International Organization for Standardization，ISO）采纳为国际标准。
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230301212814.png)
 
 ## SQL 语言分为五个部分
 
