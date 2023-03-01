@@ -211,7 +211,49 @@ alter user 'root'@'localhost' identified with mysql_native_password by 'root';
   - ROLLBACK：回滚事务
   - SET TRANSACTION：设置事务的属性
 
-### 数据库表
+### 数据库表列类型
+
+- 整数类型
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230228233532.png)
+
+> MySQL支持选择在该类型关键字后面的括号内指定整数值的显示宽度(例如，INT(4))。
+>
+> 显示宽度并不限制可以在列内保存的值的范围，也不限制超过列的指定宽度的值的显示
+>
+> 主键自增：不使用序列，通过auto_increment，要求是整数类型
+
+- 浮点数类型
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230228233731.png)
+
+> 需要注意的是与整数类型不一样的是，浮点数类型的宽度不会自动扩充。
+>
+> score double(4,1)--小数部分为1位，总宽度4位，并且不会自动扩充。
+
+- 字符串类型
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230301192256.png)
+
+> CHAR 和 VARCHAR 类型相似，均用于存于较短的字符串，主要的不同之处在于存储方式。CHAR类型长度固定，VARCHAR类型的长度可变。
+>
+> 因为 VARCHAR 类型能够根据字符串的实际长度来动态改变所占字节的大小，这样可以大大地节约磁盘空间、提高存储效率。
+>
+> CHAR 和 VARCHAR 表示的是字符的个数，而不是字节的个数
+
+- 日期和时间类型
+
+![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230301192426.png)
+
+> TIMESTAMP 类型的数据指定方式与 DATETIME 基本相同，两者的不同之处在于以下几点：
+> - (1) 数据的取值范围不同，TIMESTAMP 类型的取值范围更小。
+> - (2) 如果我们对TIMESTAMP类型的字段没有明确赋值，或是被赋与了 NULL 值，MySQL 会自动将该字段赋值为系统当前的日期与时间。
+> - (3) TIMESTAMP 类型还可以使用 CURRENT_TIMESTAMP 来获取系统当前时间。
+> - (4) TIMESTAMP 类型有一个很大的特点，那就是时间是根据时区来显示的。例如，在东八区插入的 TIMESTAMP 数据为 2017-07-11 16:
+    43:25，
+    在东七区显示时，时间部分就变成了15:43:25，在东九区显示时，时间部分就变成了17:43:25。
+
+### DML (建表,建库)
 
 > 表（Table）是数据库中数据存储最常见和最简单的一种形式，数据库可以将复杂的数据结构用较为简单的二维表来表示。二维表是由行和列组成的，分别都包含着数据
 
@@ -226,7 +268,7 @@ CREATE DATABASE databasename;
 
 CREATE DATABASE IF NOT EXISTS test_db_char
 DEFAULT CHARACTER SET utf8
-DEFAULT COLLATE utf8_chinese_ci;
+DEFAULT COLLATE utf8_bin;
 ```
 
 #### 创建数据库表
@@ -267,39 +309,65 @@ CREATE TABLE `t_student` (
   `email` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 */
-
 ```
 
-### 数据库表列类型
+### DML (增, 删, 改, 数据)
 
-- 整数类型
+> **注意事项**
+> - int 宽度是显示宽度，如果超过，可以自动增大宽度 int底层都是4个字节
+> - 时间的方式多样  '1256-12-23'  "1256/12/23"  "1256.12.23"
+> - 字符串不区分单引号和双引号
+> - 如何写入当前的时间 now() , sysdate() , CURRENT_DATE()
+> - char varchar 是字符的个数，不是字节的个数，可以使用 binary，varbinary 表示定长和不定长的字节个数。
+> - 如果不是全字段插入数据的话，需要加入字段的名字
+> - 关键字，表名，字段名不区分大小写
+> - 默认情况下，内容不区分大小写
+> - 删除操作 from 关键字不可缺少
+> - 修改，删除数据别忘记加限制条件
 
-![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230228233532.png)
+``` mysql
+-- 查看表记录：
+select * from t_student;
+-- 在t_student数据库表中插入数据：
+insert into t_student values (1,'张三','男',18,'2022-5-8','软件1班','123@126.com');
+insert into t_student values (10010010,'张三','男',18,'2022-5-8','软件1班','123@126.com');
+insert into t_student values (2,'张三','男',18,'2022.5.8','软件1班','123@126.com');
+insert into t_student values (2,"张三",'男',18,'2022.5.8','软件1班','123@126.com');
+insert into t_student values (7,"张三",'男',18,now(),'软件1班','123@126.com');
+insert into t_student values (9,"易烊千玺",'男',18,now(),'软件1班','123@126.com');
+insert into t_student (sno,sname,enterdate) values (10,'李四','2023-7-5');
 
-> MySQL支持选择在该类型关键字后面的括号内指定整数值的显示宽度(例如，INT(4))。
->
-> 显示宽度并不限制可以在列内保存的值的范围，也不限制超过列的指定宽度的值的显示
->
-> 主键自增：不使用序列，通过auto_increment，要求是整数类型
+-- 修改表中数据
+update t_student set sex = '女' ;
+update t_student set sex = '男' where sno = 10 ;
+UPDATE T_STUDENT SET AGE = 21 WHERE SNO = 10;
+update t_student set CLASSNAME = 'java01' where sno = 10 ;
+update t_student set CLASSNAME = 'JAVA01' where sno = 9 ;
+update t_student set age = 29 where classname = 'java01';
+-- 删除操作：
+delete from t_student where sno = 2;
+```
 
-- 浮点数类型
+### DDL (数据表 增, 删, 改 字段, 删表)
 
-![](https://raw.githubusercontent.com/jiachunxu/Pic/main/imgs/20230228233731.png)
+``` mysql
+-- 查看数据：
+select * from t_student;
+-- 修改表的结构：
+-- 增加一列：
+alter table t_student add score double(5,2) ; -- 5:总位数  2：小数位数 
+update t_student set score = 123.5678 where sno = 1 ;
+-- 增加一列（放在最前面）
+alter table t_student add score double(5,2) first;
+-- 增加一列（放在sex列的后面）
+alter table t_student add score double(5,2) after sex;
+-- 删除一列：
+alter table t_student drop score;
+-- 修改一列：
+alter table t_student modify score float(4,1); -- modify修改是列的类型的定义，但是不会改变列的名字
+alter table t_student change score score1 double(5,1); -- change修改列名和列的类型的定义
+-- 删除表：
+drop table t_student;
+```
 
-> 需要注意的是与整数类型不一样的是，浮点数类型的宽度不会自动扩充。
-> 
-> score double(4,1)--小数部分为1位，总宽度4位，并且不会自动扩充。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### DQL
