@@ -318,69 +318,74 @@ delete from t_class where cno = 3;
 
 ### 外键策略
 
+- 策略1：no action 不允许操作
+- 策略2：cascade 级联操作：操作主表的时候影响从表的外键信息
+- 策略3：set null 置空操作
+- **注意** : 策略2 级联操作 和 策略2 的 删除操作 可以混着使用：
+
 ``` mysql
 -- 学生表删除：
-drop table t_student;
--- 班级表删除：
-drop table t_class;
--- 注意：先删除从表，再删除主表。
--- 先创建父表：班级表：
-create table t_class(
-        cno int(4) primary key auto_increment,
-        cname varchar(10) not null,
-        room char(4)
-)
--- 可以一次性添加多条记录：
-insert into t_class values 
-    (null,'java001','r803'),
-    (null,'java002','r416'),
-    (null,'大数据001','r103');
--- 添加学生表，添加外键约束：
-create table t_student(
-        sno int(6) primary key auto_increment, 
-        sname varchar(5) not null, 
-        classno int(4),-- 取值参考t_class表中的cno字段，不要求字段名字完全重复，但是类型长度定义 尽量要求相同。
-                                constraint fk_stu_classno foreign key (classno) references t_class (cno)
-);
--- 可以一次性添加多条记录：
-insert into t_student values 
-    (null,'张三',1),
-    (null,'李四',1),
-    (null,'王五',2),
-    (null,'朱六',3);
--- 查看班级表和学生表：
-select * from t_class;
-select * from t_student;
--- 删除班级2：如果直接删除的话肯定不行因为有外键约束：
--- 加入外键策略：
--- 策略1：no action 不允许操作
--- 通过操作sql来完成：
--- 先把班级2的学生对应的班级 改为null 
-update t_student set classno = null where classno = 2;
--- 然后再删除班级2：
-delete from t_class where cno = 2;
--- 策略2：cascade 级联操作：操作主表的时候影响从表的外键信息：
--- 先删除之前的外键约束：
-alter table t_student drop foreign key fk_stu_classno;
--- 重新添加外键约束：
-alter table t_student add constraint fk_stu_classno foreign key (classno) references t_class (cno) on update cascade on delete cascade;
--- 试试更新：
-update t_class set cno = 5 where cno = 3;
--- 试试删除：
-delete from t_class where cno = 5;
--- 策略3：set null  置空操作：
--- 先删除之前的外键约束：
-alter table t_student drop foreign key fk_stu_classno;
--- 重新添加外键约束：
-alter table t_student add constraint fk_stu_classno foreign key (classno) references t_class (cno) on update set null on delete set null;
--- 试试更新：
-update t_class set cno = 8 where cno = 1;
--- 注意：
--- 1. 策略2 级联操作  和  策略2 的  删除操作  可以混着使用：
-alter table t_student add constraint fk_stu_classno foreign key (classno) references t_class (cno) on update cascade on delete set null ;
--- 2.应用场合：
--- （1）朋友圈删除，点赞。留言都删除  --  级联操作
--- （2）解散班级，对应的学生 置为班级为null就可以了，-- set null
+  drop table t_student;
+  -- 班级表删除：
+  drop table t_class;
+  -- 注意：先删除从表，再删除主表。
+  -- 先创建父表：班级表：
+  create table t_class(
+          cno int(4) primary key auto_increment,
+          cname varchar(10) not null,
+          room char(4)
+  )
+  -- 可以一次性添加多条记录：
+  insert into t_class values 
+      (null,'java001','r803'),
+      (null,'java002','r416'),
+      (null,'大数据001','r103');
+  -- 添加学生表，添加外键约束：
+  create table t_student(
+          sno int(6) primary key auto_increment, 
+          sname varchar(5) not null, 
+          classno int(4),-- 取值参考t_class表中的cno字段，不要求字段名字完全重复，但是类型长度定义 尽量要求相同。
+                                  constraint fk_stu_classno foreign key (classno) references t_class (cno)
+  );
+  -- 可以一次性添加多条记录：
+  insert into t_student values 
+      (null,'张三',1),
+      (null,'李四',1),
+      (null,'王五',2),
+      (null,'朱六',3);
+  -- 查看班级表和学生表：
+  select * from t_class;
+  select * from t_student;
+  -- 删除班级2：如果直接删除的话肯定不行因为有外键约束：
+  -- 加入外键策略：
+  -- 策略1：no action 不允许操作
+  -- 通过操作sql来完成：
+  -- 先把班级2的学生对应的班级 改为null 
+  update t_student set classno = null where classno = 2;
+  -- 然后再删除班级2：
+  delete from t_class where cno = 2;
+  -- 策略2：cascade 级联操作：操作主表的时候影响从表的外键信息：
+  -- 先删除之前的外键约束：
+  alter table t_student drop foreign key fk_stu_classno;
+  -- 重新添加外键约束：
+  alter table t_student add constraint fk_stu_classno foreign key (classno) references t_class (cno) on update cascade on delete cascade;
+  -- 试试更新：
+  update t_class set cno = 5 where cno = 3;
+  -- 试试删除：
+  delete from t_class where cno = 5;
+  -- 策略3：set null  置空操作：
+  -- 先删除之前的外键约束：
+  alter table t_student drop foreign key fk_stu_classno;
+  -- 重新添加外键约束：
+  alter table t_student add constraint fk_stu_classno foreign key (classno) references t_class (cno) on update set null on delete set null;
+  -- 试试更新：
+  update t_class set cno = 8 where cno = 1;
+  -- 注意：
+  -- 1. 策略2 级联操作  和  策略2 的  删除操作  可以混着使用：
+  alter table t_student add constraint fk_stu_classno foreign key (classno) references t_class (cno) on update cascade on delete set null ;
+  -- 2.应用场合：
+  -- （1）朋友圈删除，点赞。留言都删除  --  级联操作
+  -- （2）解散班级，对应的学生 置为班级为null就可以了，-- set null
 
 ```
 
@@ -515,7 +520,7 @@ alter user 'root'@'localhost' identified with mysql_native_password by 'root';
     43:25，
     在东七区显示时，时间部分就变成了15:43:25，在东九区显示时，时间部分就变成了17:43:25。
 
-### DML (建表,建库)
+### DDL (建表,建库)
 
 > 表（Table）是数据库中数据存储最常见和最简单的一种形式，数据库可以将复杂的数据结构用较为简单的二维表来表示。二维表是由行和列组成的，分别都包含着数据
 
@@ -536,41 +541,95 @@ DEFAULT COLLATE utf8_bin;
 #### 创建数据库表
 
 ``` mysql
--- 这是一个单行注释
-/*
-多行注释
-*/
-/*
-建立一张用来存储学生信息的表
-字段包含学号、姓名、性别，年龄、入学日期、班级，email等信息
-*/
--- 创建数据库表：
-create table t_student(
-    sno int(6), -- 6显示长度 
-    sname varchar(5), -- 5个字符
-    sex char(1),
-    age int(3),
-    enterdate date,
-    classname varchar(10),
-    email varchar(15)
-);
--- 查看表的结构：展示表的字段详细信息
-desc t_student;
--- 查看表中数据：
+  -- 这是一个单行注释
+  /*
+  多行注释
+  */
+  /*
+  建立一张用来存储学生信息的表
+  字段包含学号、姓名、性别，年龄、入学日期、班级，email等信息
+  */
+  -- 创建数据库表：
+  create table t_student(
+      sno int(6), -- 6显示长度 
+      sname varchar(5), -- 5个字符
+      sex char(1),
+      age int(3),
+      enterdate date,
+      classname varchar(10),
+      email varchar(15)
+  );
+  -- 查看表的结构：展示表的字段详细信息
+  desc t_student;
+  -- 查看表中数据：
+  select * from t_student;
+  -- 查看建表语句：
+  show create table t_student;
+  /*
+  CREATE TABLE `t_student` (
+    `sno` int DEFAULT NULL,
+    `sname` varchar(5) DEFAULT NULL,
+    `sex` char(1) DEFAULT NULL,
+    `age` int DEFAULT NULL,
+    `enterdate` date DEFAULT NULL,
+    `classname` varchar(10) DEFAULT NULL,
+    `email` varchar(15) DEFAULT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+  */
+  
+  
+  -- 添加一张表：快速添加：结构和数据跟t_student 都是一致的
+  create table t_student2
+  as
+  select * from t_student;
+  
+  
+  -- 快速添加，结构跟t_student一致，数据没有：
+  create table t_student3
+  as
+  select * from t_student where 1=2;
+  
+  -- 快速添加：只要部分列，部分数据：
+  create table t_student4
+  as
+  select sno,sname,age from t_student where sno = 2;
+
+  -- 删除数据操作 :清空数据
+  delete from t_student;
+  truncate table t_student;
+```
+
+### delete 和 truncate 的区别
+
+> 从最终的结果来看，虽然使用 TRUNCATE 操作和使用 DELETE 操作都可以删除表中的全部记录
+
+> - DELETE 为数据操作语言 DML；TRUNCATE 为数据定义语言 DDL。
+> - DELETE 操作是将表中所有记录一条一条删除直到删除完；TRUNCATE 操作则是保留了表的结构，重新创建了这个表
+    所有的状态都相当于新表。因此，TRUNCATE 操作的效率更高。
+> - DELETE 操作可以回滚；TRUNCATE 操作会导致隐式提交，因此不能回滚。
+> - DELETE 操作执行成功后会返回已删除的行数（如删除4行记录，则会显示“Affected rows：4”）；截断操作不会返回已删除的行量，结果通常是“Affected
+    rows：0”。DELETE操作删除表中记录后，再次向表中添加新记录时，对于设置有自增约束字段的值会从删除前表中该字段的最大值加1开始自增；TRUNCATE操作则会重新从1开始自增。
+
+### DDL (数据表 增, 删, 改 字段, 删表)
+
+``` mysql
+-- 查看数据：
 select * from t_student;
--- 查看建表语句：
-show create table t_student;
-/*
-CREATE TABLE `t_student` (
-  `sno` int DEFAULT NULL,
-  `sname` varchar(5) DEFAULT NULL,
-  `sex` char(1) DEFAULT NULL,
-  `age` int DEFAULT NULL,
-  `enterdate` date DEFAULT NULL,
-  `classname` varchar(10) DEFAULT NULL,
-  `email` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-*/
+-- 修改表的结构：
+-- 增加一列：
+alter table t_student add score double(5,2) ; -- 5:总位数  2：小数位数 
+update t_student set score = 123.5678 where sno = 1 ;
+-- 增加一列（放在最前面）
+alter table t_student add score double(5,2) first;
+-- 增加一列（放在sex列的后面）
+alter table t_student add score double(5,2) after sex;
+-- 删除一列：
+alter table t_student drop score;
+-- 修改一列：
+alter table t_student modify score float(4,1); -- modify修改是列的类型的定义，但是不会改变列的名字
+alter table t_student change score score1 double(5,1); -- change修改列名和列的类型的定义
+-- 删除表：
+drop table t_student;
 ```
 
 ### DML (增, 删, 改, 数据)
@@ -610,26 +669,96 @@ update t_student set age = 29 where classname = 'java01';
 delete from t_student where sno = 2;
 ```
 
-### DDL (数据表 增, 删, 改 字段, 删表)
+### DQL (数据查询)
+
+#### 单表
 
 ``` mysql
--- 查看数据：
-select * from t_student;
--- 修改表的结构：
--- 增加一列：
-alter table t_student add score double(5,2) ; -- 5:总位数  2：小数位数 
-update t_student set score = 123.5678 where sno = 1 ;
--- 增加一列（放在最前面）
-alter table t_student add score double(5,2) first;
--- 增加一列（放在sex列的后面）
-alter table t_student add score double(5,2) after sex;
--- 删除一列：
-alter table t_student drop score;
--- 修改一列：
-alter table t_student modify score float(4,1); -- modify修改是列的类型的定义，但是不会改变列的名字
-alter table t_student change score score1 double(5,1); -- change修改列名和列的类型的定义
--- 删除表：
-drop table t_student;
+  -- 对emp表查询：
+  select * from emp; -- *代表所有数据
+  
+  -- 显示部分列：
+  select empno,ename,sal from emp;
+  
+  -- 显示部分行：where子句
+  select * from emp where sal > 2000;
+  
+  -- 显示部分列，部分行：
+  select empno,ename,job,mgr from emp where sal > 2000;
+  
+  -- 起别名：
+  select empno 员工编号,ename 姓名,sal 工资 from emp; -- as 省略，''或者""省略了
+  -- as alias 别名
+  select empno as 员工编号,ename as 姓名,sal as 工资 from emp;
+  select empno as '员工编号',ename as "姓名",sal as 工资 from emp;
+  
+  -- > 1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '编号,ename as "姓 名",sal as 工资 from emp' at line 1
+  -- 错误原因：在别名中有特殊符号的时候，''或者""不可以省略不写
+  select empno as 员工 编号,ename as "姓 名",sal as 工资 from emp;
+  
+  -- 算术运算符：
+  select empno,ename,sal,sal+1000 as '涨薪后',deptno from emp where sal < 2500;
+  select empno,ename,sal,comm,sal+comm from emp;  -- ？？？后面再说
+  -- 去重操作：
+  select job from emp;
+  select distinct job from emp;
+  select job,deptno from emp;
+  select distinct job,deptno from emp; -- 对后面的所有列组合 去重 ，而不是单独的某一列去重
+  -- 排序：
+  select * from emp order by sal; -- 默认情况下是按照升序排列的
+  select * from emp order by sal asc; -- asc 升序，可以默认不写
+  select * from emp order by sal desc; -- desc 降序
+  select * from emp order by sal asc ,deptno desc; -- 在工资升序的情况下，deptno按照降序排列
+
 ```
 
-### DQL
+##### where 子句
+
+``` mysql
+-- 查看emp表：
+select * from emp;
+-- where子句：将过滤条件放在where子句的后面，可以筛选/过滤出我们想要的符合条件的数据：
+-- where 子句 + 关系运算符
+select * from emp where deptno = 10;
+select * from emp where deptno > 10;
+select * from emp where deptno >= 10;
+select * from emp where deptno < 10;
+select * from emp where deptno <= 10;
+select * from emp where deptno <> 10;
+select * from emp where deptno != 10;
+select * from emp where job = 'CLERK'; 
+select * from emp where job = 'clerk'; -- 默认情况下不区分大小写 
+select * from emp where binary job = 'clerk'; -- binary区分大小写
+select * from emp where hiredate < '1981-12-25';
+-- where 子句 + 逻辑运算符：and 
+select * from emp where sal > 1500 and sal < 3000;  -- (1500,3000)
+select * from emp where sal > 1500 && sal < 3000; 
+select * from emp where sal > 1500 and sal < 3000 order by sal;
+select * from emp where sal between 1500 and 3000; -- [1500,3000]
+-- where 子句 + 逻辑运算符：or
+select * from emp where deptno = 10 or deptno = 20;
+select * from emp where deptno = 10 || deptno = 20;
+select * from emp where deptno in (10,20);
+select * from emp where job in ('MANAGER','CLERK','ANALYST');
+-- where子句 + 模糊查询：
+-- 查询名字中带A的员工  -- %代表任意多个字符 0,1,2，.....
+select * from emp where ename like '%A%' ;
+-- -任意一个字符
+select * from emp where ename like '__A%' ;
+-- 关于null的判断：
+select * from emp where comm is null;
+select * from emp where comm is not null;
+-- 小括号的使用  ：因为不同的运算符的优先级别不同，加括号为了可读性
+select * from emp where job = 'SALESMAN' or job = 'CLERK' and sal >=1500; -- 先and再or  and > or
+select * from emp where job = 'SALESMAN' or (job = 'CLERK' and sal >=1500); 
+select * from emp where (job = 'SALESMAN' or job = 'CLERK') and sal >=1500;
+
+```
+
+#### 多表
+
+
+
+
+
+
