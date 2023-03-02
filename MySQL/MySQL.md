@@ -583,6 +583,21 @@ select max(sal),min(sal),count(sal),sum(sal),avg(sal) from emp;
 | ROUND(num, n)            | 返回x四舍五入后的值，该值保留到小数点后n位 |
 | TRUNCATE(num, n)         | 返回num被舍去至小数点后n位的值      |
 
+**日期与时间函数**
+
+| 函数                                                                   | 描述                           |
+|----------------------------------------------------------------------|------------------------------|
+| CURDATE()                                                            | 返回当前日期                       |
+| CURTIME()                                                            | 返回当前时间                       |
+| NOW()                                                                | 返回当前日期和时间                    |
+| SYSDATE()                                                            | 返回该函数执行时的日期和时间               |
+| DAYOFYEAR(date)                                                      | 返回日期date为一年中的第几天             |
+| WEEK (date)/ WEEKOFYEAR (date)                                       | 返回日期date为一年中的第几周             |
+| DATE_FORMAT(date, format)                                            | 返回按字符串format格式化后的日期date      |
+| DATE_ADD(date, INTERVAL expr unit)/ADDDATE(date, INTERVAL expr unit) | 返回date加上一个时间间隔后的新时间值         |
+| DATE_SUB(date, INTERVAL expr unit)/SUBDATE(date, INTERVAL expr unit) | 返回date减去一个时间间隔后的新时间值         |
+| DATEDIFF(date1, date2)                                               | 返回起始日期date1与结束日期date2之间的间隔天数 |
+
 #### 多行函数
 
 > 多行函数是指对一组数据进行运算，针对这一组数据（多行记录）只返回一个结果，也称为分组函数。
