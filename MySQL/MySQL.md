@@ -520,6 +520,73 @@ alter user 'root'@'localhost' identified with mysql_native_password by 'root';
     43:25，
     在东七区显示时，时间部分就变成了15:43:25，在东九区显示时，时间部分就变成了17:43:25。
 
+### MySQL 函数
+
+> MySQL 中提供了大量函数来简化用户对数据库的操作，比如字符串的处理、日期的运算、数值的运算等。
+>
+> 使用函数可以大大提高SELECT语句操作数据库的能力，同时也给数据的转换和处理提供了方便。（在 sql 中使用函数）
+>
+> 函数只是对查询结果中的数据进行处理，不会改变数据库中数据表的值。MySQL 中的函数主要分为单行函数和多行函数两大类，
+
+> PS：除了多行函数（max,min,count,sum,avg），都是单行函数
+
+``` mysql
+-- 函数举例：
+select empno,ename,lower(ename),upper(ename),sal from emp;
+-- 函数的功能：封装了特定的一些功能，我们直接拿过来使用，可以实现对应的功能
+-- 函数作用：为了提高select的能力
+-- 注意：函数没有改变数据自身的值，而是在真实数据的上面进行加工处理，展示新的结果而已。
+select max(sal),min(sal),count(sal),sum(sal),avg(sal) from emp;
+-- 函数的分类：
+-- lower(ename),upper(ename) ：改变每一条结果，每一条数据对应一条结果  -- 单行函数
+-- max(sal),min(sal),count(sal),sum(sal),avg(sal):多条数据，最终展示一个结果  -- 多行函数
+```
+
+#### 单行函数
+
+**字符串函数 （String StringBuilder）**
+
+> 单行函数是指对每一条记录输入值进行计算，并得到相应的计算结果，然后返回给用户
+
+> 常用的单行函数主要包括字符串函数、数值函数、日期与时间函数、流程函数以及其他函数。
+
+| 函数                            | 描述                                  |
+|-------------------------------|-------------------------------------|
+| CONCAT(str1, str2, ···, strn) | 将str1、str2···strn拼接成一个新的字符串         |
+| INSERT(str, index, n, newstr) | 将字符串str从第index位置开始的n个字符替换成字符串newstr |
+| LENGTH(str)                   | 获取字符串str的长度                         |
+| LOWER(str)                    | 将字符串str中的每个字符转换为小写                  |
+| UPPER(str)                    | 将字符串str中的每个字符转换为大写                  |
+| LEFT(str, n)                  | 获取字符串str最左边的n个字符                    |
+| RIGHT(str, n)                 | 获取字符串str最右边的n个字符                    |
+| LPAD(str, n, pad)             | 使用字符串pad在str的最左边进行填充，直到长度为n个字符为止    |
+| RPAD(str, n, pad)             | 使用字符串pad在str的最右边进行填充，直到长度为n个字符为止    |
+| LTRIM(str)                    | 去除字符串str左侧的空格                       |
+| RTRIM(str)                    | 去除字符串str右侧的空格                       |
+| TRIM(str)                     | 去除字符串str左右两侧的空格                     |
+| REPLACE(str,oldstr,newstr)    | 用字符串newstr替换字符串str中所有的子字符串oldstr    |
+| REVERSE(str)                  | 将字符串str中的字符逆序                       |
+| STRCMP(str1, str2)            | 比较字符串str1和str2的大小                   |
+| SUBSTRING(str,index,n)        | 获取从字符串str的index位置开始的n个字符            |
+
+**数值函数 （Math）**
+
+| 函数                       | 描述                     |
+|--------------------------|------------------------|
+| ABS(num)                 | 返回num的绝对值              |
+| CEIL(num)                | 返回大于num的最小整数（向上取整）     |
+| FLOOR(num)               | 返回小于num的最大整数（向下取整）     |
+| MOD(num1, num2)          | 返回num1/num2的余数（取模）     |
+| PI()                     | 返回圆周率的值                |
+| POW(num,n)/POWER(num, n) | 返回num的n次方              |
+| RAND(num)                | 返回0~1之间的随机数            |
+| ROUND(num, n)            | 返回x四舍五入后的值，该值保留到小数点后n位 |
+| TRUNCATE(num, n)         | 返回num被舍去至小数点后n位的值      |
+
+#### 多行函数
+
+> 多行函数是指对一组数据进行运算，针对这一组数据（多行记录）只返回一个结果，也称为分组函数。
+
 ### DDL (建表,建库)
 
 > 表（Table）是数据库中数据存储最常见和最简单的一种形式，数据库可以将复杂的数据结构用较为简单的二维表来表示。二维表是由行和列组成的，分别都包含着数据
@@ -754,6 +821,8 @@ select * from emp where job = 'SALESMAN' or (job = 'CLERK' and sal >=1500);
 select * from emp where (job = 'SALESMAN' or job = 'CLERK') and sal >=1500;
 
 ```
+
+##### 使用函数
 
 #### 多表
 
