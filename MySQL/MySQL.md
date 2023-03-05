@@ -544,6 +544,54 @@ select max(sal),min(sal),count(sal),sum(sal),avg(sal) from emp;
 
 #### 单行函数
 
+``` mysql
+  -- 单行函数包含：
+  -- 1.字符串函数
+  select ename,length(ename),substring(ename,2,3) from emp;
+  -- substring字符串截取，2:从字符下标为2开始，3：截取长度3    （下标从1开始）
+  -- 2.数值函数
+  select abs(-5),ceil(5.3),floor(5.9),round(3.14) from dual; -- dual实际就是一个伪表 
+  select abs(-5) 绝对值,ceil(5.3) 向上取整,floor(5.9) 向下取整,round(3.14) 四舍五入;  -- 如果没有where条件的话，from dual可以省略不写
+  select ceil(sal) from emp;
+  select 10/3,10%3,mod(10,3) ;
+  -- 3.日期与时间函数 
+  select * from emp;
+  select curdate(),curtime() ; -- curdate()年月日 curtime()时分秒
+  select now(),sysdate(),sleep(3),now(),sysdate() from dual; -- now(),sysdate() 年月日时分秒
+  insert into emp values (9999,'lili','SALASMAN',7698,now(),1000,null,30);
+  -- now()可以表示年月日时分秒，但是插入数据的时候还是要参照表的结构的
+  desc emp;
+  
+  -- 4.流程函数
+  -- if相关
+  select empno,ename,sal,if(sal>=2500,'高薪','底薪') as '薪资等级' from emp; -- if-else 双分支结构
+  select empno,ename,sal,comm,sal+ifnull(comm,0) from emp; -- 如果comm是null，那么取值为0 -- 单分支
+  select nullif(1,1),nullif(1,2) from dual; --  如果value1等于value2，则返回null，否则返回value1  
+  -- case相关：
+  -- case等值判断
+  select empno,ename,job,
+  case job 
+   when 'CLERK' then '店员'
+   when 'SALESMAN'  then '销售'
+   when 'MANAGER' then '经理'
+   else '其他'
+  end '岗位',
+  sal from emp;
+  -- case区间判断:
+  select empno,ename,sal,
+  case 
+   when sal<=1000 then 'A'
+   when sal<=2000 then 'B'
+   when sal<=3000 then 'C'
+   else 'D'
+  end '工资等级',
+  deptno from emp;
+  from emp;
+  -- 5.JSON函数  
+  -- 6.其他函数
+  select database(),user(),version() from dual;
+```
+
 **字符串函数 （String StringBuilder）**
 
 > 单行函数是指对每一条记录输入值进行计算，并得到相应的计算结果，然后返回给用户
@@ -597,6 +645,42 @@ select max(sal),min(sal),count(sal),sum(sal),avg(sal) from emp;
 | DATE_ADD(date, INTERVAL expr unit)/ADDDATE(date, INTERVAL expr unit) | 返回date加上一个时间间隔后的新时间值         |
 | DATE_SUB(date, INTERVAL expr unit)/SUBDATE(date, INTERVAL expr unit) | 返回date减去一个时间间隔后的新时间值         |
 | DATEDIFF(date1, date2)                                               | 返回起始日期date1与结束日期date2之间的间隔天数 |
+
+
+**流程函数(IF SWITCH )**
+
+| 间隔类型                                                                                           | 描述                                         |
+|------------------------------------------------------------------------------------------------|--------------------------------------------|
+| IF(condition, t, f)                                                                            | 如果条件condition为真，则返回t，否则返回f                 |
+| IFNULL(value1, value2)                                                                         | 如果value1不为null，则返回value1，否则返回value2        |
+| NULLIF(value1, value2)                                                                         | 如果value1等于value2，则返回null，否则返回value1        |
+| `CASE value WHEN   [value1] THEN result1 [WHEN [value2] THEN result2 ...] [ELSE result] END`   | 如果value等于value1，则返回result1，···，否则返回result  |
+| `CASE WHEN [condition1] THEN result1 [WHEN [condition2] THEN   result2 ...] [ELSE result] END` | 如果条件condition1为真，则返回result1，···，否则返回result |
+
+**JSON函数**
+
+| 函数              | 描述                |
+|-----------------|-------------------|
+| JSON_APPEND()   | 在JSON文档中追加数据      |
+| JSON_INSERT ()  | 在JSON文档中插入数据      |
+| JSON_REPLACE () | 替换JSON文档中的数据      |
+| JSON_REMOVE ()  | 从JSON文档的指定位置移除数据  |
+| JSON_CONTAINS() | 判断JSON文档中是否包含某个数据 |
+| JSON_SEARCH()   | 查找JSON文档中给定字符串的路径 |
+
+**其他函数**
+
+| 函数                    | 描述                    |
+|-----------------------|-----------------------|
+| DATABASE()            | 返回当前数据库名              |
+| VERSION()             | 返回当前MySQL的版本号         |
+| USER()                | 返回当前登录的用户名            |
+| INET_ATON(IP)         | 返回IP地址的数字表示           |
+| INET_NTOA             | 返回数字代表的IP地址           |
+| PASSWORD(str)         | 实现对字符串str的加密操作        |
+| FORMAT(num, n)        | 实现对数字num的格式化操作，保留n位小数 |
+| CONVERT(data,   type) | 实现将数据data转换成type类型的操作 |
+
 
 #### 多行函数
 
