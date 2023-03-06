@@ -646,7 +646,6 @@ select max(sal),min(sal),count(sal),sum(sal),avg(sal) from emp;
 | DATE_SUB(date, INTERVAL expr unit)/SUBDATE(date, INTERVAL expr unit) | 返回date减去一个时间间隔后的新时间值         |
 | DATEDIFF(date1, date2)                                               | 返回起始日期date1与结束日期date2之间的间隔天数 |
 
-
 **流程函数(IF SWITCH )**
 
 | 间隔类型                                                                                           | 描述                                         |
@@ -681,8 +680,34 @@ select max(sal),min(sal),count(sal),sum(sal),avg(sal) from emp;
 | FORMAT(num, n)        | 实现对数字num的格式化操作，保留n位小数 |
 | CONVERT(data,   type) | 实现将数据data转换成type类型的操作 |
 
-
 #### 多行函数
+
+``` mysql
+-- 多行函数：
+select max(sal),min(sal),count(sal),sum(sal),sum(sal)/count(sal),avg(sal) from emp;
+select * from emp;
+-- 多行函数自动忽略null值
+select max(comm),min(comm),count(comm),sum(comm),sum(comm)/count(comm),avg(comm) from emp;
+-- max(),min(),count()针对所有类型   sum(),avg() 只针对数值型类型有效
+select max(ename),min(ename),count(ename),sum(ename),avg(ename) from emp;
+-- count --计数   
+-- 统计表的记录数：方式1：
+select * from emp;
+select count(ename) from emp;
+select count(*) from emp;
+-- 统计表的记录数：方式2
+select 1 from dual;
+select 1 from emp;
+select count(1) from emp;
+```
+
+| 函数      | 描述          |
+|---------|-------------|
+| COUNT() | 统计表中记录的数目   |
+| SUM()   | 计算指定字段值的总和  |
+| AVG()   | 计算指定字段值的平均值 |
+| MAX()   | 统计指定字段值的最大值 |
+| MIN()   | 统计指定字段值的最小值 |
 
 > 多行函数是指对一组数据进行运算，针对这一组数据（多行记录）只返回一个结果，也称为分组函数。
 
@@ -923,7 +948,228 @@ select * from emp where (job = 'SALESMAN' or job = 'CLERK') and sal >=1500;
 
 ##### 使用函数
 
+``` mysql
+-- 函数举例：
+select empno,ename,lower(ename),upper(ename),sal from emp;
+-- 函数的功能：封装了特定的一些功能，我们直接拿过来使用，可以实现对应的功能
+-- 函数作用：为了提高select的能力
+-- 注意：函数没有改变数据自身的值，而是在真实数据的上面进行加工处理，展示新的结果而已。
+select max(sal),min(sal),count(sal),sum(sal),avg(sal) from emp;
+-- 函数的分类：
+-- lower(ename),upper(ename) ：改变每一条结果，每一条数据对应一条结果  -- 单行函数
+-- max(sal),min(sal),count(sal),sum(sal),avg(sal):多条数据，最终展示一个结果  -- 多行函数
+```
+
+##### group by 分组
+
+``` mysql
+select * from emp;
+-- 统计各个部门的平均工资 
+select deptno,avg(sal) from emp; -- 字段和多行函数不可以同时使用
+select deptno,avg(sal) from emp group by deptno; -- 字段和多行函数不可以同时使用,除非这个字段属于分组
+select deptno,avg(sal) from emp group by deptno order by deptno desc;
+-- 统计各个岗位的平均工资
+select job,avg(sal) from emp group by job;
+select job,lower(job),avg(sal) from emp group by job;
+```
+
+##### having 分组后筛选
+
+``` mysql
+-- 统计各个部门的平均工资 ,只显示平均工资2000以上的  - 分组以后进行二次筛选 having
+select deptno,avg(sal) from emp group by deptno having avg(sal) > 2000;
+select deptno,avg(sal) 平均工资 from emp group by deptno having 平均工资 > 2000;
+select deptno,avg(sal) 平均工资 from emp group by deptno having 平均工资 > 2000 order by deptno desc;
+-- 统计各个岗位的平均工资,除了MANAGER
+-- 方法1：
+select job,avg(sal) from emp where job != 'MANAGER' group by job;
+-- 方法2：
+select job,avg(sal) from emp group by job having job != 'MANAGER' ;
+-- where在分组前进行过滤的，having在分组后进行后滤。
+```
+
+#### 单表查询总结
+
+- select语句总结
+
+``` mysql
+select column, group_function(column)
+from table
+[where condition]
+[group by  group_by_expression]
+[having group_condition]
+[order by column];
+```
+
+> **注意**：顺序固定，不可以改变顺序
+
+- select语句的执行顺序
+  - > from--where -- group by– select - having -- order by
+
+``` mysql
+-- 单表查询练习：
+-- 列出工资最小值小于2000的职位
+select job,min(sal)
+from emp
+group by job
+having min(sal) < 2000 ;
+-- 列出平均工资大于1200元的部门和工作搭配组合
+select deptno,job,avg(sal)
+from emp
+group by deptno,job
+having avg(sal) > 1200
+order by deptno;
+-- 统计[人数小于4的]部门的平均工资。 
+select deptno,count(1),avg(sal)
+from emp
+group by deptno
+having count(1) < 4
+-- 统计各部门的最高工资，排除最高工资小于3000的部门。
+select deptno,max(sal)
+from emp 
+group by deptno
+having max(sal) >= 3000;
+```
+
 #### 多表
+
+- 99语法
+  - 连接查询需要使用join关键字实现
+  - 提供了多种连接查询的类型： cross natural using on
+- 92语法
+
+##### 99语法：交叉连接，自然连接，内连接查询
+
+``` mysql
+-- 查询员工的编号，姓名，部门编号：
+select * from emp;
+select empno,ename,deptno from emp;
+-- 查询员工的编号，姓名，部门编号,部门名称：
+select * from emp; -- 14条记录
+select * from dept; -- 4条记录 
+-- 多表查询 ：
+-- 交叉连接：cross join
+select * 
+from emp
+cross join dept; -- 14*4 = 56条 笛卡尔乘积 ： 没有实际意义，有理论意义
+select * 
+from emp
+join dept; -- cross 可以省略不写，mysql中可以，oracle中不可以
+-- 自然连接：natural join 
+-- 优点：自动匹配所有的同名列 ,同名列只展示一次 ，简单
+select * 
+from emp
+natural join dept;
+select empno,ename,sal,dname,loc 
+from emp
+natural join dept;
+-- 缺点： 查询字段的时候，没有指定字段所属的数据库表，效率低
+-- 解决： 指定表名：
+select emp.empno,emp.ename,emp.sal,dept.dname,dept.loc,dept.deptno
+from emp
+natural join dept;
+-- 缺点：表名太长
+-- 解决：表起别名
+select e.empno,e.ename,e.sal,d.dname,d.loc,d.deptno
+from emp e
+natural join dept d;
+-- 自然连接 natural join 缺点：自动匹配表中所有的同名列，但是有时候我们希望只匹配部分同名列：
+-- 解决： 内连接 - using子句：
+select * 
+from emp e
+inner join dept d -- inner可以不写
+using(deptno) -- 这里不能写natural join了 ,这里是内连接
+-- using缺点：关联的字段，必须是同名的 
+-- 解决： 内连接 - on子句：
+select * 
+from emp e
+inner join dept d
+on (e.deptno = d.deptno);
+-- 多表连接查询的类型： 1.交叉连接  cross join  2. 自然连接  natural join  
+-- 3. 内连接 - using子句   4.内连接 - on子句
+-- 综合看：内连接 - on子句
+select * 
+from emp e
+inner join dept d
+on (e.deptno = d.deptno)
+where sal > 3500;
+-- 条件：
+-- 1.筛选条件  where  having
+-- 2.连接条件 on,using,natural 
+-- SQL99语法 ：筛选条件和连接条件是分开的
+```
+##### 99语法：外连接查询
+
+``` mysql
+-- inner join - on子句： 显示的是所有匹配的信息
+select * 
+from emp e
+inner join dept d
+on e.deptno = d.deptno;
+select * from emp;
+select * from dept;
+-- 问题：
+-- 1.40号部分没有员工，没有显示在查询结果中
+-- 2.员工scott没有部门，没有显示在查询结果中
+-- 外连接：除了显示匹配的数据之外，还可以显示不匹配的数据
+-- 左外连接： left outer join   -- 左面的那个表的信息，即使不匹配也可以查看出效果
+select * 
+from emp e
+left outer join dept d
+on e.deptno = d.deptno;
+-- 右外连接： right outer join   -- 右面的那个表的信息，即使不匹配也可以查看出效果
+select * 
+from emp e
+right outer join dept d
+on e.deptno = d.deptno;
+-- 全外连接  full outer join -- 这个语法在mysql中不支持，在oracle中支持 -- 展示左，右表全部不匹配的数据 
+-- scott ，40号部门都可以看到
+select * 
+from emp e
+full outer join dept d
+on e.deptno = d.deptno;
+-- 解决mysql中不支持全外连接的问题：
+select * 
+from emp e
+left outer join dept d
+on e.deptno = d.deptno
+union -- 并集 去重 效率低
+select * 
+from emp e
+right outer join dept d
+on e.deptno = d.deptno;
+select * 
+from emp e
+left outer join dept d
+on e.deptno = d.deptno
+union all-- 并集 不去重 效率高
+select * 
+from emp e
+right outer join dept d
+on e.deptno = d.deptno;
+-- mysql中对集合操作支持比较弱，只支持并集操作，交集，差集不支持（oracle中支持）
+-- outer可以省略不写
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
