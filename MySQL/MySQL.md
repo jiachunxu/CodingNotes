@@ -1098,74 +1098,197 @@ where sal > 3500;
 -- 2.连接条件 on,using,natural 
 -- SQL99语法 ：筛选条件和连接条件是分开的
 ```
+
 ##### 99语法：外连接查询
 
 ``` mysql
--- inner join - on子句： 显示的是所有匹配的信息
-select * 
-from emp e
-inner join dept d
-on e.deptno = d.deptno;
-select * from emp;
-select * from dept;
--- 问题：
--- 1.40号部分没有员工，没有显示在查询结果中
--- 2.员工scott没有部门，没有显示在查询结果中
--- 外连接：除了显示匹配的数据之外，还可以显示不匹配的数据
--- 左外连接： left outer join   -- 左面的那个表的信息，即使不匹配也可以查看出效果
-select * 
-from emp e
-left outer join dept d
-on e.deptno = d.deptno;
--- 右外连接： right outer join   -- 右面的那个表的信息，即使不匹配也可以查看出效果
-select * 
-from emp e
-right outer join dept d
-on e.deptno = d.deptno;
--- 全外连接  full outer join -- 这个语法在mysql中不支持，在oracle中支持 -- 展示左，右表全部不匹配的数据 
--- scott ，40号部门都可以看到
-select * 
-from emp e
-full outer join dept d
-on e.deptno = d.deptno;
--- 解决mysql中不支持全外连接的问题：
-select * 
-from emp e
-left outer join dept d
-on e.deptno = d.deptno
-union -- 并集 去重 效率低
-select * 
-from emp e
-right outer join dept d
-on e.deptno = d.deptno;
-select * 
-from emp e
-left outer join dept d
-on e.deptno = d.deptno
-union all-- 并集 不去重 效率高
-select * 
-from emp e
-right outer join dept d
-on e.deptno = d.deptno;
--- mysql中对集合操作支持比较弱，只支持并集操作，交集，差集不支持（oracle中支持）
--- outer可以省略不写
+  -- inner join - on子句： 显示的是所有匹配的信息
+  select * 
+  from emp e
+  inner join dept d
+  on e.deptno = d.deptno;
+  select * from emp;
+  select * from dept;
+  -- 问题：
+  -- 1.40号部分没有员工，没有显示在查询结果中
+  -- 2.员工scott没有部门，没有显示在查询结果中
+  -- 外连接：除了显示匹配的数据之外，还可以显示不匹配的数据
+  -- 左外连接： left outer join   -- 左面的那个表的信息，即使不匹配也可以查看出效果
+  select * 
+  from emp e
+  left outer join dept d
+  on e.deptno = d.deptno;
+  -- 右外连接： right outer join   -- 右面的那个表的信息，即使不匹配也可以查看出效果
+  select * 
+  from emp e
+  right outer join dept d
+  on e.deptno = d.deptno;
+  -- 全外连接  full outer join -- 这个语法在mysql中不支持，在oracle中支持 -- 展示左，右表全部不匹配的数据 
+  -- scott ，40号部门都可以看到
+  select * 
+  from emp e
+  full outer join dept d
+  on e.deptno = d.deptno;
+  -- 解决mysql中不支持全外连接的问题：
+  select * 
+  from emp e
+  left outer join dept d
+  on e.deptno = d.deptno
+  union -- 并集 去重 效率低
+  select * 
+  from emp e
+  right outer join dept d
+  on e.deptno = d.deptno;
+  select * 
+  from emp e
+  left outer join dept d
+  on e.deptno = d.deptno
+  union all-- 并集 不去重 效率高
+  select * 
+  from emp e
+  right outer join dept d
+  on e.deptno = d.deptno;
+  -- mysql中对集合操作支持比较弱，只支持并集操作，交集，差集不支持（oracle中支持）
+  -- outer可以省略不写
 ```
 
+##### 99语法：三表连接查询
 
+``` mysql
+  -- 查询员工的编号、姓名、薪水、部门编号、部门名称、薪水等级
+  select * from emp;
+  select * from dept;
+  select * from salgrade;
+  select e.ename,e.sal,e.empno,e.deptno,d.dname,s.* 
+  from emp e
+  right outer join dept d
+  on e.deptno = d.deptno
+  inner join salgrade s 
+  on e.sal between s.losal and s.hisal
+```
 
+##### 99语法：自连接查询
 
+``` mysql
+  -- 查询员工的编号、姓名、上级编号,上级的姓名
+  select * from emp;
+  select e1.empno 员工编号,e1.ename 员工姓名,e1.mgr 领导编号,e2.ename 员工领导姓名
+  from emp e1
+  inner join emp e2
+  on e1.mgr = e2.empno;
+  -- 左外连接：
+  select e1.empno 员工编号,e1.ename 员工姓名,e1.mgr 领导编号,e2.ename 员工领导姓名
+  from emp e1
+  left outer join emp e2
+  on e1.mgr = e2.empno; 
+```
 
+##### 92语法：多表查询
 
+``` mysql
+  -- 查询员工的编号，员工姓名，薪水，员工部门编号，部门名称：
+  select e.empno,e.ename,e.sal,e.deptno,d.dname
+  from emp e,dept d
+  -- 相当于99语法中的cross join ,出现笛卡尔积，没有意义
+  select e.empno,e.ename,e.sal,e.deptno,d.dname
+  from emp e,dept d
+  where e.deptno = d.deptno;
+  -- 相当于99语法中的natural join 
+  -- 查询员工的编号，员工姓名，薪水，员工部门编号，部门名称，查询出工资大于2000的员工
+  select e.empno,e.ename,e.sal,e.deptno,d.dname
+  from emp e,dept d
+  where e.deptno = d.deptno and e.sal > 2000;
+  -- 查询员工的名字，岗位，上级编号，上级名称（自连接）：
+  select e1.ename,e1.job,e1.mgr ,e2.ename 
+  from emp e1,emp e2
+  where e1.mgr = e2.empno;
+  -- 查询员工的编号、姓名、薪水、部门编号、部门名称、薪水等级
+  select e.empno,e.ename,e.sal,e.deptno,d.dname,s.grade 
+  from emp e,dept d,salgrade s
+  where e.deptno = d.deptno and e.sal >= s.losal and e.sal <= s.hisal;
+  -- 总结：
+  -- 1.92语法麻烦 
+  -- 2.92语法中 表的连接条件 和  筛选条件  是放在一起的没有分开
+  -- 3.99语法中提供了更多的查询连接类型：cross,natural,inner,outer
+```
 
+#### 子查询
 
+#### 不相关子查询
 
+> 子查询可以独立运行，称为不相关子查询。
 
+##### 单行子查询
 
+``` mysql
+  -- 单行子查询：
+  -- 查询工资高于平均工资的雇员名字和工资。
+  select ename,sal
+  from emp
+  where sal > (select avg(sal) from emp);
+  -- 查询和CLARK同一部门且比他工资低的雇员名字和工资。
+  select ename,sal
+  from emp
+  where deptno = (select deptno from emp where ename = 'CLARK') 
+        and 
+        sal < (select sal from emp where ename = 'CLARK')
+  -- 查询职务和SCOTT相同，比SCOTT雇佣时间早的雇员信息  
+  select * 
+  from emp
+  where job = (select job from emp where ename = 'SCOTT') 
+        and 
+        hiredate < (select hiredate from emp where ename = 'SCOTT')
+```
 
+##### 多行子查询
 
+``` mysql
+  -- 多行子查询：
+  -- 【1】查询【部门20中职务同部门10的雇员一样的】雇员信息。
+  -- 查询雇员信息
+  select * from emp;
+  -- 查询部门20中的雇员信息
+  select * from emp where deptno = 20;-- CLERK,MANAGER,ANALYST
+  -- 部门10的雇员的职务：
+  select job from emp where deptno = 10; -- MANAGER,PRESIDENT,CLERK
+  -- 查询部门20中职务同部门10的雇员一样的雇员信息。
+  select * from emp 
+  where deptno = 20 
+  and job in (select job from emp where deptno = 10)
+  -- > Subquery returns more than 1 row
+  select * from emp 
+  where deptno = 20 
+  and job = any(select job from emp where deptno = 10)
+  -- 【2】查询工资比所有的“SALESMAN”都高的雇员的编号、名字和工资。
+  -- 查询雇员的编号、名字和工资
+  select empno,ename,sal from emp
+  -- “SALESMAN”的工资：
+  select sal from emp where job = 'SALESMAN'
+  -- 查询工资比所有的“SALESMAN”都高的雇员的编号、名字和工资。
+  -- 多行子查询：
+  select empno,ename,sal 
+  from emp 
+  where sal > all(select sal from emp where job = 'SALESMAN');
+  -- 单行子查询：
+  select empno,ename,sal 
+  from emp 
+  where sal > (select max(sal) from emp where job = 'SALESMAN');
+  -- 【3】查询工资低于任意一个“CLERK”的工资的雇员信息。  
+  -- 查询雇员信息
+  select * from emp;
+  -- 查询工资低于任意一个“CLERK”的工资的雇员信息
+  select * 
+  from emp
+  where sal < any(select sal from emp where job = 'CLERK')
+  and job != 'CLERK'
+  -- 单行子查询：
+  select * 
+  from emp
+  where sal < (select max(sal) from emp where job = 'CLERK')
+  and job != 'CLERK'
+```
 
-
-
+#### 相关子查询
 
 
 
