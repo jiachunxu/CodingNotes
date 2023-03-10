@@ -736,10 +736,62 @@ q
 >
 > `ls -lR /opt | grep "^d" | wc -l`
 
-> 以树状显示目录结构 
-> 
+> 以树状显示目录结构
+>
 > `tree 目录`
 
+# 网络配置
 
+- 查看 linux 的网络配置 ifconfig
+- ping 测试主机之间网络连通性
+  - 例如 : `ping www.baidu.com`
 
+## 设置主机名和 hosts 映射
 
+### 设置主机名
+
+- 指令 hostname ： 查看主机名
+- 修改文件在 /etc/hostname 指定
+- 修改后，重启生效
+
+### 设置 hosts 映射
+
+- windows
+  - 在 C:\Windows\System32\drivers\etc\hosts 文件指定
+- linux
+  - 在 /etc/hosts 文件 指定
+
+**案例**: 192.168.200.1 ThinkPad-PC
+
+### DNS
+
+``` 
+WINDOWS 命令
+
+ipconfig /displaydns //DNS 域名解析缓存 
+ipconfig /flushdns //手动清理 dns 缓存
+```
+
+## CentOS 网络配置
+
+> `vim /etc/sysconfig/network-scripts/ifcfg-ens33`
+
+``` linux
+要求：将 ip 地址配置的静态的，比如: ip 地址为 192.168.200.130
+
+ifcfg-ens33 文件说明 
+DEVICE=eth0     # 接口名（设备,网卡） 
+HWADDR=00:0C:2x:6x:0x:xx    #MAC 地址 
+TYPE=Ethernet     # 网络类型（通常是 Ethemet） 
+UUID=926a57ba-92c6-4231-bacb-f27e5e6a9f44     # 随机 id 
+ONBOOT=yes    # 系统启动的时候网络接口是否有效（yes/no） 
+BOOTPROTO=static    # IP 的配置方法[none|static|bootp|dhcp]（引导时不使用协议|静态分配 IP|BOOTP 协议|DHCP 协议）
+IPADDR=192.168.200.130    # IP 地址
+GATEWAY=192.168.200.2     # 网关 
+DNS1=192.168.200.2    # 域名解析器
+
+# 重启网络服务或者重启系统生效 
+service network restart 、reboot
+```
+
+# 进程管理
