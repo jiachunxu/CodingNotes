@@ -17,10 +17,18 @@
 ## 4.打开此路径/etc/ssh/sshd_config下配置文件
     sudo vim /etc/ssh/sshd_config
     
-    将此行 # PermitRootLogin prohibit-password
+    将此行 #PermitRootLogin prohibit-password
     修改为 PermitRootLogin yes
 
+    将此行 #PasswordAuthentication yes
+    修改为 PasswordAuthentication yes
+
+    
+
 ## 5.重启linux
-    reboot
+    service ssh restart 
+    或
+    systemctl restart ssh
+
 
 
