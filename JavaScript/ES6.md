@@ -47,7 +47,7 @@
 
 > 默认导出的语法： export default 默认导出的成员
 
-```js
+``` js
 let n1 = 10
 let n2 = 20
 
@@ -64,7 +64,7 @@ export default {
 
 > 默认导入的语法： import 接收名称 from '模块标识符'
 
-```js
+``` js
 import m1 from './01.默认导出.js'
 
 console.log(m1)
@@ -82,7 +82,7 @@ console.log(m1)
 
 > 按需导出的语法： export 按需导出的成员
 
-```js
+``` js
 export let s1 = 'aaa'
 export let s2 = 'ccc'
 
@@ -100,7 +100,7 @@ export default {
 
 > 可用 as 重命名
 
-```js
+``` js
 import info, {s1, s2 as str2, say} from './03.按需导出.js'
 
 console.log(s1)
@@ -120,7 +120,7 @@ console.log(info)
 
 > 如果只想单纯地执行某个模块中的代码，并不需要得到模块中向外共享的成员。此时，可以直接导入并执行模块代码
 
-```js
+``` js
 import './05.直接运行模块中的代码.js'
 ```
 
@@ -165,7 +165,7 @@ npm install then-fs
 >
 > 因此可以调用 .then() 方法为每个 Promise 异步操作指定成功和失败之后的回调函数。
 
-```js
+``` js
 // 无法保证文件的读取顺序
 import thenFs from 'then-fs'
 
@@ -188,7 +188,7 @@ thenFs.readFile('./files/3.txt', 'utf8').then((r3) => {
 
 ### 基于 Promise 按顺序读取文件的内容
 
-```js
+``` js
 import thenFs from 'then-fs'
 
 thenFs
@@ -218,7 +218,7 @@ thenFs
 
 > 如果不希望前面的错误导致后续的 .then 无法正常执行，则可以将 .catch 的调用提前
 
-```js
+``` js
 import thenFs from 'then-fs'
 
 thenFs
@@ -243,7 +243,7 @@ thenFs
 
 > Promise.all() 方法会发起并行的 Promise 异步操作，等所有的异步操作全部结束后才会执行下一步的 .then 操作（等待机制）。
 
-```js
+``` js
 import thenFs from 'then-fs'
 
 const promiseArr = [
@@ -263,7 +263,7 @@ Promise.all(promiseArr).then(result => {
 
 > Promise.race() 方法Promise.race() 方法会发起并行的 Promise 异步操作，只要任何一个异步操作完成，就立即执行下一步的.then 操作（赛跑机制）。
 
-```js
+``` js
 import thenFs from 'then-fs'
 
 const promiseArr = [
@@ -285,7 +285,7 @@ Promise.race(promiseArr).then(result => {
 > - 方法接收一个形参 fpath，表示要读取的文件的路径
 > - 方法的返回值为 Promise 实例对象
 
-```js
+``` js
 import fs from 'fs'
 
 function getFile(fpath) {
@@ -316,7 +316,7 @@ getFile('./files/11.txt')
 >
 > .then 链式调用的缺点：代码冗余、阅读性差、不易理解
 
-```js
+``` js
 import thenFs from 'then-fs'
 
 console.log('A')
