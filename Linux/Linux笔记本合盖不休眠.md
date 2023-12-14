@@ -15,5 +15,7 @@
 ``` shell
     重启服务
     service systemd-logind restart
+    
+    systemctl restart systemd-logind.service 
 ```
 
