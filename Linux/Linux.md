@@ -5,7 +5,7 @@
 - Ubuntu
 - RedHat
 - CentOS
-- Debain
+- Debian
 - Fedora
 - SUSE
 - OpenSUSE
