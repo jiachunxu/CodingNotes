@@ -61,7 +61,15 @@ unset (ENV{CXX})
 message($ENV{CXX}) # 报错
 
 # file() 搜索源文件
+file(GLOB SRC ${PROJECT_SOURCE_DIR]/src/*.cpp)
 
+# 头文件导入
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+# 指定库目录
+link_directories($PROJECT_SOURCE_DIR}/a) 
+# 指定库名
+link_libraries(animal)
 ```
 
 
