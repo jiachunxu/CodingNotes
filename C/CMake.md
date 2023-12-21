@@ -12,6 +12,7 @@ add_executable(Hello hello.cpp)
 
 ``` 
 基础命令
+cmake . 
 
 cmake -B build
 cmake --build build
@@ -20,6 +21,50 @@ windows 平台指定生成器
 cmake -B build -G "MinGW Makefiles"
 
 linux 默认生成器 Unix Makefiles
+
+```
+
+## 指定c++标准
+
+### 1.在CMakeLists.txt中通过set命令指定
+
+``` cmake
+g++ *.cpp -std=c++11-o app
+
+# 相当于 -std=c++11 
+set(CMAKE_CXX_STANDARD 11)
+
+
+```
+
+### 2.在执行cmake命令的时候指定出这个宏的值
+
+``` cmake 
+cmake [CMakeLists.txt路径] -DCMAKE_CXX_STANDARD=11 
+
+```
+
+## 指定输出路径
+
+``` cmake 
+set(HOME /home/... )
+set(EXECUTABLE_OUTPUT_PATH ${HOME}/bin )
+
+```
+
+## 搜索源文件
+
+```
+# 1.
+aux_source_directory(<dir> <var>)
+# dir : 指定搜索目录
+# var : 源文件列表存储的变量
+
+# 2.file() 
+# file(GLOB/GLOB_REUCRSE <变量名> <搜索路径和文件类型>)
+file(GLOB SRC ${PROJECT_SOURCE_DIR}/src/*.cpp)
+file(GLOB_REUCRSE SRC ${PROJECT_SOURCE_DIR]/src/*.cpp)
+# GLOB_REUCRSE 递归搜索
 
 ```
 
@@ -59,9 +104,6 @@ message($ENV{CXX})
 # unset 
 unset (ENV{CXX}) 
 message($ENV{CXX}) # 报错
-
-# file() 搜索源文件
-file(GLOB SRC ${PROJECT_SOURCE_DIR]/src/*.cpp)
 
 # 头文件导入
 include_directories(${PROJECT_SOURCE_DIR}/include)
