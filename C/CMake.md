@@ -44,7 +44,7 @@ cmake [CMakeLists.txt路径] -DCMAKE_CXX_STANDARD=11
 
 ```
 
-## 指定输出路径
+## 指定可执行文件输出路径
 
 ``` cmake 
 set(HOME /home/... )
@@ -76,7 +76,74 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 ```
 
-- CMake Language
+## 连接库
+
+### 连接静态库
+
+```
+# 指定 (动态库/静态)目录
+link_directories($PROJECT_SOURCE_DIR}/a) 
+# 只能静态库
+link_libraries(<库名>)
+# 库名可以全名 libxxx.a
+# 一般为 xxx
+```
+
+### 连接动态库
+
+```
+target_link_libraries(
+    <target> 
+    <PRIVATE/PUBLIC/INTERFACE>  <item>...)
+
+# 建议写到最后,生成可执行文件之后
+
+# (target:指定要加载动态库的文件的名字 )
+# (该文件可能是一个源文件 )
+# (该文件可能是一个动态库文件 )
+# (该文件可能是一个可执行文件)
+
+# <PRIVATE/PUBLIC/INTERFACE> : 动态库访问权限,默认为 PUBLIC 
+# 连接库具有传递性 C->B->A ,指定 C 默认包括 A
+# PUBLIC : 在 public 后面的库会被 link 到前面的 target 中,并且里面的符号也会被导出,提供给第三方使用。
+# PRIVATE : 在 private 后面的库仅被 link 到前面的 target 中,并且终结掉,第三方不能感知你调了啥库 
+# INTERFACE : 在 interface 后面引入的库不会被链接到前面的 target 中,只会导出符号。
+
+```
+
+## 制作库文件
+
+> 库文件在使用时需要附带头文件
+
+### 制作静态库
+
+> linux静态库名字构成 : lib + 库名称 + .a
+
+```
+# add_library(库名称 STATIC 源文件...)
+```
+
+### 制作动态库
+
+> linux静态库名字构成 : lib + 库名称 + .so
+
+```
+# add_library(库名称 SHARE 源文件...)
+# 生成动态库具有可执行权限
+```
+
+### 指定库输出路径
+
+```
+# 适用于动态库和静态库
+set(LIBRARY_OUTPUT_PATH S{PROJECT_SOURCE_DIR}/lib)
+
+# 只适用于动态库
+set(EXECUTABLE_OUTPUT_PATH ${HOME}/lib )
+
+```
+
+## CMake Language
 
 > 运行 .cmake 文件 cmake -P *.cmake
 
@@ -113,10 +180,7 @@ message($ENV{CXX})
 unset (ENV{CXX}) 
 message($ENV{CXX}) # 报错
 
-# 指定库目录
-link_directories($PROJECT_SOURCE_DIR}/a) 
-# 指定库名
-link_libraries(animal)
+
 ```
 
 
