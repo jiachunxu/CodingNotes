@@ -68,6 +68,14 @@ file(GLOB_REUCRSE SRC ${PROJECT_SOURCE_DIR]/src/*.cpp)
 
 ```
 
+## 导入头文件目录
+
+``` 
+# 头文件导入
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+```
+
 - CMake Language
 
 > 运行 .cmake 文件 cmake -P *.cmake
@@ -104,9 +112,6 @@ message($ENV{CXX})
 # unset 
 unset (ENV{CXX}) 
 message($ENV{CXX}) # 报错
-
-# 头文件导入
-include_directories(${PROJECT_SOURCE_DIR}/include)
 
 # 指定库目录
 link_directories($PROJECT_SOURCE_DIR}/a) 
