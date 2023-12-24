@@ -21,7 +21,6 @@
 - MobaXterm
   - https://mobaxterm.mobatek.net/
 
-
 # 开机、重启和用户登录注销
 
 - `shutdown –h now`   立刻关机
@@ -34,6 +33,8 @@
 
 ## 用户登录和注销
 
+- 切换到 root 
+  - `sudo -i`
 - 切换用户 : `su - 用户名`
   - 从权限高的用户切换到权限低的用户，不需要输入密码，反之需要。
   - 当需要返回到原来用户时，使用 `exit | logout` 指令
