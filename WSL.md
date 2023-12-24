@@ -2,8 +2,9 @@
 
 ### 查看当前环境安装的wsl
 
-`wsl --list
-`
+`wsl --list`
+
+`wsl --list --verbose`
 
 ## 安装
 
@@ -44,6 +45,28 @@ openSUSE-Tumbleweed                    openSUSE Tumbleweed
 
 ## 使用
 
+### 更改发行版的默认用户
+
+`<DistributionName> config --default-user <Username>`
+
+> 例如 : ubuntu config --default-user johndoe
+
+### 以特定用户的身份运行
+
+`wsl -u <Username>`, `wsl --user <Username>`
+
+### 通过 PowerShell 或 CMD 运行特定的 Linux 发行版
+
+`wsl --distribution <Distribution Name> --user <User Name>`
+
+### 将 WSL 版本设置为 1 或 2
+
+`wsl --set-version <distribution name> <versionNumber>`
+
+### 设置默认 WSL 版本
+
+`wsl --set-default-version <Version> `
+
 ### 设置默认发行版
 
 `wsl --set-default <Distro>`
@@ -54,4 +77,16 @@ openSUSE-Tumbleweed                    openSUSE Tumbleweed
 
 ### 注销（卸载）当前安装的 Linux 的 Windows 子系统
 
+> 例如: wsl --unregister Ubuntu
+
 `wsl --unregister Ubuntu`
+
+## 关闭
+
+`wsl --shutdown`
+
+## 导入和导出发行版
+
+`wsl --export <Distribution Name> <FileName>`
+
+`wsl --import <Distribution Name> <InstallLocation> <FileName>`
