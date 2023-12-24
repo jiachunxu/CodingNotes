@@ -757,14 +757,20 @@ q
 
 ### 设置主机名
 
-- 指令 hostname ： 查看主机名
-- 修改文件在 /etc/hostname 指定
+> 方法一
+
+`sudo hostnamectl set-hostname <new host name>`
+
+> 方法二
+
+- 指令 `hostname` ： 查看主机名
+- 修改文件在 `/etc/hostname` 指定
 - 修改后，重启生效
 
 ### 设置 hosts 映射
 
 - windows
-  - 在 C:\Windows\System32\drivers\etc\hosts 文件指定
+  - 在 `C:\Windows\System32\drivers\etc\hosts` 文件指定
 - linux
   - 在 /etc/hosts 文件 指定
 
