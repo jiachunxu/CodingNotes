@@ -10,7 +10,7 @@
 - SUSE
 - OpenSUSE
 
-# ssh工具
+# SSH工具
 
 - Xshell Xftp
   - [Xshell Xftp 家庭/学校免费版 地址](https://www.netsarang.com/en/free-for-home-school/)
