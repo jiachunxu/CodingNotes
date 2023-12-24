@@ -24,6 +24,22 @@ linux 默认生成器 Unix Makefiles
 
 ```
 
+## 日志输出
+
+``` cmake
+# message([级别] "内容")
+
+
+message("hello")
+message("hello
+world")
+
+# 获取Cmake中的信息
+# ${}
+message(${CMAKE_VERSION})
+
+```
+
 ## 指定c++标准
 
 ### 1.在CMakeLists.txt中通过set命令指定
@@ -109,6 +125,8 @@ target_link_libraries(
 # PRIVATE : 在 private 后面的库仅被 link 到前面的 target 中,并且终结掉,第三方不能感知你调了啥库 
 # INTERFACE : 在 interface 后面引入的库不会被链接到前面的 target 中,只会导出符号。
 
+# 示例 : 
+target_link_libraries(app calc)
 ```
 
 ## 制作库文件
@@ -148,14 +166,6 @@ set(EXECUTABLE_OUTPUT_PATH ${HOME}/lib )
 > 运行 .cmake 文件 cmake -P *.cmake
 
 ``` 
-# 打印信息
-message("hello")
-message("hello
-world")
-
-# 获取Cmake中的信息
-# ${}
-message(${CMAKE_VERSION})
 
 # 变量区分大小写
 # 变量的基础操作是set()与unset()，但你也可以用list或是string操作变量
