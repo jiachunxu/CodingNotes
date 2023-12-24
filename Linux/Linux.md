@@ -804,15 +804,19 @@ q
 
 ### 设置主机名
 
-> 方法一
+> 方法1
 
 `sudo hostnamectl set-hostname <new host name>`
 
-> 方法二
+> 方法2
 
 - 指令 `hostname` ： 查看主机名
 - 修改文件在 `/etc/hostname` 指定
 - 修改后，重启生效
+
+> 方法3
+
+`sudo hostname <new host name>`
 
 ### 设置 hosts 映射
 
