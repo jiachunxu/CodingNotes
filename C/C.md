@@ -7,6 +7,14 @@
     - 3.汇编
       - 4.链接
         - 5.可执行程序
+## 存储类别、链接和内存管理
+
+> 关键字：`auto`、`extern`、`static`、`register`、`const`、`volatile`、`restricted`、
+_`Thread_local`、_`Atomic`
+
+> 函数：`rand()`、`srand()`、`time()`、`malloc()`、`calloc()`、`free()`
+
+
 
 ### 数组指针 和 指针数组
 
