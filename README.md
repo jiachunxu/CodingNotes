@@ -21,6 +21,7 @@
 - [Vue2](JavaScript/Vue2.md)
 - [Vue3](JavaScript/Vue3.md)
 - [Webpack](JavaScript/Webpack.md)
+- [Debian终端tab补全](Linux/Debian终端tab补全.md)
 - [Linux](Linux/Linux.md)
 - [Linux安装-启动黑屏解决](Linux/Linux安装-启动黑屏解决.md)
 - [Linux笔记本合盖不休眠](Linux/Linux笔记本合盖不休眠.md)
