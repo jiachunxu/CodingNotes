@@ -30,6 +30,7 @@
 - [Shell脚本](Linux/Shell脚本.md)
 - [SSH(FTP)无法远程ROOT登录,解决办法](Linux/SSH(FTP)无法远程ROOT登录,解决办法.md)
 - [Vim](Linux/Vim.md)
+- [双系统时间不一致](Linux/双系统时间不一致.md)
 - [自定义终端显示(PS1)](Linux/自定义终端显示(PS1).md)
 - [MySQL](MySQL/MySQL.md)
 - [Python设置镜像源](Python/Python设置镜像源.md)
