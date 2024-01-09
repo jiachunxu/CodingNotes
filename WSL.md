@@ -90,3 +90,19 @@ openSUSE-Tumbleweed                    openSUSE Tumbleweed
 `wsl --export <Distribution Name> <FileName>`
 
 `wsl --import <Distribution Name> <InstallLocation> <FileName>`
+
+## wsl 如何去掉 windows 的环境变量
+
+- 在 wsl 下新建 `/etc/wsl.conf` 配置文件,添加如下内容
+
+```
+[interop]
+appendWindowsPath = false
+```
+
+- 在 powershell 执行以下命令，重启 wsl 即可
+```
+wsl --terminate <distro>
+
+eg: wsl --terminate debian
+```
