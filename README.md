@@ -1,5 +1,6 @@
 # CodingNotes
 
+- [7Zip](7Zip.md)
 - [C](C/C.md)
 - [CMake](C/CMake.md)
 - [Docker](Docker/Docker.md)
