@@ -3,7 +3,8 @@
 ### 极限枷锁命令
 
 ``` shell
-7z a -t7z newPack.7z "F:\14_newWork\7z\testDoc*" -r -mx=9 -m0=LZMA2 -ms=10m -mf=on -mhc=on -mmt=on
+7z a -t7z newPack.7z "F:\14_newWork\7z\testDoc*" 
+    -r -mx=9 -m0=LZMA2 -ms=10m -mf=on -mhc=on -mmt=on -sdel
 ```
 
 - `7z` 是命令行工具
