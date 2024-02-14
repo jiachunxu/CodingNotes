@@ -1,6 +1,6 @@
 # 7Zip
 
-### 极限枷锁命令
+### 极限压缩命令
 
 ``` shell
 7z a -t7z newPack.7z "F:\14_newWork\7z\testDoc*" 
