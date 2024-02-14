@@ -18,7 +18,6 @@
 ### 解压命令
 
 ``` shell
-
 # 指定解压到的文件夹 output_directory
 7z x -o"output_directory" source_file.7z
 
