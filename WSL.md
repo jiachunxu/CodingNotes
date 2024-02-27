@@ -43,6 +43,10 @@ openSUSE-Tumbleweed                    openSUSE Tumbleweed
 
 `wsl.exe --install <Distro>`
 
+### 查看所有分发版本
+
+`wsl -l --all -v `
+
 ## 使用
 
 ### 更改发行版的默认用户
@@ -87,9 +91,16 @@ openSUSE-Tumbleweed                    openSUSE Tumbleweed
 
 ## 导入和导出发行版
 
-`wsl --export <Distribution Name> <FileName>`
+```
+wsl --export <Distribution Name> <FileName>
 
-`wsl --import <Distribution Name> <InstallLocation> <FileName>`
+wsl --import <Distribution Name> <InstallLocation> <FileName>
+
+wsl --export Ubuntu-20.04 D:\ubuntu20.04.tar 
+
+wsl --import Ubuntu-20.04 D:\wsl\ubuntu D:\ubuntu20.04.tar --version 2
+
+```
 
 ## wsl 如何去掉 windows 的环境变量
 
@@ -101,6 +112,7 @@ appendWindowsPath = false
 ```
 
 - 在 powershell 执行以下命令，重启 wsl 即可
+
 ```
 wsl --terminate <distro>
 
