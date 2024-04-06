@@ -41,7 +41,7 @@ openSUSE-Tumbleweed                    openSUSE Tumbleweed
 
 ### 安装有效发行版
 
-`wsl.exe --install <Distro>`
+`wsl.exe --install  -d <Distro>`
 
 ### 查看所有分发版本
 
