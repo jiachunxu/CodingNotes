@@ -5,7 +5,7 @@ script_path=$(cd $(dirname "$0") && pwd)
 # echo "脚本所在绝对路径：$script_path"
 
 # 创建或清空readme文件  
-new_file="$script_path/readme"
+new_file="$script_path/README.md"
 
 > $new_file
 

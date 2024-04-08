@@ -1,4 +1,4 @@
-# Debian终端tab补全
+# Linux终端tab补全
 
 ## 1、安装 bash-completion 包
 
