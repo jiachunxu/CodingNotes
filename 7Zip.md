@@ -19,7 +19,7 @@
 
 ``` shell
 # 指定解压到的文件夹 output_directory
-7z x -o "output_directory" source_file.7z
+7z x -o"output_directory" source_file.7z
 
 # 解压到当前目录 
 7z x  source_file.7z
