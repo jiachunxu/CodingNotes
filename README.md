@@ -3,7 +3,7 @@
 - [7Zip](7Zip.md)
 - [C](C/C.md)
 - [CMake](C/CMake.md)
-- [Semaphore使用](C/Semaphore使用.md)
+- [Semaphore使用](C/C信号量Semaphore使用)
 - [Docker](Docker/Docker.md)
 - [Git](Git/Git.md)
 - [Go](Go/Go.md)

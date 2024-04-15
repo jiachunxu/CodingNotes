@@ -1,4 +1,4 @@
-# Semaphore使用
+# C信号量Semaphore使用
 
 ## 函数原型
 
