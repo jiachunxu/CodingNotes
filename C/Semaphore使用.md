@@ -29,35 +29,6 @@ int sem_init(sem_t *sem, int pshared, unsigned int value);
 
 ## 代码实例
 
-``` c
-#include <stdio.h>
-#include <semaphore.h>
-#include <unistd.h>
-
-int main() {
-    sem_t sem;
-
-    // 初始化一个仅在当前进程内使用的信号量，初始值为 1
-    if (sem_init(&sem, 0, 1) == -1) {
-        perror("sem_init failed");
-        return 1;
-    }
-
-    // 信号量初始化成功，可以在这里使用它进行同步
-
-    // 使用完毕后销毁信号量
-    if (sem_destroy(&sem) == -1) {
-        perror("sem_destroy failed");
-        return 1;
-    }
-
-    return 0;
-}
-```
-
-在这个示例中，我们初始化了一个仅在当前进程内使用的信号量，其初始值为 `1`
-。这意味着一开始有一个可用的资源。在使用完信号量后，我们调用 `sem_destroy` 函数来销毁它。
-
 ``` C
 #include <stdio.h>
 #include <pthread.h>
