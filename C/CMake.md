@@ -6,13 +6,16 @@
 
 ``` cmake 
 cmake_minimum_required(VERSION 3.20)
-project(Hello)
+project(Hello VERSION 0.1 LANGUAGES C)
 add_executable(Hello hello.cpp)
 ```
 
 ``` 
 基础命令
 cmake . 
+
+// 在指定文件夹生成 Makefile 并构建 
+cmake -B [dirname] && cmake --build [dirname]
 
 cmake -B build
 cmake --build build
