@@ -38,5 +38,6 @@
 - [MySQL](MySQL/MySQL.md)
 - [Python](Python/Python.md)
 - [Python设置镜像源](Python/Python设置镜像源.md)
-- [WSL](WSL.md)
+- [WSL](WSL/WSL.md)
+- [WSL2-Debian设置代理](WSL/WSL2-Debian设置代理.md)
 - [ffmpeg合并ts命令](ffmpeg合并ts命令.md)
