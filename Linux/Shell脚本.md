@@ -6,9 +6,6 @@
 
 ``` shell
 # 脚本所在目录, 绝对路径
-script_path=$(cd $(dirname "$0") && pwd)  
-echo "脚本所在绝对路径：$script_path"
-
 get_sh_path(){
     echo $(cd $(dirname $0); pwd)
 }
