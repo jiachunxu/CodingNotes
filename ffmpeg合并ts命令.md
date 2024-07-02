@@ -1,4 +1,4 @@
-### ffmpeg合并ts命令:
+### ffmpeg 合并ts命令:
 
 ``` shell
     ffmpeg -i xxx.m3u8 -vcodec copy -acodec copy xxx.mp4
