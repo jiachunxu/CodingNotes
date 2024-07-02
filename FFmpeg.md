@@ -19,5 +19,7 @@
 ``` shell
     ffmpeg -i input.mp4 -f segment -segment_time 10 -segment_format avi output_%d.avi
     ffmpeg -i input.mp4 -f segment -segment_time 10 -segment_format mp4 output_%d.mp4
+    
+[//]: # (  copy 复制原视频编码格式  )
     ffmpeg -i input.mp4 -f segment -segment_time 10 -segment_format copy output_%d.mp4
 ```
