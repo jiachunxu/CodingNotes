@@ -17,9 +17,14 @@
 ### ffmpeg 长视频切片命令:
 
 ``` shell
-    ffmpeg -i input.mp4 -f segment -segment_time 10 -segment_format avi output_%d.avi
-    ffmpeg -i input.mp4 -f segment -segment_time 10 -segment_format mp4 output_%d.mp4
-    
+
+[//]: # 使用 ffmpeg 将视频切片成每段10秒，并保持视频的清晰度不变 ()
+ffmpeg -i input.mp4 -c copy -map 0 -f segment -segment_time 10  output%03d.mp4
+ffmpeg -i input.mp4 -c copy -map 0 -f segment -segment_time 10 -segment_list playlist.m3u8 -segment_list_entry_prefix /path/to/segments/ output%03d.ts
+
+ffmpeg -i input.mp4 -f segment -segment_time 10 -segment_format avi output_%d.avi
+ffmpeg -i input.mp4 -f segment -segment_time 10 -segment_format mp4 output_%d.mp4
+
 [//]: # (  copy 复制原视频编码格式  )
     ffmpeg -i input.mp4 -f segment -segment_time 10 -segment_format copy output_%d.mp4
 ```
