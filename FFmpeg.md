@@ -27,8 +27,6 @@ ffmpeg -i input.mp4 -c copy -map 0 -segment_time 10 -f segment -reset_timestamps
 #    -map_metadata -1：不复制任何元数据到输出文件，刷新元数据。
 #    output%03d.mp4：设置输出文件的命名模式。
 
-
-
 # 使用 ffmpeg 将视频切片成每段10秒，并保持视频的清晰度不变 ()
 ffmpeg -i input.mp4 -c copy -map 0 -f segment -segment_time 10 -segment_list playlist.m3u8 -segment_list_entry_prefix /path/to/segments/ output%03d.ts
 
