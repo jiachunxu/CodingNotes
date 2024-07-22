@@ -41,6 +41,6 @@ ffmpeg -i input.mp4 -f segment -segment_time 10 -segment_format mp4 output_%d.mp
 ```
 
 ### ffmpeg 提取音频命令:
-``` shell
+```shell
 ffmpeg -i input.mp4 -vn -acodec copy output.aac
 ```
