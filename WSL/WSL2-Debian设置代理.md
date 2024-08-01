@@ -3,17 +3,17 @@
 ## 1
 
 ``` shell
-#创建 proxy.sh 脚本
+#创建 /etc/proxy.sh 脚本
 
 port=8888
 host_ip=$(cat /etc/resolv.conf | grep "nameserver" |cut -f 2 -d " ") 
 export ALL_PROXY="socks5://$host_ip:$port"
 export all_proxy="$ALL_PROXY"
 
-export https_proxy="https://$host_ip:$port"
-export http_proxy="$https_proxy"
-export HTTP_PROXY="$https_proxy"
-export HTTPS_PROXY="$https_proxy"
+export http_proxy="http://$host_ip:$port"
+export https_proxy="$http_proxy"
+export HTTP_PROXY="$http_proxy"
+export HTTPS_PROXY="$http_proxy"
 ```
 
 ## 2
