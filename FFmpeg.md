@@ -50,3 +50,13 @@ ffmpeg -i input.mp4 -map a: all_audio.mp3
 
 ffmpeg -i input.mp4 -map v: all_video.mp4
 ```
+### ffmpeg 视频旋转命令:
+```bash
+# 对于旋转视频，常用的过滤器是transpose
+# 0：不旋转（默认值）
+# 1：顺时针旋转90度
+# 2：旋转180度
+# 3：逆时针旋转90度
+ffmpeg -i input.mp4 -vf "transpose=1" output.mp4
+ffmpeg -i input.mp4 -vf "transpose=1" -c:a copy output.mp4
+```
