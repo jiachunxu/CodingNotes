@@ -19,7 +19,7 @@ export HTTPS_PROXY="$http_proxy"
 ## 2
 
 ``` shell
-添加到 ~/.bashrc 或者 /etc/profile  或者 /etc/bash.bashrc
+添加到  /etc/profile  或者 /etc/bash.bashrc
 
 source /etc/proxy.sh 或 . /etc/proxy.sh
 
