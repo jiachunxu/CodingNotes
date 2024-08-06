@@ -41,4 +41,5 @@
 - [Python设置镜像源](Python/Python设置镜像源.md)
 - [WSL](WSL/WSL.md)
 - [WSL2-Debian设置代理](WSL/WSL2-Debian设置代理.md)
+- [WSL2-debian配置](WSL/WSL2-debian配置.md)
 - [WSL不能显示中文](WSL/WSL不能显示中文.md)
