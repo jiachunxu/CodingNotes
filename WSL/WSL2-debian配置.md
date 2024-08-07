@@ -4,7 +4,7 @@
 # 换源
 # 如果 /etc/apt/sources.list.bak 存在 ,则不做备份
 # 如果 $HOME/my_conf 存在 ,则下方所以配置,全部不做
-if [ ! -f "$HOME/my_conf_wsl" ]; then
+if [ ! -f "$HOME/my_conf_wsl_init" ]; then
   
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 
@@ -17,14 +17,15 @@ deb http://mirrors.aliyun.com/debian bookworm-backports main
 EOF
 
 sudo apt update
-sudo apt upgrade -y
+#sudo apt upgrade -y
 sudo apt install -y vim 
+
 # vim 设置行号
 cat << EOF >> /etc/vim/vimrc
 set number
 EOF
 
-sudo apt install -y gcc g++ make cmake gdb 
+sudo apt install -y gcc g++ make cmake gdb fonts-firacode
 
 # 设置代理 (如果需要)
 sudo touch /etc/proxy.sh
@@ -56,7 +57,7 @@ sudo cat << EOF >> /root/.bashrc
 export PS1="$PS1 \n\$ "
 EOF
 
-touch $HOME/my_conf_wsl
+touch $HOME/my_conf_wsl_init
 fi 
 
 
