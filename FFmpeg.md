@@ -60,3 +60,22 @@ ffmpeg -i input.mp4 -map v: all_video.mp4
 ffmpeg -i input.mp4 -vf "transpose=1" output.mp4
 ffmpeg -i input.mp4 -vf "transpose=1" -c:a copy output.mp4
 ```
+### ffmpeg 合并视频 与 srt字幕:
+```bash
+# 方法一：将字幕“烧录”到视频中（生成一个带有字幕的新视频文件）
+
+ffmpeg -i input_video.mp4 -vf subtitles=subtitle_file.srt -c:a copy output_video.mp4
+    # -i input_video.mp4：指定输入的视频文件。
+    # -vf subtitles=subtitle_file.srt：使用 subtitles 滤镜，指定字幕文件的路径。
+    # -c:a copy：不对音频进行重新编码，直接复制音频流。
+    # output_video.mp4：指定输出的视频文件名。
+
+# 方法二：将字幕作为独立的字幕流嵌入视频文件
+ffmpeg -i input_video.mp4 -i subtitle_file.srt -c:v copy -c:a copy -c:s mov_text output_video.mp4
+    # -i input_video.mp4：指定输入的视频文件。
+    # -i subtitle_file.srt：指定输入的字幕文件。
+    # -c:v copy：不对视频流进行重新编码，直接复制。
+    # -c:a copy：不对音频流进行重新编码，直接复制。
+    # -c:s mov_text：指定字幕流的编码格式为 mov_text，这是 MP4 文件中常用的字幕格式。
+    # output_video.mp4：指定输出的视频文件名。
+```
