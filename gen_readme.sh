@@ -12,7 +12,6 @@ new_file="$script_path/README.md"
 # 跳过包含
 substr1="gen_readme"
 substr2="README"
-# ls 
 
 echo "# CodingNotes" >> $new_file
 echo "" >> $new_file
